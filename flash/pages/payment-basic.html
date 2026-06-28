@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>USDT-FLASH - Payment</title>
+    <link rel="icon" type="image/png" href="../img/usdt_cryptocurrencies_icon_188337.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.30.0/tabler-icons.min.css">
+    <style>
+        * { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+        body { background: #f5f7fa; min-height: 100vh; }
+        .glow { position: fixed; border-radius: 50%; filter: blur(120px); pointer-events: none; z-index: 0; }
+        .input-field { transition: all 0.3s ease; background: #fff; border: 1px solid #e2e8f0; color: #1a202c; }
+        .input-field:focus { border-color: #10b981; box-shadow: 0 0 0 3px rgba(16,185,129,0.15); outline: none; }
+        .input-field::placeholder { color: #a0aec0; }
+        .btn-primary { background: linear-gradient(135deg, #10b981, #059669); transition: all 0.3s ease; color: #fff; }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(16,185,129,0.3); }
+        .btn-primary:active { transform: translateY(0); }
+        .btn-secondary { background: #fff; border: 1px solid #e2e8f0; transition: all 0.3s ease; color: #4a5568; }
+        .btn-secondary:hover { background: #f7fafc; border-color: #cbd5e0; color: #2d3748; transform: translateY(-2px); }
+        .wallet-addr { font-family: 'SF Mono', 'Fira Code', monospace; background: #f7fafc; border: 1px solid #e2e8f0; color: #4a5568; word-break: break-all; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .animate-slide-up { animation: slideUp 0.5s ease-out; }
+        .animate-fade-in { animation: fadeIn 0.3s ease-out; }
+        .card { background: #fff; border: 1px solid #e2e8f0; border-radius: 1rem; }
+    </style>
+</head>
+<body>
+    <div class="glow w-[500px] h-[500px] bg-emerald-500/10 top-[-10%] left-[-5%]"></div>
+    <div class="glow w-[400px] h-[400px] bg-blue-500/10 bottom-[-10%] right-[-5%]"></div>
+
+    <!-- Header -->
+    <header class="relative z-10 border-b border-gray-200 bg-white/90 backdrop-blur-xl">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
+            <a href="../index.html" class="flex items-center gap-3 group">
+                <img src="../img/usdt_cryptocurrencies_icon_188337.png" alt="USDT-FLASH" class="h-10 w-10">
+                <div>
+                    <div class="text-lg font-bold text-gray-900 tracking-tight">USDT<span class="text-emerald-500">-FLASH</span></div>
+                    <div class="text-[10px] text-emerald-600/70 font-semibold tracking-wider uppercase">Official Partner</div>
+                </div>
+            </a>
+            <a href="../index.html" class="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium text-gray-500 hover:text-gray-800 bg-gray-50 hover:bg-gray-100 border border-gray-200 hover:border-gray-300 transition-all">
+                <i class="ti ti-arrow-left"></i>
+                <span class="hidden sm:inline">Back</span>
+            </a>
+        </div>
+    </header>
+
+    <main class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 py-8">
+        <!-- Package Banner -->
+        <div class="relative overflow-hidden rounded-2xl mb-8 bg-gradient-to-br from-emerald-50 to-emerald-100/50 border border-emerald-200 p-6 sm:p-8">
+            <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(16,185,129,0.06),transparent_60%)]"></div>
+            <div class="relative">
+                <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div class="text-center sm:text-left">
+                        <div class="inline-flex items-center gap-2 bg-emerald-100 border border-emerald-200 rounded-full px-3 py-1 text-emerald-700 text-xs font-semibold mb-3">
+                            <i class="ti ti-bolt"></i>
+                            Essential Package
+                        </div>
+                        <h1 class="text-3xl sm:text-4xl font-bold text-gray-900">500 USDT-FLASH</h1>
+                        <p class="text-gray-500 mt-1 text-sm">Complete your payment to activate instantly</p>
+                    </div>
+                    <div class="text-center sm:text-right">
+                        <div class="text-4xl font-bold text-gray-900">$36</div>
+                        <div class="text-gray-400 text-sm line-through">$45</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid lg:grid-cols-3 gap-6">
+            <!-- Left: Payment Details -->
+            <div class="lg:col-span-2 space-y-6">
+                <!-- Warning -->
+                <div class="card p-5 border-red-200 bg-red-50">
+                    <div class="flex gap-4">
+                        <div class="w-10 h-10 rounded-xl bg-red-100 flex items-center justify-center flex-shrink-0">
+                            <i class="ti ti-alert-triangle text-red-500 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-red-700 font-bold text-sm mb-2">EXACT AMOUNT REQUIRED</h3>
+                            <p class="text-red-600/80 text-sm leading-relaxed">Send <strong class="text-red-700">exactly 36 USDT</strong> via TRC20 network. Any deviation will cause automatic failure.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- QR & Address -->
+                <div class="card p-6">
+                    <div class="grid sm:grid-cols-2 gap-6">
+                        <div class="text-center">
+                            <h4 class="text-gray-800 font-semibold text-sm mb-4"><i class="ti ti-scan text-emerald-500 mr-1.5"></i>Scan QR Code</h4>
+                            <div class="bg-gray-50 rounded-xl p-4 border border-gray-200 inline-block mb-4">
+                                <img src="../img/qr-usdt.png" alt="QR" class="w-40 h-40 mx-auto rounded-lg">
+                            </div>
+                        </div>
+                        <div class="flex flex-col justify-center">
+                            <h4 class="text-gray-800 font-semibold text-sm mb-3"><i class="ti ti-wallet text-emerald-500 mr-1.5"></i>TRC20 Address</h4>
+                            <div class="wallet-addr rounded-xl p-4 text-xs mb-3 select-all">TBKYnWnqZmEpKBaRHZk4yo4jgyK2TE3eqg</div>
+                            <button onclick="copyAddress()" class="btn-primary w-full py-3 rounded-xl font-semibold text-sm flex items-center justify-center gap-2">
+                                <i class="ti ti-copy"></i>
+                                Copy Address
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Instructions -->
+                <div class="card p-6">
+                    <h4 class="text-gray-800 font-semibold text-sm mb-4"><i class="ti ti-info-circle text-emerald-500 mr-1.5"></i>Payment Instructions</h4>
+                    <div class="grid sm:grid-cols-2 gap-3">
+                        <div class="flex items-center gap-3 p-3 rounded-xl bg-gray-50 border border-gray-100">
+                            <div class="w-8 h-8 rounded-lg bg-emerald-100 flex items-center justify-center">
+                                <svg viewBox="0 0 24 24" class="w-4 h-4" fill="#10b981"><circle cx="12" cy="12" r="11"/><text x="12" y="16" text-anchor="middle" fill="white" font-size="12" font-weight="bold" font-family="Arial">₮</text></svg>
+                            </div>
+                            <div><div class="text-gray-800 text-sm font-medium">36 USDT</div><div class="text-gray-400 text-xs">Exact amount</div></div>
+                        </div>
+                        <div class="flex items-center gap-3 p-3 rounded-xl bg-gray-50 border border-gray-100">
+                            <div class="w-8 h-8 rounded-lg bg-blue-100 flex items-center justify-center">
+                                <svg viewBox="0 0 24 24" class="w-4 h-4"><path d="M5 3L19 12L5 21L8 12L5 3Z" fill="#3b82f6"/></svg>
+                            </div>
+                            <div><div class="text-gray-800 text-sm font-medium">TRC20</div><div class="text-gray-400 text-xs">Tron network</div></div>
+                        </div>
+                        <div class="flex items-center gap-3 p-3 rounded-xl bg-gray-50 border border-gray-100">
+                            <div class="w-8 h-8 rounded-lg bg-purple-100 flex items-center justify-center">
+                                <svg viewBox="0 0 24 24" class="w-4 h-4" fill="#9333ea"><path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/></svg>
+                            </div>
+                            <div><div class="text-gray-800 text-sm font-medium">500 USDT-FLASH</div><div class="text-gray-400 text-xs">You receive</div></div>
+                        </div>
+                        <div class="flex items-center gap-3 p-3 rounded-xl bg-gray-50 border border-gray-100">
+                            <div class="w-8 h-8 rounded-lg bg-orange-100 flex items-center justify-center"><i class="fa-regular fa-clock text-orange-600 text-sm"></i></div>
+                            <div><div class="text-gray-800 text-sm font-medium">2-5 minutes</div><div class="text-gray-400 text-xs">Delivery time</div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: Form -->
+            <div class="space-y-6">
+                <div class="card p-6">
+                    <h4 class="text-gray-800 font-semibold text-sm mb-5"><i class="ti ti-checks text-emerald-500 mr-1.5"></i>Confirm Payment</h4>
+                    <form id="paymentForm" class="space-y-5">
+                        <div>
+                            <label class="block text-gray-500 text-xs font-medium mb-2">Transaction ID (TXID)</label>
+                            <input type="text" id="txId" class="input-field w-full rounded-xl px-4 py-3.5 text-sm" placeholder="Paste your TRC20 transaction hash">
+                        </div>
+                        <button type="submit" class="btn-primary w-full py-3.5 rounded-xl font-semibold text-sm flex items-center justify-center gap-2">
+                            <i class="ti ti-shield-check"></i>
+                            Verify Payment
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Trust badges -->
+                <div class="card p-5">
+                    <div class="grid grid-cols-3 gap-3 text-center">
+                        <div class="p-2"><i class="ti ti-shield-check text-emerald-500 text-lg"></i><div class="text-gray-400 text-[10px] mt-1 font-medium">Secured</div></div>
+                        <div class="p-2"><i class="ti ti-clock text-emerald-500 text-lg"></i><div class="text-gray-400 text-[10px] mt-1 font-medium">Instant</div></div>
+                        <div class="p-2"><i class="ti ti-headset text-emerald-500 text-lg"></i><div class="text-gray-400 text-[10px] mt-1 font-medium">24/7 Support</div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Notification Modal -->
+    <div id="notificationModal" class="fixed inset-0 z-[99999] hidden items-center justify-center p-4" style="background: rgba(0,0,0,0.4); backdrop-filter: blur(8px);">
+        <div id="modalContent" class="bg-white border border-gray-200 rounded-3xl p-8 max-w-md w-full shadow-2xl animate-slide-up">
+            <div id="modalLoading" class="text-center">
+                <div class="w-16 h-16 rounded-2xl bg-emerald-50 flex items-center justify-center mx-auto mb-5">
+                    <svg class="animate-spin h-8 w-8 text-emerald-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                </div>
+                <h3 class="text-gray-800 text-lg font-bold mb-2">Verifying Transaction</h3>
+                <p class="text-gray-500 text-sm">Querying Tron blockchain network...</p>
+                <div class="mt-6 flex justify-center gap-1.5">
+                    <div class="w-2 h-2 rounded-full bg-emerald-500 animate-bounce" style="animation-delay:0s"></div>
+                    <div class="w-2 h-2 rounded-full bg-emerald-500 animate-bounce" style="animation-delay:0.15s"></div>
+                    <div class="w-2 h-2 rounded-full bg-emerald-500 animate-bounce" style="animation-delay:0.3s"></div>
+                </div>
+            </div>
+            <div id="modalResult" class="hidden text-center">
+                <div class="w-16 h-16 rounded-2xl bg-red-50 flex items-center justify-center mx-auto mb-5">
+                    <i class="ti ti-alert-circle text-red-500 text-3xl"></i>
+                </div>
+                <h3 class="text-gray-800 text-lg font-bold mb-2">Transaction Not Found</h3>
+                <p class="text-gray-500 text-sm mb-2">The Tron network returned no transaction matching this hash.</p>
+                <div class="bg-gray-50 rounded-xl p-3 mb-4 border border-gray-200 text-left">
+                    <div class="text-xs text-gray-400 font-medium mb-1">Transaction ID</div>
+                    <div id="modalTxId" class="wallet-addr rounded-lg p-2.5 text-xs mb-2"></div>
+                    <a id="modalTxLink" href="#" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 text-blue-600 text-xs font-medium hover:text-blue-700 transition-colors">
+                        <i class="ti ti-external-link"></i>
+                        View on Tronscan Explorer
+                    </a>
+                </div>
+                <p class="text-red-600 text-xs font-medium mb-4"><i class="ti ti-alert-triangle mr-1"></i>This transaction does not exist on the Tron blockchain. Please complete the payment first.</p>
+                <div class="bg-gray-50 rounded-xl p-3 mb-6 border border-gray-200">
+                    <div class="flex items-center justify-between text-sm">
+                        <span class="text-gray-500">Send exactly</span>
+                        <span class="text-gray-800 font-bold">36 USDT</span>
+                    </div>
+                    <div class="flex items-center justify-between text-sm mt-1">
+                        <span class="text-gray-500">Network</span>
+                        <span class="text-gray-800 font-semibold">TRC20</span>
+                    </div>
+                    <div class="wallet-addr rounded-lg p-2.5 text-xs mt-3 text-center">TBKYnWnqZmEpKBaRHZk4yo4jgyK2TE3eqg</div>
+                </div>
+                <button onclick="closeModal()" class="btn-primary w-full py-3 rounded-xl font-semibold text-sm">
+                    <i class="ti ti-check mr-1.5"></i>
+                    I Understand
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function copyAddress() {
+            const addr = 'TBKYnWnqZmEpKBaRHZk4yo4jgyK2TE3eqg';
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(addr).then(() => {
+                    const btn = event.target.closest('button');
+                    const orig = btn.innerHTML;
+                    btn.innerHTML = '<i class="ti ti-check"></i> Copied!';
+                    btn.style.background = 'linear-gradient(135deg, #059669, #047857)';
+                    setTimeout(() => { btn.innerHTML = orig; btn.style.background = ''; }, 2000);
+                });
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('notificationModal').classList.add('hidden');
+            document.getElementById('notificationModal').classList.remove('flex');
+        }
+
+        document.getElementById('paymentForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const txId = document.getElementById('txId').value.trim();
+            if (!txId) { alert('Please enter a transaction ID'); return; }
+
+            const modal = document.getElementById('notificationModal');
+            const loading = document.getElementById('modalLoading');
+            const result = document.getElementById('modalResult');
+            const modalTxId = document.getElementById('modalTxId');
+            const modalTxLink = document.getElementById('modalTxLink');
+
+            modalTxId.textContent = txId;
+            modalTxLink.href = 'https://tronscan.org/#/transaction/' + txId;
+            
+            loading.classList.remove('hidden');
+            result.classList.add('hidden');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+
+            setTimeout(() => {
+                loading.classList.add('hidden');
+                result.classList.remove('hidden');
+            }, 15000);
+        });
+    </script>
+</body>
+</html>
