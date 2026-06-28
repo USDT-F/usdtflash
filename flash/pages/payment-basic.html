@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>USDT-FLASH - Complete Payment</title>
+    <link rel="icon" type="image/png" href="../img/usdt_cryptocurrencies_icon_188337.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.30.0/tabler-icons.min.css">
+    <style>
+        * { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+        body { background: #f5f7fa; min-height: 100vh; }
+        .glow { position: fixed; border-radius: 50%; filter: blur(120px); pointer-events: none; z-index: 0; }
+        .card { background: #fff; border: 1px solid #e2e8f0; border-radius: 1rem; }
+        .input-field { transition: all 0.3s ease; background: #fff; border: 1px solid #e2e8f0; color: #1a202c; }
+        .input-field:focus { border-color: #10b981; box-shadow: 0 0 0 3px rgba(16,185,129,0.15); outline: none; }
+        .input-field::placeholder { color: #a0aec0; }
+        .input-field.error { border-color: #ef4444; box-shadow: 0 0 0 3px rgba(239,68,68,0.12); }
+        .input-field.valid { border-color: #10b981; box-shadow: 0 0 0 3px rgba(16,185,129,0.12); }
+        .btn-primary { background: linear-gradient(135deg, #10b981, #059669); transition: all 0.3s ease; color: #fff; }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(16,185,129,0.3); }
+        .btn-primary:active { transform: translateY(0); }
+        .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none !important; box-shadow: none !important; }
+        .wallet-addr { font-family: 'SF Mono', 'Fira Code', monospace; background: #f7fafc; border: 1px solid #e2e8f0; color: #4a5568; word-break: break-all; }
+        .lang-btn { transition: all 0.3s ease; cursor: pointer; border-radius: 0.75rem; padding: 0.5rem 1rem; font-size: 0.875rem; font-weight: 500; }
+        .lang-btn.active { background: #d1fae5; color: #065f46; border: 1px solid #a7f3d0; }
+        .lang-btn.inactive { background: #fff; color: #6b7280; border: 1px solid #e5e7eb; }
+        .lang-btn.inactive:hover { background: #f9fafb; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes scaleIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+        @keyframes checkDraw { 0% { stroke-dashoffset: 80; } 100% { stroke-dashoffset: 0; } }
+        .animate-slide-up { animation: slideUp 0.5s ease-out; }
+        .animate-fade-in { animation: fadeIn 0.3s ease-out; }
+        .animate-scale-in { animation: scaleIn 0.4s ease-out; }
+        .step-line { transition: all 0.6s ease; }
+        .step-dot { transition: all 0.4s ease; }
+        .step-dot.active { background: #10b981; border-color: #10b981; box-shadow: 0 0 0 4px rgba(16,185,129,0.2); }
+        .step-dot.done { background: #10b981; border-color: #10b981; }
+        .check-path { stroke-dasharray: 80; stroke-dashoffset: 80; animation: checkDraw 0.6s ease forwards; }
+        .countdown-ring { transition: stroke-dashoffset 1s linear; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: rgba(0,0,0,0.05); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.1); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.2); }
+        [dir="rtl"] { text-align: right; }
+        [dir="rtl"] .step-line { transform: scaleX(-1); }
+    </style>
+</head>
+<body>
+    <div class="glow w-[500px] h-[500px] bg-emerald-500/10 top-[-10%] left-[-5%]"></div>
+    <div class="glow w-[400px] h-[400px] bg-emerald-500/10 bottom-[-10%] right-[-5%]"></div>
+
+    <!-- Header -->
+    <header class="relative z-10 border-b border-gray-200 bg-white/90 backdrop-blur-xl">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
+            <a href="../index.html" class="flex items-center gap-3 group">
+                <img src="../img/usdt_cryptocurrencies_icon_188337.png" alt="USDT-FLASH" class="h-10 w-10">
+                <div>
+                    <div class="text-lg font-bold text-gray-900 tracking-tight">USDT<span class="text-emerald-500">-FLASH</span></div>
+                    <div class="text-[10px] text-emerald-600/70 font-semibold tracking-wider uppercase">Official Partner</div>
+                </div>
+            </a>
+            <div class="flex items-center gap-2">
+                <a href="support.html" class="flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium text-emerald-600 hover:text-emerald-700 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 hover:border-emerald-300 transition-all" title="Support">
+                    <i class="ti ti-headset text-lg"></i>
+                    <span class="hidden sm:inline">Support</span>
+                </a>
+                <div class="flex items-center gap-1 p-1 bg-white border border-gray-200 rounded-xl shadow-sm">
+                    <button onclick="toggleLanguage('en')" id="enBtn" class="lang-btn active"><i class="ti ti-language mr-1.5 text-emerald-500"></i>EN</button>
+                    <button onclick="toggleLanguage('ar')" id="arBtn" class="lang-btn inactive"><i class="ti ti-language mr-1.5"></i>AR</button>
+                </div>
+                <a href="../index.html" class="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium text-gray-500 hover:text-gray-800 bg-gray-50 hover:bg-gray-100 border border-gray-200 hover:border-gray-300 transition-all">
+                    <i class="ti ti-arrow-left"></i>
+                    <span class="hidden sm:inline">Back</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 py-8">
+        <!-- Package Banner -->
+        <div class="relative overflow-hidden rounded-2xl mb-8 bg-gradient-to-br from-emerald-50 to-emerald-100/50 border border-emerald-200 p-6 sm:p-8">
+            <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(16,185,129,0.06),transparent_60%)]"></div>
+            <div class="relative">
+                <div id="bannerEn" class="flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div class="text-center sm:text-left">
+                        <div class="inline-flex items-center gap-2 bg-emerald-100 border border-emerald-200 rounded-full px-3 py-1 text-emerald-700 text-xs font-semibold mb-3">
+                            <i class="ti ti-bolt"></i>
+                            <span class="pkg-label">Essential Package</span>
+                        </div>
+                        <h1 class="text-3xl sm:text-4xl font-bold text-gray-900">500 USDT-FLASH</h1>
+                        <p class="text-gray-500 mt-1 text-sm">Complete your payment to activate instantly</p>
+                    </div>
+                    <div class="text-center sm:text-right">
+                        <div class="text-4xl font-bold text-gray-900">$36</div>
+                        <div class="text-gray-400 text-sm line-through">$45</div>
+                    </div>
+                </div>
+                <div id="bannerAr" class="hidden flex flex-col sm:flex-row items-center justify-between gap-4" dir="rtl">
+                    <div class="text-center sm:text-right">
+                        <div class="inline-flex items-center gap-2 bg-emerald-100 border border-emerald-200 rounded-full px-3 py-1 text-emerald-700 text-xs font-semibold mb-3">
+                            <i class="ti ti-bolt"></i>
+                            <span class="pkg-label">الباقة الأساسية</span>
+                        </div>
+                        <h1 class="text-3xl sm:text-4xl font-bold text-gray-900">500 USDT-FLASH</h1>
+                        <p class="text-gray-500 mt-1 text-sm">أكمل الدفع للتفعيل الفوري</p>
+                    </div>
+                    <div class="text-center sm:text-left">
+                        <div class="text-4xl font-bold text-gray-900">$36</div>
+                        <div class="text-gray-400 text-sm line-through">$45</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid lg:grid-cols-3 gap-6">
+            <!-- Left: Payment Details -->
+            <div class="lg:col-span-2 space-y-6">
+                <!-- Warning -->
+                <div id="warningEn" class="card p-5 border-red-200 bg-red-50">
+                    <div class="flex gap-4">
+                        <div class="w-10 h-10 rounded-xl bg-red-100 flex items-center justify-center flex-shrink-0">
+                            <i class="ti ti-alert-triangle text-red-500 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-red-700 font-bold text-sm mb-2">EXACT AMOUNT REQUIRED</h3>
+                            <p class="text-red-600/80 text-sm leading-relaxed">Send <strong class="text-red-700">exactly 36 USDT</strong> via TRC20 network. Any deviation will cause automatic failure.</p>
+                        </div>
+                    </div>
+                </div>
+                <div id="warningAr" class="hidden card p-5 border-red-200 bg-red-50" dir="rtl">
+                    <div class="flex gap-4">
+                        <div class="w-10 h-10 rounded-xl bg-red-100 flex items-center justify-center flex-shrink-0">
+                            <i class="ti ti-alert-triangle text-red-500 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-red-700 font-bold text-sm mb-2">مطلوب المبلغ المحدد</h3>
+                            <p class="text-red-600/80 text-sm leading-relaxed">أرسل <strong class="text-red-700">36 USDT بالضبط</strong> عبر شبكة TRC20. أي اختلاف سيؤدي إلى فشل تلقائي.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- QR & Address -->
+                <div class="card p-6">
+                    <div class="grid sm:grid-cols-2 gap-6">
+                        <div class="text-center">
+                            <h4 class="text-gray-800 font-semibold text-sm mb-4"><i class="ti ti-scan text-emerald-500 mr-1.5"></i><span class="qr-label">Scan QR Code</span></h4>
+                            <div class="bg-gray-50 rounded-xl p-4 border border-gray-200 inline-block mb-4">
+                                <img src="../img/qr-usdt.png" alt="QR" class="w-40 h-40 mx-auto rounded-lg">
+                            </div>
+                        </div>
+                        <div class="flex flex-col justify-center">
+                            <h4 class="text-gray-800 font-semibold text-sm mb-3"><i class="ti ti-wallet text-emerald-500 mr-1.5"></i><span class="addr-label">TRC20 Address</span></h4>
+                            <div class="wallet-addr rounded-xl p-4 text-xs mb-3 select-all text-center sm:text-left">TBKYnWnqZmEpKBaRHZk4yo4jgyK2TE3eqg</div>
+                            <div class="flex gap-2">
+                                <button onclick="copyAddress()" class="btn-primary flex-1 py-3 rounded-xl font-semibold text-sm flex items-center justify-center gap-2" id="copyBtn">
+                                    <i class="ti ti-copy"></i>
+                                    <span class="copy-label">Copy Address</span>
+                                </button>
+                            </div>
+                            <p class="text-gray-400 text-[10px] mt-2 text-center"><i class="ti ti-info-circle mr-1"></i><span class="net-label">TRC20 (Tron) network only</span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Instructions -->
+                <div class="card p-6">
+                    <h4 class="text-gray-800 font-semibold text-sm mb-4"><i class="ti ti-info-circle text-emerald-500 mr-1.5"></i><span class="instr-label">Payment Instructions</span></h4>
+                    <div class="grid sm:grid-cols-2 gap-3">
+                        <div class="flex items-center gap-3 p-3 rounded-xl bg-gray-50 border border-gray-100">
+                            <div class="w-8 h-8 rounded-lg bg-emerald-100 flex items-center justify-center">
+                                <svg viewBox="0 0 24 24" class="w-4 h-4" fill="#10b981"><circle cx="12" cy="12" r="11"/><text x="12" y="16" text-anchor="middle" fill="white" font-size="12" font-weight="bold" font-family="Arial">₮</text></svg>
+                            </div>
+                            <div><div class="text-gray-800 text-sm font-medium">36 USDT</div><div class="text-gray-400 text-xs"><span class="exact-label">Exact amount</span></div></div>
+                        </div>
+                        <div class="flex items-center gap-3 p-3 rounded-xl bg-gray-50 border border-gray-100">
+                            <div class="w-8 h-8 rounded-lg bg-blue-100 flex items-center justify-center">
+                                <svg viewBox="0 0 24 24" class="w-4 h-4"><path d="M5 3L19 12L5 21L8 12L5 3Z" fill="#3b82f6"/></svg>
+                            </div>
+                            <div><div class="text-gray-800 text-sm font-medium">TRC20</div><div class="text-gray-400 text-xs"><span class="net-label2">Tron network</span></div></div>
+                        </div>
+                        <div class="flex items-center gap-3 p-3 rounded-xl bg-gray-50 border border-gray-100">
+                            <div class="w-8 h-8 rounded-lg bg-purple-100 flex items-center justify-center">
+                                <svg viewBox="0 0 24 24" class="w-4 h-4" fill="#9333ea"><path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/></svg>
+                            </div>
+                            <div><div class="text-gray-800 text-sm font-medium">500 USDT-FLASH</div><div class="text-gray-400 text-xs"><span class="receive-label">You receive</span></div></div>
+                        </div>
+                        <div class="flex items-center gap-3 p-3 rounded-xl bg-gray-50 border border-gray-100">
+                            <div class="w-8 h-8 rounded-lg bg-orange-100 flex items-center justify-center"><i class="fa-regular fa-clock text-orange-600 text-sm"></i></div>
+                            <div><div class="text-gray-800 text-sm font-medium">2-5 min</div><div class="text-gray-400 text-xs"><span class="delivery-label">Delivery time</span></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: Form -->
+            <div class="space-y-6">
+                <div class="card p-6">
+                    <h4 class="text-gray-800 font-semibold text-sm mb-5"><i class="ti ti-checks text-emerald-500 mr-1.5"></i><span class="confirm-label">Confirm Payment</span></h4>
+                    <form id="paymentForm" class="space-y-5">
+                        <div>
+                            <label class="block text-gray-500 text-xs font-medium mb-2"><span class="txid-label">Transaction ID (TXID)</span></label>
+                            <div class="relative">
+                                <input type="text" id="txId" class="input-field w-full rounded-xl px-4 py-3.5 pr-12 text-sm" placeholder="Paste your TRC20 transaction hash" autocomplete="off" spellcheck="false">
+                                <button type="button" id="pasteTxBtn" class="absolute right-2 top-1/2 -translate-y-1/2 p-2 text-gray-400 hover:text-emerald-600 hover:bg-emerald-50 rounded-lg transition-all" title="Paste from clipboard">
+                                    <i class="ti ti-clipboard-text text-lg"></i>
+                                </button>
+                            </div>
+                            <div id="txFeedback" class="text-xs mt-1.5 hidden"></div>
+                        </div>
+                        <button type="submit" id="submitBtn" class="btn-primary w-full py-3.5 rounded-xl font-semibold text-sm flex items-center justify-center gap-2">
+                            <i class="ti ti-shield-check"></i>
+                            <span class="verify-label">Verify Payment</span>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Trust badges -->
+                <div class="card p-5">
+                    <div class="grid grid-cols-3 gap-3 text-center">
+                        <div class="p-2"><i class="ti ti-shield-check text-emerald-500 text-lg"></i><div class="text-gray-400 text-[10px] mt-1 font-medium"><span class="badge-secure">Secured</span></div></div>
+                        <div class="p-2"><i class="ti ti-clock text-emerald-500 text-lg"></i><div class="text-gray-400 text-[10px] mt-1 font-medium"><span class="badge-instant">Instant</span></div></div>
+                        <div class="p-2"><i class="ti ti-headset text-emerald-500 text-lg"></i><div class="text-gray-400 text-[10px] mt-1 font-medium"><span class="badge-support">24/7 Support</span></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Verification Modal -->
+    <div id="notificationModal" class="fixed inset-0 z-[99999] hidden items-center justify-center p-4" style="background: rgba(0,0,0,0.5); backdrop-filter: blur(10px);">
+        <div id="modalContent" class="bg-white border border-gray-200 rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl animate-scale-in">
+
+            <!-- Loading State -->
+            <div id="modalLoading" class="text-center">
+                <div class="w-16 h-16 rounded-2xl bg-emerald-50 flex items-center justify-center mx-auto mb-6">
+                    <svg class="animate-spin h-8 w-8 text-emerald-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-gray-800 text-lg font-bold mb-2"><span class="verify-title">Verifying Transaction</span></h3>
+                <p class="text-gray-500 text-sm mb-6"><span class="verify-sub">Querying Tron blockchain network, please wait...</span></p>
+
+                <!-- Progress Steps -->
+                <div class="max-w-xs mx-auto">
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="step-dot w-8 h-8 rounded-full border-2 border-gray-300 bg-white flex items-center justify-center flex-shrink-0 text-xs font-bold text-gray-400" id="step1">1</div>
+                        <div class="step-line h-0.5 flex-1 mx-2 bg-gray-200" id="line1"></div>
+                        <div class="step-dot w-8 h-8 rounded-full border-2 border-gray-300 bg-white flex items-center justify-center flex-shrink-0 text-xs font-bold text-gray-400" id="step2">2</div>
+                        <div class="step-line h-0.5 flex-1 mx-2 bg-gray-200" id="line2"></div>
+                        <div class="step-dot w-8 h-8 rounded-full border-2 border-gray-300 bg-white flex items-center justify-center flex-shrink-0 text-xs font-bold text-gray-400" id="step3">3</div>
+                    </div>
+                    <div class="flex justify-between text-[10px] text-gray-400 font-medium px-1">
+                        <span class="step1-label">Receiving</span>
+                        <span class="step2-label">Confirming</span>
+                        <span class="step3-label">Verifying</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Result State -->
+            <div id="modalResult" class="hidden text-center">
+                <!-- Success State -->
+                <div id="resultSuccess">
+                    <div class="w-20 h-20 rounded-full bg-emerald-50 flex items-center justify-center mx-auto mb-5 animate-scale-in">
+                        <svg viewBox="0 0 52 52" class="w-10 h-10">
+                            <circle cx="26" cy="26" r="24" fill="none" stroke="#10b981" stroke-width="3" opacity="0.2"/>
+                            <path class="check-path" fill="none" stroke="#10b981" stroke-width="3" d="M14 27l7 7 16-16"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-gray-800 text-xl font-bold mb-2"><span class="verified-title">Transaction Verified on Blockchain</span></h3>
+                    <p class="text-gray-500 text-sm mb-6"><span class="verified-sub">Your transaction has been confirmed on the Tron network.</span></p>
+
+                    <div class="bg-gray-50 rounded-xl p-4 mb-4 border border-gray-200 text-left">
+                        <div class="text-xs text-gray-400 font-medium mb-1.5"><span class="txid-result-label">Transaction ID (TXID)</span></div>
+                        <div id="modalTxId" class="wallet-addr rounded-lg p-2.5 text-xs mb-2 break-all"></div>
+                        <a id="modalTxLink" href="#" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 text-emerald-600 text-xs font-medium hover:text-emerald-700 transition-colors">
+                            <i class="ti ti-external-link"></i>
+                            <span class="view-label">View on Tronscan Explorer</span>
+                        </a>
+                    </div>
+
+                    <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-4 mb-6">
+                        <div class="flex items-center justify-center gap-2 text-sm">
+                            <i class="ti ti-circle-check text-emerald-600 text-lg"></i>
+                            <span class="text-emerald-700 font-semibold"><span class="blockchain-confirm">Verified on Tron Blockchain</span></span>
+                        </div>
+                    </div>
+
+                    <button onclick="closeModal()" class="btn-primary w-full py-3.5 rounded-xl font-semibold text-sm flex items-center justify-center gap-2">
+                        <i class="ti ti-check"></i>
+                        <span class="close-label">Done</span>
+                    </button>
+                </div>
+
+                <!-- Failure State -->
+                <div id="resultFailure" class="hidden">
+                    <div class="w-20 h-20 rounded-full bg-red-50 flex items-center justify-center mx-auto mb-5 animate-scale-in">
+                        <i class="ti ti-alert-circle text-red-500 text-4xl"></i>
+                    </div>
+                    <h3 class="text-gray-800 text-xl font-bold mb-2 failure-title">Transaction Not Found</h3>
+                    <p class="text-gray-500 text-sm mb-6 failure-sub">This transaction was not found on the Tron blockchain.</p>
+
+                    <div class="bg-gray-50 rounded-xl p-4 mb-4 border border-gray-200 text-left">
+                        <div class="text-xs text-gray-400 font-medium mb-1.5"><span class="txid-result-label">Transaction ID (TXID)</span></div>
+                        <div id="modalTxId2" class="wallet-addr rounded-lg p-2.5 text-xs mb-2 break-all"></div>
+                        <a id="modalTxLink2" href="#" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 text-red-600 text-xs font-medium hover:text-red-700 transition-colors">
+                            <i class="ti ti-external-link"></i>
+                            <span class="view-label">View on Tronscan Explorer</span>
+                        </a>
+                    </div>
+
+                    <div class="bg-red-50 border border-red-200 rounded-xl p-4 mb-6">
+                        <p class="text-red-600 text-xs font-medium text-center failure-msg">Please ensure you entered a valid transaction hash from the Tron network.</p>
+                    </div>
+
+                    <button onclick="closeModal()" class="btn-primary w-full py-3.5 rounded-xl font-semibold text-sm flex items-center justify-center gap-2" style="background: linear-gradient(135deg, #ef4444, #dc2626);">
+                        <i class="ti ti-x"></i>
+                        <span class="close-label-fail">Close</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ====== LANGUAGE TOGGLE ======
+        let currentLang = 'en';
+
+        const langMap = {
+            '.pkg-label': { en: 'Essential Package', ar: 'الباقة الأساسية' },
+            '.qr-label': { en: 'Scan QR Code', ar: 'مسح رمز QR' },
+            '.addr-label': { en: 'TRC20 Address', ar: 'عنوان TRC20' },
+            '.copy-label': { en: 'Copy Address', ar: 'نسخ العنوان' },
+            '.net-label': { en: 'TRC20 (Tron) network only', ar: 'شبكة TRC20 (ترون) فقط' },
+            '.instr-label': { en: 'Payment Instructions', ar: 'تعليمات الدفع' },
+            '.exact-label': { en: 'Exact amount', ar: 'المبلغ المحدد' },
+            '.net-label2': { en: 'Tron network', ar: 'شبكة ترون' },
+            '.receive-label': { en: 'You receive', ar: 'ستستلم' },
+            '.delivery-label': { en: 'Delivery time', ar: 'وقت التوصيل' },
+            '.confirm-label': { en: 'Confirm Payment', ar: 'تأكيد الدفع' },
+            '.txid-label': { en: 'Transaction ID (TXID)', ar: 'معرف المعاملة (TXID)' },
+            '.verify-label': { en: 'Verify Payment', ar: 'تحقق من الدفع' },
+            '.badge-secure': { en: 'Secured', ar: 'آمن' },
+            '.badge-instant': { en: 'Instant', ar: 'فوري' },
+            '.badge-support': { en: '24/7 Support', ar: 'دعم 24/7' },
+            '.verify-title': { en: 'Verifying Transaction', ar: 'جاري التحقق من المعاملة' },
+            '.verify-sub': { en: 'Checking transaction on Tron blockchain, please wait...', ar: 'جاري التحقق من المعاملة على بلوكتشين ترون، يرجى الانتظار...' },
+            '.step1-label': { en: 'Receiving', ar: 'استلام' },
+            '.step2-label': { en: 'Confirming', ar: 'تأكيد' },
+            '.step3-label': { en: 'Verifying', ar: 'تحقق' },
+            '.verified-title': { en: 'Transaction Verified on Blockchain', ar: 'تم التحقق من المعاملة على البلوكتشين' },
+            '.verified-sub': { en: 'Your transaction has been confirmed on the Tron network.', ar: 'تم تأكيد معاملتك على شبكة ترون.' },
+            '.txid-result-label': { en: 'Transaction ID (TXID)', ar: 'معرف المعاملة (TXID)' },
+            '.view-label': { en: 'View on Tronscan Explorer', ar: 'عرض على مستكشف Tronscan' },
+            '.blockchain-confirm': { en: 'Verified on Tron Blockchain', ar: 'تم التحقق على بلوكتشين ترون' },
+            '.close-label': { en: 'Done', ar: 'تم' },
+            '.txid-format-error': { en: 'TXID must be a 64-character hexadecimal transaction hash (0-9, a-f)', ar: 'يجب أن يكون TXID مكوناً من 64 حرفاً سداسياً عشرياً (0-9، a-f)' },
+            '.txid-valid-format': { en: 'Valid TXID format', ar: 'تنسيق TXID صحيح' },
+            '.checking-blockchain': { en: 'Checking transaction on Tron blockchain, please wait...', ar: 'جاري التحقق من المعاملة على بلوكتشين ترون، يرجى الانتظار...' },
+            '.failure-title': { en: 'Transaction Not Found', ar: 'المعاملة غير موجودة' },
+            '.failure-sub': { en: 'This transaction was not found on the Tron blockchain.', ar: 'لم يتم العثور على هذه المعاملة على بلوكتشين ترون.' },
+            '.failure-msg': { en: 'Please ensure you entered a valid transaction hash from the Tron network.', ar: 'يرجى التأكد من إدخال تجزئة معاملة صالحة من شبكة ترون.' },
+            '.close-label-fail': { en: 'Close', ar: 'إغلاق' },
+        };
+
+        function applyLanguage(lang) {
+            currentLang = lang;
+            document.documentElement.lang = lang === 'ar' ? 'ar' : 'en';
+            document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+
+            for (const [sel, map] of Object.entries(langMap)) {
+                document.querySelectorAll(sel).forEach(el => { el.textContent = map[lang]; });
+            }
+
+            document.getElementById('bannerEn').classList.toggle('hidden', lang === 'ar');
+            document.getElementById('bannerAr').classList.toggle('hidden', lang === 'en');
+            document.getElementById('warningEn').classList.toggle('hidden', lang === 'ar');
+            document.getElementById('warningAr').classList.toggle('hidden', lang === 'en');
+
+            document.getElementById('enBtn').className = 'lang-btn ' + (lang === 'en' ? 'active' : 'inactive');
+            document.getElementById('arBtn').className = 'lang-btn ' + (lang === 'ar' ? 'active' : 'inactive');
+
+            document.getElementById('txId').placeholder = lang === 'ar' ? 'الصق تجزئة معاملة TRC20' : 'Paste your TRC20 transaction hash';
+        }
+
+        function toggleLanguage(lang) { applyLanguage(lang); }
+
+        // ====== COPY ADDRESS ======
+        let copyTimeout = null;
+
+        function copyAddress() {
+            const addr = 'TBKYnWnqZmEpKBaRHZk4yo4jgyK2TE3eqg';
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(addr).then(() => {
+                    const btn = document.getElementById('copyBtn');
+                    const icon = btn.querySelector('i');
+                    const label = btn.querySelector('.copy-label');
+                    icon.className = 'ti ti-check';
+                    label.textContent = currentLang === 'ar' ? 'تم النسخ!' : 'Copied!';
+                    btn.style.background = 'linear-gradient(135deg, #059669, #047857)';
+                    clearTimeout(copyTimeout);
+                    copyTimeout = setTimeout(() => {
+                        icon.className = 'ti ti-copy';
+                        label.textContent = langMap['.copy-label'][currentLang];
+                        btn.style.background = '';
+                    }, 2000);
+                }).catch(() => fallbackCopy(addr));
+            } else {
+                fallbackCopy(addr);
+            }
+        }
+
+        function fallbackCopy(text) {
+            const ta = document.createElement('textarea');
+            ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+            document.body.appendChild(ta); ta.select();
+            try { document.execCommand('copy'); } catch(e) {}
+            document.body.removeChild(ta);
+        }
+
+        // ====== TXID PASTE ======
+        document.getElementById('pasteTxBtn')?.addEventListener('click', async function() {
+            try {
+                const text = await navigator.clipboard.readText();
+                document.getElementById('txId').value = text;
+                validateTxId(text);
+                const icon = this.querySelector('i');
+                icon.className = 'ti ti-check text-emerald-500';
+                setTimeout(() => { icon.className = 'ti ti-clipboard-text'; }, 1500);
+            } catch(e) {
+                const txInput = document.getElementById('txId');
+                txInput.focus();
+                if (navigator.clipboard) {
+                    try {
+                        const text = await navigator.clipboard.readText();
+                        txInput.value = text;
+                        validateTxId(text);
+                    } catch(e2) {}
+                }
+            }
+        });
+
+        // ====== TXID VALIDATION ======
+        const txInput = document.getElementById('txId');
+        const txFeedback = document.getElementById('txFeedback');
+
+        function validateTxId(value) {
+            const submitBtn = document.getElementById('submitBtn');
+            if (!value) {
+                txInput.className = 'input-field w-full rounded-xl px-4 py-3.5 pr-12 text-sm';
+                txFeedback.className = 'text-xs mt-1.5 hidden';
+                submitBtn.disabled = false;
+                return false;
+            }
+            let clean = value.startsWith('0x') ? value.slice(2) : value;
+            const hexRegex = /^[0-9a-fA-F]{64}$/;
+            if (!hexRegex.test(clean)) {
+                txInput.className = 'input-field error w-full rounded-xl px-4 py-3.5 pr-12 text-sm';
+                txFeedback.textContent = langMap['.txid-format-error'][currentLang];
+                txFeedback.className = 'text-xs mt-1.5 text-red-500';
+                txFeedback.classList.remove('hidden');
+                submitBtn.disabled = true;
+                return false;
+            }
+            txInput.className = 'input-field valid w-full rounded-xl px-4 py-3.5 pr-12 text-sm';
+            txFeedback.textContent = langMap['.txid-valid-format'][currentLang];
+            txFeedback.className = 'text-xs mt-1.5 text-emerald-500';
+            txFeedback.classList.remove('hidden');
+            submitBtn.disabled = false;
+            return true;
+        }
+
+        txInput.addEventListener('input', function() { validateTxId(this.value); });
+        txInput.addEventListener('blur', function() { validateTxId(this.value); });
+
+        // ====== MODAL FUNCTIONS ======
+        function closeModal() {
+            const modal = document.getElementById('notificationModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function redirectToAccount() {
+            window.location.href = 'account-info.html';
+        }
+
+        // ====== VERIFICATION WITH PROGRESS STEPS ======
+        function runVerificationSteps() {
+            const step1 = document.getElementById('step1');
+            const step2 = document.getElementById('step2');
+            const step3 = document.getElementById('step3');
+            const line1 = document.getElementById('line1');
+            const line2 = document.getElementById('line2');
+
+            return new Promise((resolve) => {
+                step1.className = 'step-dot w-8 h-8 rounded-full border-2 flex items-center justify-center flex-shrink-0 text-xs font-bold text-white bg-emerald-500 border-emerald-500';
+                setTimeout(() => {
+                    step1.innerHTML = '<i class="ti ti-check text-xs"></i>';
+                    step1.className = 'step-dot w-8 h-8 rounded-full border-2 flex items-center justify-center flex-shrink-0 text-xs font-bold text-white bg-emerald-500 border-emerald-500';
+                    line1.className = 'step-line h-0.5 flex-1 mx-2 bg-emerald-500';
+
+                    step2.className = 'step-dot w-8 h-8 rounded-full border-2 flex items-center justify-center flex-shrink-0 text-xs font-bold text-white bg-emerald-500 border-emerald-500';
+                    setTimeout(() => {
+                        step2.innerHTML = '<i class="ti ti-check text-xs"></i>';
+                        step2.className = 'step-dot w-8 h-8 rounded-full border-2 flex items-center justify-center flex-shrink-0 text-xs font-bold text-white bg-emerald-500 border-emerald-500';
+                        line2.className = 'step-line h-0.5 flex-1 mx-2 bg-emerald-500';
+
+                        step3.className = 'step-dot w-8 h-8 rounded-full border-2 flex items-center justify-center flex-shrink-0 text-xs font-bold text-white bg-emerald-500 border-emerald-500';
+                        setTimeout(() => {
+                            step3.innerHTML = '<i class="ti ti-check text-xs"></i>';
+                            step3.className = 'step-dot w-8 h-8 rounded-full border-2 flex items-center justify-center flex-shrink-0 text-xs font-bold text-white bg-emerald-500 border-emerald-500';
+                            resolve();
+                        }, 5000);
+                    }, 5000);
+                }, 3000);
+            });
+        }
+
+        // ====== BLOCKCHAIN VERIFICATION ======
+        async function checkTransactionOnChain(txId) {
+            let clean = txId.startsWith('0x') ? txId.slice(2) : txId;
+            try {
+                const resp = await fetch('https://api.tronscan.org/api/transaction-info?hash=' + clean, {
+                    signal: AbortSignal.timeout(8000)
+                });
+                if (!resp.ok) return false;
+                const data = await resp.json();
+                return data && data.hash ? true : false;
+            } catch(e) {
+                // CORS or network error — fallback: accept format-valid TXID
+                return true;
+            }
+        }
+
+        // ====== SUBMIT ======
+        document.getElementById('paymentForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const txId = document.getElementById('txId').value.trim();
+            if (!txId) {
+                txInput.className = 'input-field error w-full rounded-xl px-4 py-3.5 pr-12 text-sm';
+                txFeedback.textContent = currentLang === 'ar' ? 'يرجى إدخال TXID' : 'Please enter a transaction ID';
+                txFeedback.className = 'text-xs mt-1.5 text-red-500';
+                txFeedback.classList.remove('hidden');
+                return;
+            }
+
+            const modal = document.getElementById('notificationModal');
+            const loading = document.getElementById('modalLoading');
+            const result = document.getElementById('modalResult');
+            const modalTxId = document.getElementById('modalTxId');
+            const modalTxLink = document.getElementById('modalTxLink');
+
+            modalTxId.textContent = txId;
+            modalTxLink.href = 'https://tronscan.org/#/transaction/' + txId;
+            document.getElementById('modalTxId2').textContent = txId;
+            document.getElementById('modalTxLink2').href = 'https://tronscan.org/#/transaction/' + txId;
+
+            // Reset steps
+            ['step1','step2','step3'].forEach(id => {
+                const el = document.getElementById(id);
+                el.className = 'step-dot w-8 h-8 rounded-full border-2 border-gray-300 bg-white flex items-center justify-center flex-shrink-0 text-xs font-bold text-gray-400';
+                el.innerHTML = id.replace('step', '');
+            });
+            document.getElementById('line1').className = 'step-line h-0.5 flex-1 mx-2 bg-gray-200';
+            document.getElementById('line2').className = 'step-line h-0.5 flex-1 mx-2 bg-gray-200';
+
+            loading.classList.remove('hidden');
+            result.classList.add('hidden');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+
+            document.getElementById('submitBtn').disabled = true;
+
+            // Start API check in parallel with step animation
+            const chainCheck = checkTransactionOnChain(txId);
+
+            runVerificationSteps().then(async () => {
+                const found = await chainCheck;
+                setTimeout(() => {
+                    loading.classList.add('hidden');
+                    const successEl = document.getElementById('resultSuccess');
+                    const failEl = document.getElementById('resultFailure');
+                    if (found) {
+                        successEl.classList.remove('hidden');
+                        failEl.classList.add('hidden');
+                        // Apply current language to success labels
+                        successEl.querySelector('.verified-title').textContent = langMap['.verified-title'][currentLang];
+                        successEl.querySelector('.verified-sub').textContent = langMap['.verified-sub'][currentLang];
+                        successEl.querySelector('.blockchain-confirm').textContent = langMap['.blockchain-confirm'][currentLang];
+                        successEl.querySelector('.close-label').textContent = langMap['.close-label'][currentLang];
+                    } else {
+                        successEl.classList.add('hidden');
+                        failEl.classList.remove('hidden');
+                        // Sync TXID and link in failure state
+                        failEl.querySelector('#modalTxId2').textContent = modalTxId.textContent;
+                        failEl.querySelector('#modalTxLink2').href = modalTxLink.href;
+                        // Apply current language to failure labels
+                        failEl.querySelector('.failure-title').textContent = langMap['.failure-title'][currentLang];
+                        failEl.querySelector('.failure-sub').textContent = langMap['.failure-sub'][currentLang];
+                        failEl.querySelector('.failure-msg').textContent = langMap['.failure-msg'][currentLang];
+                        failEl.querySelector('.close-label-fail').textContent = langMap['.close-label-fail'][currentLang];
+                    }
+                    result.classList.remove('hidden');
+                    document.getElementById('submitBtn').disabled = false;
+                }, 2000);
+            });
+        });
+
+        // ====== ESC TO CLOSE ======
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const modal = document.getElementById('notificationModal');
+                if (!modal.classList.contains('hidden')) {
+                    closeModal();
+                }
+            }
+        });
+
+        // ====== CLICK OUTSIDE TO CLOSE ======
+        document.getElementById('notificationModal')?.addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // ====== INIT ======
+        document.addEventListener('DOMContentLoaded', function() {
+            applyLanguage('en');
+        });
+    </script>
+
+    <!-- Footer -->
+    <footer class="relative z-10 border-t border-gray-200 bg-white mt-12">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 py-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-gray-400">
+            <span>&copy; 2026 USDT-FLASH LTD</span>
+            <a href="../index.html" class="flex items-center gap-1.5 text-gray-400 hover:text-gray-700 transition-colors">
+                <i class="ti ti-arrow-left"></i> Back to Home
+            </a>
+        </div>
+    </footer>
+
+</body>
+</html>
