@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>USDT-FLASH Assistant | Tether Official</title>
+    <link rel="icon" type="image/png" href="img/usdt_cryptocurrencies_icon_188337.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.30.0/tabler-icons.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        * { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+        body { background: #f5f7fa; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 1rem; }
+        .glow { position: fixed; border-radius: 50%; filter: blur(120px); pointer-events: none; z-index: 0; }
+        .card-hover { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; }
+        .card-hover:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(16,185,129,0.15); }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-in { animation: fadeInUp 0.6s ease-out; }
+        .animate-in:nth-child(2) { animation-delay: 0.1s; }
+        .animate-in:nth-child(3) { animation-delay: 0.2s; }
+    </style>
+</head>
+<body>
+    <div class="glow w-[600px] h-[600px] bg-emerald-500/10 top-[-20%] left-[-10%]"></div>
+    <div class="glow w-[400px] h-[400px] bg-blue-500/10 bottom-[-15%] right-[-10%]"></div>
+
+    <div class="relative z-10 w-full max-w-2xl">
+        <!-- Card -->
+        <div class="bg-white border border-gray-200 rounded-3xl shadow-xl overflow-hidden">
+            <!-- Header -->
+            <div class="bg-gradient-to-br from-emerald-600 to-emerald-700 px-8 py-10 text-center relative overflow-hidden">
+                <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(255,255,255,0.1),transparent_60%)]"></div>
+                <div class="relative">
+                    <div class="w-20 h-20 mx-auto mb-5 bg-white/15 rounded-full flex items-center justify-center border-2 border-white/20">
+                        <img src="img/usdt_cryptocurrencies_icon_188337.png" alt="USDT-FLASH" class="w-12 h-12">
+                    </div>
+                    <h1 class="text-3xl font-bold text-white mb-2">USDT-FLASH Assistant</h1>
+                    <p class="text-emerald-100/80 text-sm mb-4">Official Tether Support System</p>
+                    <div class="inline-flex items-center gap-2 bg-white/15 border border-white/20 rounded-full px-4 py-1.5 text-white text-xs font-semibold">
+                        <i class="ti ti-certificate"></i>
+                        Tether Verified Partner
+                    </div>
+                </div>
+            </div>
+
+            <!-- Body -->
+            <div class="p-8">
+                <div class="text-center mb-8">
+                    <h2 class="text-xl font-bold text-gray-900 mb-2">Choose Your Language</h2>
+                    <p class="text-gray-500 text-sm">Select your preferred language to access our AI assistant</p>
+                </div>
+
+                <div class="grid sm:grid-cols-2 gap-4 mb-8">
+                    <a href="test-assistant.html" class="card-hover block bg-gradient-to-br from-gray-50 to-white border-2 border-gray-200 hover:border-emerald-400 rounded-2xl p-6 text-center group animate-in">
+                        <img src="https://flagcdn.com/w80/sa.png" alt="SA" class="w-12 h-12 mx-auto mb-4 rounded-sm shadow-sm" loading="lazy">
+                        <div class="text-lg font-bold text-gray-800 mb-1">العربية</div>
+                        <div class="text-sm text-gray-500">المساعد الذكي باللغة العربية<br>دعم شامل ومتخصص</div>
+                    </a>
+                    <a href="test-assistant-en.html" class="card-hover block bg-gradient-to-br from-gray-50 to-white border-2 border-gray-200 hover:border-emerald-400 rounded-2xl p-6 text-center group animate-in">
+                        <img src="https://flagcdn.com/w80/us.png" alt="US" class="w-12 h-12 mx-auto mb-4 rounded-sm shadow-sm" loading="lazy">
+                        <div class="text-lg font-bold text-gray-800 mb-1">English</div>
+                        <div class="text-sm text-gray-500">Smart Assistant in English<br>Comprehensive & Specialized Support</div>
+                    </a>
+                </div>
+
+                <!-- Support Link -->
+                <a href="pages/support.html" class="card-hover block bg-gradient-to-br from-blue-50 to-white border-2 border-blue-200 hover:border-blue-400 rounded-2xl p-5 text-center group animate-in">
+                    <div class="flex items-center justify-center gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-blue-100 flex items-center justify-center flex-shrink-0">
+                            <i class="ti ti-headset text-blue-600 text-2xl"></i>
+                        </div>
+                        <div class="text-left">
+                            <div class="text-base font-bold text-gray-800 mb-0.5">Live Technical Support</div>
+                            <div class="text-sm text-gray-500">Talk to a real support agent now</div>
+                        </div>
+                        <i class="ti ti-arrow-right text-blue-500 text-xl ml-auto group-hover:translate-x-1 transition-transform"></i>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Footer -->
+            <div class="border-t border-gray-100 px-8 py-4 bg-gray-50/50">
+                <div class="flex items-center justify-center gap-4 text-sm text-gray-400">
+                    <img src="img/usdt_cryptocurrencies_icon_188337.png" alt="USDT" class="w-5 h-5">
+                    <span>Powered by Tether Technology</span>
+                    <span class="w-1 h-1 rounded-full bg-gray-300"></span>
+                    <span class="inline-flex items-center gap-1.5 text-emerald-600 font-medium">
+                        <i class="ti ti-shield-check"></i>
+                        Secure & Verified
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

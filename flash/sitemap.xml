@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+        <loc>https://usdt-f.github.io/usdtflash/</loc>
+        <priority>1.0</priority>
+    </url>
+    <url>
+        <loc>https://usdt-f.github.io/usdtflash/pages/payment-basic.html</loc>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://usdt-f.github.io/usdtflash/pages/payment-pro.html</loc>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://usdt-f.github.io/usdtflash/pages/payment-enterprise.html</loc>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://usdt-f.github.io/usdtflash/pages/account-info.html</loc>
+        <priority>0.5</priority>
+    </url>
+</urlset>
