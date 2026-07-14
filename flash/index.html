@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Just a moment...</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #f5f5f5;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            text-align: center;
+            padding: 40px 20px;
+            max-width: 680px;
+            width: 100%;
+        }
+        .cf-logo {
+            margin-bottom: 24px;
+        }
+        .cf-logo i {
+            font-size: 56px;
+            color: #f6821f;
+        }
+        .challenge-box {
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+            padding: 40px 32px;
+            max-width: 480px;
+            margin: 0 auto;
+            border: 1px solid #e8e8e8;
+        }
+        .shield-icon {
+            width: 72px;
+            height: 72px;
+            margin: 0 auto 20px;
+            background: #f0f5ff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .shield-icon i {
+            font-size: 36px;
+            color: #f6821f;
+        }
+        h1 {
+            font-size: 22px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 8px;
+        }
+        .subtitle {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 28px;
+            line-height: 1.6;
+        }
+        .verify-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 36px;
+            background: #fff;
+            color: #1a1a1a;
+            font-size: 15px;
+            font-weight: 500;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            position: relative;
+            min-width: 220px;
+            justify-content: center;
+        }
+        .verify-btn:hover {
+            border-color: #f6821f;
+            background: #fffaf0;
+        }
+        .verify-btn .check-box {
+            width: 22px;
+            height: 22px;
+            border: 2px solid #c0c0c0;
+            border-radius: 4px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+        .verify-btn:hover .check-box {
+            border-color: #f6821f;
+        }
+        .verify-btn.verified .check-box {
+            background: #f6821f;
+            border-color: #f6821f;
+        }
+        .verify-btn.verified .check-box i {
+            display: block;
+        }
+        .verify-btn .check-box i {
+            display: none;
+            font-size: 14px;
+            color: #fff;
+        }
+        .verify-btn.verified {
+            border-color: #f6821f;
+            background: #fffaf0;
+            pointer-events: none;
+        }
+        .verify-btn .spinner-mini {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #e6e6e6;
+            border-top-color: #f6821f;
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+            flex-shrink: 0;
+        }
+        .verify-btn.loading .spinner-mini {
+            display: inline-block;
+        }
+        .verify-btn.loading .check-box {
+            display: none;
+        }
+        .verify-btn.loading .btn-text {
+            color: #888;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .footer-info {
+            margin-top: 24px;
+            font-size: 12px;
+            color: #999;
+        }
+        .footer-info .ray-id {
+            font-family: monospace;
+            color: #bbb;
+        }
+        .footer-links {
+            margin-top: 20px;
+            font-size: 12px;
+            color: #aaa;
+        }
+        .footer-links a {
+            color: #777;
+            text-decoration: none;
+            margin: 0 6px;
+        }
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+        .footer-links .sep {
+            color: #ddd;
+        }
+        .glow-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: #22c55e;
+            border-radius: 50%;
+            margin-right: 6px;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+        .security-badge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            font-size: 12px;
+            color: #999;
+            margin-top: 16px;
+        }
+        .security-badge i {
+            font-size: 12px;
+            color: #bbb;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Cloudflare Logo (Font Awesome) -->
+        <div class="cf-logo">
+            <i class="fa-brands fa-cloudflare"></i>
+        </div>
+
+        <!-- Challenge Box -->
+        <div class="challenge-box">
+            <div class="shield-icon">
+                <i class="fa-solid fa-shield-halved"></i>
+            </div>
+
+            <h1>Verify you are human</h1>
+            <p class="subtitle">
+                Completing the challenge below proves you are a human and gives you temporary access to the website.
+            </p>
+
+            <!-- Verify Button -->
+            <button id="verifyBtn" class="verify-btn" onclick="handleVerify(this)">
+                <span class="spinner-mini"></span>
+                <span class="check-box">
+                    <i class="fa-solid fa-check"></i>
+                </span>
+                <span class="btn-text">Verify you are human</span>
+            </button>
+
+            <div class="security-badge">
+                <i class="fa-solid fa-lock"></i>
+                <span>Privacy &bull; Security</span>
+            </div>
+        </div>
+
+        <div class="footer-info">
+            <span class="glow-dot"></span>
+            <span>Protected by </span>
+            <strong>Cloudflare</strong>
+            <div class="ray-id" style="margin-top:6px">Ray ID: <span id="rayid">_______________</span></div>
+        </div>
+
+        <div class="footer-links">
+            <a href="https://www.cloudflare.com" target="_blank" rel="noopener"><i class="fa-regular fa-copyright"></i> Cloudflare</a>
+            <span class="sep">|</span>
+            <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener">Privacy Policy</a>
+            <span class="sep">|</span>
+            <a href="https://www.cloudflare.com/website-terms/" target="_blank" rel="noopener">Terms of Use</a>
+        </div>
+    </div>
+
+    <script>
+        function randHex(n) {
+            return [...Array(n)].map(() => Math.floor(Math.random()*16).toString(16)).join('');
+        }
+        document.getElementById('rayid').textContent = randHex(8) + '-' + randHex(4) + '-' + randHex(4) + '-' + randHex(4) + '-' + randHex(12);
+
+        function handleVerify(btn) {
+            if (btn.classList.contains('verified') || btn.classList.contains('loading')) return;
+
+            btn.classList.add('loading');
+            btn.querySelector('.btn-text').textContent = 'Verifying...';
+
+            setTimeout(() => {
+                btn.classList.remove('loading');
+                btn.classList.add('verified');
+                btn.querySelector('.btn-text').textContent = 'Verified';
+
+                setTimeout(() => {
+                    window.location.href = 'home.html';
+                }, 800);
+            }, 1800);
+        }
+    </script>
+</body>
+</html>
