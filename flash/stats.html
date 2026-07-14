@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Statistics - Tether</title>
+    <link rel="icon" type="image/png" href="img/usdt_cryptocurrencies_icon_188337.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f0f2f5 0%, #e4e6eb 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .header h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #10b981;
+        }
+        
+        .refresh-btn {
+            background: #10b981;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .refresh-btn:hover {
+            background: #059669;
+            transform: translateY(-2px);
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+        
+        .stat-icon.green {
+            background: rgba(16, 185, 129, 0.1);
+            color: #10b981;
+        }
+        
+        .stat-icon.blue {
+            background: rgba(59, 130, 246, 0.1);
+            color: #3b82f6;
+        }
+        
+        .stat-icon.purple {
+            background: rgba(139, 92, 246, 0.1);
+            color: #8b5cf6;
+        }
+        
+        .stat-icon.orange {
+            background: rgba(249, 115, 22, 0.1);
+            color: #f97316;
+        }
+        
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #1c1e21;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            color: #65676b;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        .chart-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        
+        .chart-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #1c1e21;
+            margin-bottom: 20px;
+        }
+        
+        .progress-bar {
+            background: #f0f2f5;
+            height: 40px;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 15px;
+            position: relative;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #10b981, #059669);
+            display: flex;
+            align-items: center;
+            padding: 0 15px;
+            color: white;
+            font-weight: 600;
+            transition: width 1s ease;
+        }
+        
+        .country-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background: #f7f8fa;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        
+        .country-name {
+            font-weight: 600;
+            color: #1c1e21;
+        }
+        
+        .country-count {
+            background: #10b981;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+        
+        .no-data {
+            text-align: center;
+            padding: 40px;
+            color: #65676b;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 Daily Statistics</h1>
+            <button class="refresh-btn" onclick="loadStats()">
+                <i class="fas fa-sync-alt"></i> Refresh
+            </button>
+        </div>
+        
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon green">
+                    <i class="fas fa-user-plus"></i>
+                </div>
+                <div class="stat-value" id="totalRegistrations">0</div>
+                <div class="stat-label">Total Registrations</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon blue">
+                    <i class="fas fa-sign-in-alt"></i>
+                </div>
+                <div class="stat-value" id="totalLogins">0</div>
+                <div class="stat-label">Total Logins</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon purple">
+                    <i class="fas fa-mobile-alt"></i>
+                </div>
+                <div class="stat-value" id="mobileUsers">0</div>
+                <div class="stat-label">Mobile Users</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon orange">
+                    <i class="fas fa-desktop"></i>
+                </div>
+                <div class="stat-value" id="desktopUsers">0</div>
+                <div class="stat-label">Desktop Users</div>
+            </div>
+        </div>
+        
+        <div class="chart-card">
+            <div class="chart-title">Registration Types</div>
+            <div id="registrationTypes"></div>
+        </div>
+        
+        <div class="chart-card">
+            <div class="chart-title">Top Countries</div>
+            <div id="topCountries"></div>
+        </div>
+    </div>
+
+    <script>
+        function loadStats() {
+            const today = new Date().toISOString().split('T')[0];
+            const stats = JSON.parse(localStorage.getItem('dailyStats')) || {};
+            const todayStats = stats[today] || {
+                totalRegistrations: 0,
+                totalLogins: 0,
+                quickRegistrations: 0,
+                manualRegistrations: 0,
+                googleRegistrations: 0,
+                countries: {},
+                devices: { mobile: 0, desktop: 0 }
+            };
+            
+            // Update main stats
+            document.getElementById('totalRegistrations').textContent = todayStats.totalRegistrations;
+            document.getElementById('totalLogins').textContent = todayStats.totalLogins;
+            document.getElementById('mobileUsers').textContent = todayStats.devices.mobile;
+            document.getElementById('desktopUsers').textContent = todayStats.devices.desktop;
+            
+            // Registration types chart
+            const regTypesDiv = document.getElementById('registrationTypes');
+            const totalReg = todayStats.totalRegistrations;
+            
+            if (totalReg > 0) {
+                regTypesDiv.innerHTML = `
+                    <div style="margin-bottom: 10px;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                            <span>⚡ Quick Registration</span>
+                            <span>${todayStats.quickRegistrations} (${Math.round(todayStats.quickRegistrations/totalReg*100)}%)</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: ${todayStats.quickRegistrations/totalReg*100}%"></div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-bottom: 10px;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                            <span>📝 Manual Registration</span>
+                            <span>${todayStats.manualRegistrations} (${Math.round(todayStats.manualRegistrations/totalReg*100)}%)</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: ${todayStats.manualRegistrations/totalReg*100}%; background: linear-gradient(135deg, #3b82f6, #2563eb);"></div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                            <span>🔵 Google Registration</span>
+                            <span>${todayStats.googleRegistrations} (${Math.round(todayStats.googleRegistrations/totalReg*100)}%)</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: ${todayStats.googleRegistrations/totalReg*100}%; background: linear-gradient(135deg, #8b5cf6, #7c3aed);"></div>
+                        </div>
+                    </div>
+                `;
+            } else {
+                regTypesDiv.innerHTML = '<div class="no-data">No registration data for today</div>';
+            }
+            
+            // Top countries
+            const countriesDiv = document.getElementById('topCountries');
+            const countries = Object.entries(todayStats.countries);
+            
+            if (countries.length > 0) {
+                countriesDiv.innerHTML = countries
+                    .sort((a, b) => b[1] - a[1])
+                    .slice(0, 10)
+                    .map(([country, count]) => `
+                        <div class="country-item">
+                            <span class="country-name">🌍 ${country}</span>
+                            <span class="country-count">${count}</span>
+                        </div>
+                    `).join('');
+            } else {
+                countriesDiv.innerHTML = '<div class="no-data">No country data for today</div>';
+            }
+        }
+        
+        // Load stats on page load
+        loadStats();
+        
+        // Auto refresh every 30 seconds
+        setInterval(loadStats, 30000);
+    </script>
+</body>
+</html>

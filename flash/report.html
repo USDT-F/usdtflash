@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تقرير مراجعة الكود - home.html</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', Tahoma, sans-serif; background: #0f172a; color: #e2e8f0; }
+
+  .header {
+    background: linear-gradient(135deg, #1e293b, #0f172a);
+    border-bottom: 2px solid #26A17B;
+    padding: 2rem 3rem;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .header h1 { font-size: 1.8rem; color: #26A17B; }
+  .header .meta { font-size: 0.85rem; color: #94a3b8; margin-top: 0.4rem; }
+  .badge { background: #26A17B; color: #fff; padding: 0.3rem 0.9rem; border-radius: 99px; font-size: 0.8rem; font-weight: 700; }
+
+  .container { max-width: 1200px; margin: 0 auto; padding: 2rem 3rem; }
+
+  /* Summary Cards */
+  .summary-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2rem; margin-bottom: 2.5rem; }
+  .summary-card {
+    background: #1e293b; border-radius: 14px; padding: 1.4rem;
+    border-top: 4px solid; text-align: center;
+  }
+  .summary-card.total  { border-color: #60a5fa; }
+  .summary-card.sec    { border-color: #f87171; }
+  .summary-card.perf   { border-color: #fbbf24; }
+  .summary-card.qual   { border-color: #a78bfa; }
+  .summary-card .num   { font-size: 2.5rem; font-weight: 900; margin-bottom: 0.3rem; }
+  .summary-card.total .num { color: #60a5fa; }
+  .summary-card.sec   .num { color: #f87171; }
+  .summary-card.perf  .num { color: #fbbf24; }
+  .summary-card.qual  .num { color: #a78bfa; }
+  .summary-card .label { font-size: 0.85rem; color: #94a3b8; }
+
+  /* Section Title */
+  .section-title {
+    font-size: 1.2rem; font-weight: 700; color: #f1f5f9;
+    margin: 2rem 0 1rem;
+    padding-right: 1rem;
+    border-right: 4px solid #26A17B;
+  }
+
+  /* Finding Card */
+  .finding {
+    background: #1e293b; border-radius: 12px; margin-bottom: 1rem;
+    border: 1px solid #334155; overflow: hidden;
+  }
+  .finding-header {
+    display: flex; align-items: center; gap: 1rem;
+    padding: 1rem 1.4rem;
+    cursor: pointer;
+    user-select: none;
+  }
+  .finding-header:hover { background: #263348; }
+  .sev {
+    padding: 0.25rem 0.75rem; border-radius: 99px;
+    font-size: 0.75rem; font-weight: 700; white-space: nowrap;
+  }
+  .sev.low      { background: rgba(251,191,36,0.15);  color: #fbbf24; border: 1px solid #fbbf24; }
+  .sev.medium   { background: rgba(251,146,60,0.15);  color: #fb923c; border: 1px solid #fb923c; }
+  .sev.high     { background: rgba(248,113,113,0.15); color: #f87171; border: 1px solid #f87171; }
+  .sev.info     { background: rgba(96,165,250,0.15);  color: #60a5fa; border: 1px solid #60a5fa; }
+  .finding-title { font-weight: 600; font-size: 0.95rem; flex: 1; }
+  .finding-line  { font-size: 0.8rem; color: #64748b; white-space: nowrap; }
+  .finding-body  { padding: 0 1.4rem 1.2rem; border-top: 1px solid #334155; }
+  .finding-body p { font-size: 0.88rem; color: #cbd5e1; line-height: 1.7; margin-top: 0.8rem; }
+  .fix-box {
+    margin-top: 0.8rem; background: #0f172a; border-radius: 8px;
+    padding: 0.8rem 1rem; border-left: 3px solid #26A17B;
+  }
+  .fix-box .fix-title { font-size: 0.78rem; color: #26A17B; font-weight: 700; margin-bottom: 0.4rem; }
+  .fix-box code { font-size: 0.82rem; color: #86efac; font-family: 'Courier New', monospace; display: block; white-space: pre-wrap; }
+
+  /* Manual Findings */
+  .manual-finding {
+    background: #1e293b; border-radius: 12px; margin-bottom: 1rem;
+    border: 1px solid #334155; padding: 1.2rem 1.4rem;
+  }
+  .manual-finding .mf-header { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 0.6rem; }
+  .manual-finding .mf-title  { font-weight: 600; font-size: 0.95rem; }
+  .manual-finding .mf-desc   { font-size: 0.87rem; color: #94a3b8; line-height: 1.7; }
+  .manual-finding .mf-fix    { margin-top: 0.6rem; font-size: 0.85rem; color: #86efac; }
+
+  /* Score Bar */
+  .score-section { background: #1e293b; border-radius: 14px; padding: 1.5rem 2rem; margin-bottom: 2rem; }
+  .score-row { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.8rem; }
+  .score-label { width: 160px; font-size: 0.88rem; color: #94a3b8; text-align: right; }
+  .score-bar-wrap { flex: 1; background: #0f172a; border-radius: 99px; height: 10px; overflow: hidden; }
+  .score-bar { height: 100%; border-radius: 99px; }
+  .score-val { width: 40px; font-size: 0.88rem; font-weight: 700; text-align: left; }
+
+  /* Recommendations */
+  .rec-list { list-style: none; }
+  .rec-list li {
+    background: #1e293b; border-radius: 10px; padding: 1rem 1.2rem;
+    margin-bottom: 0.7rem; border-right: 4px solid #26A17B;
+    font-size: 0.88rem; color: #cbd5e1; line-height: 1.6;
+    display: flex; gap: 0.8rem; align-items: flex-start;
+  }
+  .rec-list li .icon { font-size: 1.1rem; margin-top: 1px; }
+
+  /* Footer */
+  .footer {
+    text-align: center; padding: 2rem;
+    border-top: 1px solid #1e293b;
+    color: #475569; font-size: 0.82rem; margin-top: 3rem;
+  }
+
+  @media (max-width: 768px) {
+    .summary-grid { grid-template-columns: repeat(2,1fr); }
+    .container { padding: 1rem; }
+    .header { padding: 1.2rem; flex-direction: column; gap: 0.8rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div>
+    <h1>📋 تقرير مراجعة الكود</h1>
+    <div class="meta">الملف: <strong>home.html</strong> &nbsp;|&nbsp; المسار: flash new V2/ &nbsp;|&nbsp; التاريخ: <strong id="dt"></strong></div>
+  </div>
+  <span class="badge">مراجعة كاملة</span>
+</div>
+
+<div class="container">
+
+  <!-- SUMMARY -->
+  <div class="summary-grid">
+    <div class="summary-card total">
+      <div class="num">14</div>
+      <div class="label">إجمالي المشكلات</div>
+    </div>
+    <div class="summary-card sec">
+      <div class="num">7</div>
+      <div class="label">مشكلات أمنية</div>
+    </div>
+    <div class="summary-card perf">
+      <div class="num">4</div>
+      <div class="label">مشكلات أداء</div>
+    </div>
+    <div class="summary-card qual">
+      <div class="num">3</div>
+      <div class="label">جودة الكود</div>
+    </div>
+  </div>
+
+  <!-- SCORE BARS -->
+  <div class="section-title">📊 تقييم الصفحة</div>
+  <div class="score-section">
+    <div class="score-row">
+      <div class="score-label">الأمان</div>
+      <div class="score-bar-wrap"><div class="score-bar" style="width:55%;background:#f87171;"></div></div>
+      <div class="score-val" style="color:#f87171;">55%</div>
+    </div>
+    <div class="score-row">
+      <div class="score-label">الأداء</div>
+      <div class="score-bar-wrap"><div class="score-bar" style="width:65%;background:#fbbf24;"></div></div>
+      <div class="score-val" style="color:#fbbf24;">65%</div>
+    </div>
+    <div class="score-row">
+      <div class="score-label">جودة الكود</div>
+      <div class="score-bar-wrap"><div class="score-bar" style="width:60%;background:#a78bfa;"></div></div>
+      <div class="score-val" style="color:#a78bfa;">60%</div>
+    </div>
+    <div class="score-row">
+      <div class="score-label">إمكانية الوصول</div>
+      <div class="score-bar-wrap"><div class="score-bar" style="width:50%;background:#fb923c;"></div></div>
+      <div class="score-val" style="color:#fb923c;">50%</div>
+    </div>
+    <div class="score-row">
+      <div class="score-label">التصميم المتجاوب</div>
+      <div class="score-bar-wrap"><div class="score-bar" style="width:85%;background:#26A17B;"></div></div>
+      <div class="score-val" style="color:#26A17B;">85%</div>
+    </div>
+  </div>
+
+  <!-- SECURITY FINDINGS (from code review tool) -->
+  <div class="section-title">🔒 المشكلات الأمنية — نتائج أداة المراجعة</div>
+
+  <!-- Finding 1 -->
+  <div class="finding">
+    <div class="finding-header">
+      <span class="sev low">منخفض</span>
+      <span class="finding-title">Reverse Tabnabbing — روابط target="_blank" بدون rel="noopener"</span>
+      <span class="finding-line">السطر 2424–2425</span>
+    </div>
+    <div class="finding-body">
+      <p>عند استخدام <code>target="_blank"</code> بدون إضافة <code>rel="noopener noreferrer"</code>، تستطيع الصفحة المفتوحة التحكم في نافذة الأصل عبر <code>window.opener</code>، مما يتيح هجمات التصيد الاحتيالي (Phishing) بتغيير محتوى الصفحة الأم.</p>
+      <div class="fix-box">
+        <div class="fix-title">✅ الحل المقترح</div>
+        <code>&lt;a href="..." target="_blank" rel="noopener noreferrer"&gt;</code>
+      </div>
+    </div>
+  </div>
+
+  <!-- Finding 2 -->
+  <div class="finding">
+    <div class="finding-header">
+      <span class="sev low">منخفض</span>
+      <span class="finding-title">Reverse Tabnabbing — رابط Tether.to الخارجي</span>
+      <span class="finding-line">السطر 2663–2664</span>
+    </div>
+    <div class="finding-body">
+      <p>رابط <code>https://tether.to/en/transparency</code> يفتح في تبويب جديد بدون حماية <code>rel="noopener noreferrer"</code>.</p>
+      <div class="fix-box">
+        <div class="fix-title">✅ الحل المقترح</div>
+        <code>&lt;a href="https://tether.to/en/transparency" target="_blank" rel="noopener noreferrer"&gt;</code>
+      </div>
+    </div>
+  </div>
+
+  <!-- Finding 3 -->
+  <div class="finding">
+    <div class="finding-header">
+      <span class="sev low">منخفض</span>
+      <span class="finding-title">Reverse Tabnabbing — روابط صفحات الدفع (السطور 5015–5025)</span>
+      <span class="finding-line">السطور 5015 → 5025</span>
+    </div>
+    <div class="finding-body">
+      <p>روابط صفحات الدفع المتعددة مثل <code>PAG3E/payment-Fox.html</code> و <code>page2/payment-pro.html</code> تستخدم <code>target="_blank"</code> بدون حماية كافية.</p>
+      <div class="fix-box">
+        <div class="fix-title">✅ الحل المقترح — أضف لكل رابط خارجي</div>
+        <code>rel="noopener noreferrer"</code>
+      </div>
+    </div>
+  </div>
+
+  <!-- Finding 4 -->
+  <div class="finding">
+    <div class="finding-header">
+      <span class="sev low">منخفض</span>
+      <span class="finding-title">Reverse Tabnabbing — روابط منصات التداول الخارجية</span>
+      <span class="finding-line">السطر 5183–5184</span>
+    </div>
+    <div class="finding-body">
+      <p>روابط منصات مثل Stake.com و BC.Game وغيرها تفتح في تبويب جديد بدون <code>rel="noopener noreferrer"</code>.</p>
+      <div class="fix-box">
+        <div class="fix-title">✅ الحل المقترح</div>
+        <code>&lt;a href="https://stake.com" target="_blank" rel="noopener noreferrer"&gt;</code>
+      </div>
+    </div>
+  </div>
+
+  <!-- MANUAL SECURITY FINDINGS -->
+  <div class="section-title">🔍 مشكلات أمنية إضافية — مراجعة يدوية</div>
+
+  <div class="manual-finding">
+    <div class="mf-header">
+      <span class="sev medium">متوسط</span>
+      <span class="mf-title">localStorage بدون تشفير — بيانات المستخدم مكشوفة</span>
+    </div>
+    <div class="mf-desc">يتم تخزين بيانات المستخدم <code>currentUser</code> في <code>localStorage</code> بنص صريح بدون أي تشفير. أي سكريبت خارجي أو امتداد متصفح يمكنه قراءة هذه البيانات بسهولة.</div>
+    <div class="mf-fix">💡 الحل: استخدم sessionStorage بدلاً من localStorage، أو قم بتشفير البيانات قبل تخزينها.</div>
+  </div>
+
+  <div class="manual-finding">
+    <div class="mf-header">
+      <span class="sev medium">متوسط</span>
+      <span class="mf-title">CSP (Content Security Policy) غير مكتملة</span>
+    </div>
+    <div class="mf-desc">الـ CSP الموجودة تحتوي فقط على <code>upgrade-insecure-requests</code> وهي غير كافية. لا يوجد تقييد على مصادر السكريبتات أو الصور أو الخطوط الخارجية، مما يفتح الباب لهجمات XSS.</div>
+    <div class="mf-fix">💡 الحل: أضف سياسة CSP شاملة تحدد المصادر المسموح بها: script-src, style-src, img-src, font-src.</div>
+  </div>
+
+  <div class="manual-finding">
+    <div class="mf-header">
+      <span class="sev low">منخفض</span>
+      <span class="mf-title">زر الدعم العائم — يفتح في تبويب جديد بدون rel</span>
+    </div>
+    <div class="mf-desc">الزر العائم الذي تمت إضافته مؤخراً يستخدم <code>target="_blank"</code> بدون <code>rel="noopener noreferrer"</code>.</div>
+    <div class="mf-fix">💡 الحل: أضف <code>rel="noopener noreferrer"</code> للرابط العائم.</div>
+  </div>
+
+  <!-- PERFORMANCE FINDINGS -->
+  <div class="section-title">⚡ مشكلات الأداء</div>
+
+  <div class="manual-finding">
+    <div class="mf-header">
+      <span class="sev medium">متوسط</span>
+      <span class="mf-title">تحميل مكتبات CSS/JS ضخمة من CDN بدون تأجيل</span>
+    </div>
+    <div class="mf-desc">يتم تحميل Tailwind CSS و Font Awesome و Tabler Icons و Material Symbols في الـ &lt;head&gt; بشكل متزامن مما يبطئ أول رسم للصفحة (First Contentful Paint). حجم هذه المكتبات مجتمعةً يتجاوز 2MB.</div>
+    <div class="mf-fix">💡 الحل: أضف <code>media="print" onload="this.media='all'"</code> للـ CSS غير الحرجة، واستخدم <code>defer</code> للـ JS.</div>
+  </div>
+
+  <div class="manual-finding">
+    <div class="mf-header">
+      <span class="sev medium">متوسط</span>
+      <span class="mf-title">فيديو Hero يُحمَّل بدون lazy loading</span>
+    </div>
+    <div class="mf-desc">الفيديو في قسم Hero يبدأ التحميل فوراً حتى لو كان المستخدم على اتصال بطيء. لا يوجد fallback مناسب للمتصفحات القديمة.</div>
+    <div class="mf-fix">💡 الحل: أضف <code>preload="none"</code> أو <code>preload="metadata"</code> للفيديو، وتأكد من وجود poster image.</div>
+  </div>
+
+  <div class="manual-finding">
+    <div class="mf-header">
+      <span class="sev low">منخفض</span>
+      <span class="mf-title">صور خارجية من CoinGecko بدون أبعاد محددة</span>
+    </div>
+    <div class="mf-desc">الصور المحملة من <code>assets.coingecko.com</code> لا تحتوي على <code>width</code> و <code>height</code> صريحين مما يسبب Cumulative Layout Shift (CLS) ويؤثر على نقاط Core Web Vitals.</div>
+    <div class="mf-fix">💡 الحل: أضف <code>width="38" height="38"</code> لكل صورة خارجية.</div>
+  </div>
+
+  <div class="manual-finding">
+    <div class="mf-header">
+      <span class="sev low">منخفض</span>
+      <span class="mf-title">Inline styles مكررة بشكل مفرط</span>
+    </div>
+    <div class="mf-desc">الصفحة تحتوي على آلاف الـ inline styles المكررة (مثل <code>style="color:#94a3b8"</code>) بدلاً من استخدام CSS classes. هذا يزيد حجم الصفحة ويصعّب الصيانة.</div>
+    <div class="mf-fix">💡 الحل: استخرج الأنماط المتكررة إلى CSS classes في ملف خارجي.</div>
+  </div>
+
+  <!-- CODE QUALITY -->
+  <div class="section-title">🧹 جودة الكود</div>
+
+  <div class="manual-finding">
+    <div class="mf-header">
+      <span class="sev medium">متوسط</span>
+      <span class="mf-title">كود HTML ضخم جداً في ملف واحد (+5000 سطر)</span>
+    </div>
+    <div class="mf-desc">الصفحة تحتوي على أكثر من 5000 سطر في ملف HTML واحد يجمع بين HTML وCSS وJavaScript. هذا يجعل الصيانة صعبة جداً ويبطئ تحميل الصفحة.</div>
+    <div class="mf-fix">💡 الحل: قسّم الكود إلى ملفات منفصلة: style.css، main.js، وملفات HTML جزئية.</div>
+  </div>
+
+  <div class="manual-finding">
+    <div class="mf-header">
+      <span class="sev low">منخفض</span>
+      <span class="mf-title">كود JavaScript معطّل (dead code) — فرع if(false)</span>
+    </div>
+    <div class="mf-desc">يوجد في الكود فرع <code>if (false) { ... }</code> يحتوي على كود لن يُنفَّذ أبداً. هذا يشير إلى كود قديم لم يُحذف.</div>
+    <div class="mf-fix">💡 الحل: احذف الكود الميت داخل <code>if (false)</code> لتنظيف الملف.</div>
+  </div>
+
+  <div class="manual-finding">
+    <div class="mf-header">
+      <span class="sev low">منخفض</span>
+      <span class="mf-title">إمكانية الوصول (Accessibility) — نقص في ARIA labels</span>
+    </div>
+    <div class="mf-desc">أزرار القائمة المتنقلة وزر الإعدادات وزر الدعم العائم لا تحتوي على <code>aria-label</code> مناسب، مما يجعل الموقع غير قابل للاستخدام لمستخدمي قارئات الشاشة.</div>
+    <div class="mf-fix">💡 الحل: أضف <code>aria-label="فتح القائمة"</code> لكل زر تفاعلي بدون نص ظاهر.</div>
+  </div>
+
+  <!-- RECOMMENDATIONS -->
+  <div class="section-title">📌 التوصيات الأولوية</div>
+  <ul class="rec-list">
+    <li><span class="icon">🔴</span><div><strong>عاجل:</strong> أضف <code>rel="noopener noreferrer"</code> لجميع روابط <code>target="_blank"</code> في الصفحة (7 مواضع على الأقل). هذا يمنع هجمات Reverse Tabnabbing.</div></li>
+    <li><span class="icon">🟠</span><div><strong>مهم:</strong> لا تخزن بيانات المستخدم الحساسة في <code>localStorage</code> بنص صريح. استخدم تشفيراً أو <code>sessionStorage</code>.</div></li>
+    <li><span class="icon">🟠</span><div><strong>مهم:</strong> أضف سياسة CSP شاملة في الـ &lt;head&gt; لمنع هجمات XSS وتحديد المصادر الموثوقة.</div></li>
+    <li><span class="icon">🟡</span><div><strong>أداء:</strong> استخدم <code>defer</code> أو <code>async</code> لتحميل مكتبات JavaScript الخارجية لتحسين سرعة التحميل الأولي.</div></li>
+    <li><span class="icon">🟡</span><div><strong>أداء:</strong> أضف <code>width</code> و <code>height</code> لجميع الصور لتجنب CLS وتحسين نقاط Core Web Vitals.</div></li>
+    <li><span class="icon">🔵</span><div><strong>جودة:</strong> قسّم الملف الضخم (+5000 سطر) إلى ملفات منفصلة لتسهيل الصيانة والتطوير.</div></li>
+    <li><span class="icon">🔵</span><div><strong>جودة:</strong> احذف الكود الميت <code>if(false){...}</code> ونظّف الـ inline styles المكررة.</div></li>
+    <li><span class="icon">🟢</span><div><strong>إمكانية الوصول:</strong> أضف <code>aria-label</code> لجميع الأزرار التفاعلية لدعم قارئات الشاشة.</div></li>
+  </ul>
+
+  <!-- POSITIVE POINTS -->
+  <div class="section-title">✅ النقاط الإيجابية</div>
+  <ul class="rec-list">
+    <li><span class="icon">✅</span><div>التصميم المتجاوب ممتاز — يدعم الموبايل والتابلت والديسكتوب بشكل احترافي.</div></li>
+    <li><span class="icon">✅</span><div>استخدام <code>preload</code> للموارد الحرجة (الفيديو والصور) في الـ &lt;head&gt;.</div></li>
+    <li><span class="icon">✅</span><div>تأثيرات CSS متقدمة وأنيميشن سلسة تعطي تجربة مستخدم احترافية.</div></li>
+    <li><span class="icon">✅</span><div>دعم الوضع الليلي والفاتح مع حفظ التفضيلات في localStorage.</div></li>
+    <li><span class="icon">✅</span><div>SEO meta tags شاملة تشمل Open Graph و Twitter Cards.</div></li>
+    <li><span class="icon">✅</span><div>زر الدعم العائم الجديد يعمل بشكل صحيح ويتكامل مع تصميم الصفحة.</div></li>
+  </ul>
+
+</div>
+
+<div class="footer">
+  تم إنشاء هذا التقرير بواسطة Amazon Q Developer &nbsp;|&nbsp; مراجعة كاملة لـ home.html &nbsp;|&nbsp; <span id="dt2"></span>
+</div>
+
+<script>
+  const now = new Date().toLocaleDateString('ar-SA', {year:'numeric',month:'long',day:'numeric',hour:'2-digit',minute:'2-digit'});
+  document.getElementById('dt').textContent = now;
+  document.getElementById('dt2').textContent = now;
+</script>
+</body>
+</html>

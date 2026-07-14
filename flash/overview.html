@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- HTTPS Enforcement -->
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="USDT-FLASH - Leading global cryptocurrency platform trusted by Fortune 500 companies. Enterprise-grade security, 24/7 support, and instant transactions worldwide.">
+    <meta name="keywords" content="USDT-FLASH, global cryptocurrency, enterprise blockchain, Fortune 500, institutional trading, Web3 solutions, digital assets">
+    <meta name="author" content="USDT-FLASH Global Enterprise">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://usdt-flash.com/overview.html">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="USDT-FLASH - Global Enterprise Cryptocurrency Platform">
+    <meta property="og:description" content="Trusted by Fortune 500 companies worldwide. Enterprise-grade cryptocurrency solutions with military-level security.">
+    <meta property="og:image" content="https://usdt-flash.com/img/usdt_cryptocurrencies_icon_188337.png">
+    <meta property="og:url" content="https://usdt-flash.com/overview.html">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="USDT-FLASH Enterprise Platform Documentation">
+    <meta name="twitter:description" content="Complete guide to enterprise cryptocurrency solutions with advanced security features.">
+    <meta name="twitter:image" content="https://yourdomain.com/img/usdt_cryptocurrencies_icon_188337.png">
+    
+    <title>USDT-FLASH Enterprise Platform - Global Cryptocurrency Solutions</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="img/usdt_cryptocurrencies_icon_188337.png" as="image">
+    <link rel="preload" href="nouveu/hero.png" as="image">
+    <style>
+        :root {
+            --primary: #26A17B;
+            --primary-dark: #1d8a66;
+            --secondary: #2ecc71;
+            --background: #0f172a;
+            --surface: #1e293b;
+            --surface-light: rgba(255,255,255,0.05);
+            --border: rgba(255,255,255,0.1);
+            --text-primary: #ffffff;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--background);
+            color: var(--text-primary);
+            line-height: 1.6;
+            font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); }
+        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--primary-dark); }
+        
+        /* Layout */
+        .docs-layout { display: grid; grid-template-columns: 280px 1fr; min-height: 100vh; }
+        .docs-sidebar { background: var(--surface); border-right: 1px solid var(--border); position: fixed; width: 280px; height: 100vh; overflow-y: auto; z-index: 40; }
+        .docs-main { margin-left: 280px; }
+        .docs-header { background: var(--surface-light); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 30; }
+        .docs-content { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+        
+        /* Sidebar */
+        .sidebar-section { margin-bottom: 2rem; }
+        .sidebar-title { font-size: 0.75rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--primary); margin-bottom: 0.75rem; padding: 0 1rem; }
+        .sidebar-link { display: flex; align-items: center; gap: 0.75rem; padding: 0.625rem 1rem; color: var(--text-secondary); text-decoration: none; font-size: 0.875rem; font-weight: 500; transition: all 0.2s ease; border-left: 2px solid transparent; }
+        .sidebar-link:hover, .sidebar-link.active { color: var(--text-primary); background: rgba(38,161,123,0.1); border-left-color: var(--primary); }
+        .sidebar-link i { width: 16px; text-align: center; font-size: 0.875rem; }
+        
+        /* Search */
+        .search-container { position: relative; margin: 1rem; }
+        .search-input { width: 100%; padding: 0.75rem 1rem 0.75rem 2.5rem; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 0.5rem; color: var(--text-primary); font-size: 0.875rem; transition: all 0.2s ease; }
+        .search-input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(38,161,123,0.1); }
+        .search-icon { position: absolute; left: 0.75rem; top: 50%; transform: translateY(-50%); color: var(--text-muted); }
+        
+        /* Content */
+        .doc-section { margin-bottom: 3rem; }
+        .doc-title { font-size: 2.5rem; font-weight: 800; margin-bottom: 1rem; background: linear-gradient(135deg, var(--text-primary) 0%, var(--primary) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .doc-subtitle { font-size: 1.125rem; color: var(--text-secondary); margin-bottom: 2rem; }
+        .section-header { font-size: 1.875rem; font-weight: 700; margin: 2rem 0 1rem 0; color: var(--text-primary); }
+        .subsection-header { font-size: 1.25rem; font-weight: 600; margin: 1.5rem 0 0.75rem 0; color: var(--text-primary); }
+        
+        /* Cards */
+        .doc-card { background: var(--surface-light); backdrop-filter: blur(20px); border: 1px solid var(--border); border-radius: 0.75rem; padding: 1.5rem; transition: all 0.3s ease; }
+        .doc-card:hover { border-color: rgba(38,161,123,0.3); transform: translateY(-2px); box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
+        .card-title { font-size: 1.125rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--text-primary); }
+        .card-description { color: var(--text-secondary); font-size: 0.875rem; line-height: 1.5; }
+        
+        /* Code Blocks */
+        .code-block { background: #0d1117; border: 1px solid #30363d; border-radius: 0.5rem; padding: 1rem; margin: 1rem 0; overflow-x: auto; }
+        .code-block code { color: #e6edf3; font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace; font-size: 0.875rem; }
+        .inline-code { background: rgba(255,255,255,0.1); color: var(--primary); padding: 0.125rem 0.375rem; border-radius: 0.25rem; font-family: 'SF Mono', Monaco, monospace; font-size: 0.875rem; }
+        
+        /* Badges */
+        .badge { display: inline-flex; align-items: center; gap: 0.375rem; padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 600; }
+        .badge-success { background: rgba(34,197,94,0.15); color: #22c55e; border: 1px solid rgba(34,197,94,0.3); }
+        .badge-info { background: rgba(59,130,246,0.15); color: #3b82f6; border: 1px solid rgba(59,130,246,0.3); }
+        .badge-warning { background: rgba(245,158,11,0.15); color: #f59e0b; border: 1px solid rgba(245,158,11,0.3); }
+        .badge-primary { background: rgba(38,161,123,0.15); color: var(--primary); border: 1px solid rgba(38,161,123,0.3); }
+        
+        /* Tables */
+        .doc-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; background: var(--surface-light); border-radius: 0.5rem; overflow: hidden; }
+        .doc-table th { background: rgba(38,161,123,0.1); padding: 0.75rem 1rem; text-align: left; font-weight: 600; color: var(--text-primary); border-bottom: 1px solid var(--border); }
+        .doc-table td { padding: 0.75rem 1rem; border-bottom: 1px solid var(--border); color: var(--text-secondary); }
+        .doc-table tr:last-child td { border-bottom: none; }
+        
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .docs-layout { grid-template-columns: 1fr; }
+            .docs-sidebar { transform: translateX(-100%); transition: transform 0.3s ease; }
+            .docs-sidebar.open { transform: translateX(0); }
+            .docs-main { margin-left: 0; }
+            .mobile-menu-btn { display: block; }
+        }
+        
+        .mobile-menu-btn { display: none; }
+        
+        /* Animations */
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in-up { animation: fadeInUp 0.6s ease-out; }
+        
+        /* Status Indicators */
+        .status-indicator { display: inline-flex; align-items: center; gap: 0.5rem; }
+        .status-dot { width: 8px; height: 8px; border-radius: 50%; }
+        .status-online { background: #22c55e; }
+        .status-maintenance { background: #f59e0b; }
+        .status-offline { background: #ef4444; }
+        
+        /* Navigation Breadcrumbs */
+        .breadcrumb { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 2rem; font-size: 0.875rem; color: var(--text-muted); }
+        .breadcrumb a { color: var(--primary); text-decoration: none; }
+        .breadcrumb a:hover { text-decoration: underline; }
+        
+        /* Syntax Highlighting */
+        .hljs-keyword { color: #ff7b72; }
+        .hljs-string { color: #a5d6ff; }
+        .hljs-number { color: #79c0ff; }
+        .hljs-comment { color: #8b949e; }
+    </style>
+</head>
+<body>
+    <!-- Documentation Layout -->
+    <div class="docs-layout">
+        
+        <!-- Sidebar -->
+        <aside class="docs-sidebar" id="sidebar">
+            <!-- Logo -->
+            <div class="p-6 border-b border-gray-700">
+                <div class="flex items-center gap-3">
+                    <img src="img/usdt_cryptocurrencies_icon_188337.png" alt="USDT-FLASH" class="w-8 h-8">
+                    <div>
+                        <h1 class="text-lg font-bold text-white">USDT-FLASH</h1>
+                        <p class="text-xs text-gray-400">Documentation</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Search -->
+            <div class="search-container">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" class="search-input" placeholder="Search documentation..." id="searchInput">
+            </div>
+            
+            <!-- Navigation -->
+            <nav class="pb-6">
+                <!-- Getting Started -->
+                <div class="sidebar-section">
+                    <div class="sidebar-title">Getting Started</div>
+                    <a href="#overview" class="sidebar-link active" onclick="showSection('overview')">
+                        <i class="fas fa-home"></i> Overview
+                    </a>
+                    <a href="#quick-start" class="sidebar-link" onclick="showSection('quick-start')">
+                        <i class="fas fa-rocket"></i> Quick Start
+                    </a>
+                    <a href="#installation" class="sidebar-link" onclick="showSection('installation')">
+                        <i class="fas fa-download"></i> Installation
+                    </a>
+                </div>
+                
+                <!-- Platform Guide -->
+                <div class="sidebar-section">
+                    <div class="sidebar-title">Platform Guide</div>
+                    <a href="#packages" class="sidebar-link" onclick="showSection('packages')">
+                        <i class="fas fa-box"></i> Packages
+                    </a>
+                    <a href="#supported-platforms" class="sidebar-link" onclick="showSection('supported-platforms')">
+                        <i class="fas fa-network-wired"></i> Supported Platforms
+                    </a>
+                    <a href="#conversion-process" class="sidebar-link" onclick="showSection('conversion-process')">
+                        <i class="fas fa-exchange-alt"></i> Conversion Process
+                    </a>
+                    <a href="#security" class="sidebar-link" onclick="showSection('security')">
+                        <i class="fas fa-shield-alt"></i> Security
+                    </a>
+                </div>
+                
+                <!-- API Reference -->
+                <div class="sidebar-section">
+                    <div class="sidebar-title">API Reference</div>
+                    <a href="#authentication" class="sidebar-link" onclick="showSection('authentication')">
+                        <i class="fas fa-key"></i> Authentication
+                    </a>
+                    <a href="#endpoints" class="sidebar-link" onclick="showSection('endpoints')">
+                        <i class="fas fa-code"></i> Endpoints
+                    </a>
+                    <a href="#webhooks" class="sidebar-link" onclick="showSection('webhooks')">
+                        <i class="fas fa-webhook"></i> Webhooks
+                    </a>
+                </div>
+                
+                <!-- Site Pages -->
+                <div class="sidebar-section">
+                    <div class="sidebar-title">Site Pages</div>
+                    <a href="index-new.html" class="sidebar-link">
+                        <i class="fas fa-home"></i> Main Site
+                    </a>
+                    <a href="pages/register.html" class="sidebar-link">
+                        <i class="fas fa-user-plus"></i> Register
+                    </a>
+                    <a href="pages/support.html" class="sidebar-link">
+                        <i class="fas fa-headset"></i> Support
+                    </a>
+                </div>
+                
+                <!-- Resources -->
+                <div class="sidebar-section">
+                    <div class="sidebar-title">Resources</div>
+                    <a href="#faq" class="sidebar-link" onclick="showSection('faq')">
+                        <i class="fas fa-question-circle"></i> FAQ
+                    </a>
+                    <a href="#changelog" class="sidebar-link" onclick="showSection('changelog')">
+                        <i class="fas fa-history"></i> Changelog
+                    </a>
+                    <a href="#status" class="sidebar-link" onclick="showSection('status')">
+                        <i class="fas fa-heartbeat"></i> System Status
+                    </a>
+                </div>
+            </nav>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="docs-main">
+            <!-- Header -->
+            <header class="docs-header">
+                <div class="flex items-center justify-between px-6 py-4">
+                    <div class="flex items-center gap-4">
+                        <button class="mobile-menu-btn text-white" onclick="toggleSidebar()">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                        <nav class="breadcrumb">
+                            <a href="#">Documentation</a>
+                            <i class="fas fa-chevron-right text-xs"></i>
+                            <span id="currentSection">Overview</span>
+                        </nav>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <div class="status-indicator">
+                            <div class="status-dot status-online"></div>
+                            <span class="text-sm text-gray-300">All systems operational</span>
+                        </div>
+                        <a href="index-new.html" class="flex items-center gap-2 bg-gradient-to-r from-green-600 to-green-700 text-white px-4 py-2 rounded-lg font-medium text-sm hover:from-green-500 hover:to-green-600 transition-all">
+                            <i class="fas fa-external-link-alt"></i> Live Site
+                        </a>
+                    </div>
+                </div>
+            </header>
+            
+            <!-- Content -->
+            <div class="docs-content">
+                
+                <!-- Overview Section -->
+                <section id="overview-section" class="doc-section fade-in-up">
+                    <h1 class="doc-title">USDT-FLASH Platform Overview</h1>
+                    <p class="doc-subtitle">Professional cryptocurrency solutions for modern businesses and individual traders worldwide.</p>
+                    
+                    <!-- Platform Stats -->
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+                        <div class="doc-card text-center hover:scale-105 transition-transform">
+                            <div class="text-3xl font-bold text-green-400 mb-1">500K+</div>
+                            <div class="text-sm text-gray-400">Active Traders</div>
+                            <div class="text-xs text-green-300 mt-1">↗ Growing Daily</div>
+                        </div>
+                        <div class="doc-card text-center hover:scale-105 transition-transform">
+                            <div class="text-3xl font-bold text-blue-400 mb-1">99.9%</div>
+                            <div class="text-sm text-gray-400">Platform Uptime</div>
+                            <div class="text-xs text-blue-300 mt-1">Reliable Service</div>
+                        </div>
+                        <div class="doc-card text-center hover:scale-105 transition-transform">
+                            <div class="text-3xl font-bold text-purple-400 mb-1">50+</div>
+                            <div class="text-sm text-gray-400">Supported Countries</div>
+                            <div class="text-xs text-purple-300 mt-1">Global Access</div>
+                        </div>
+                        <div class="doc-card text-center hover:scale-105 transition-transform">
+                            <div class="text-3xl font-bold text-yellow-400 mb-1">24/7</div>
+                            <div class="text-sm text-gray-400">Customer Support</div>
+                            <div class="text-xs text-yellow-300 mt-1">Always Available</div>
+                        </div>
+                    </div>
+                    
+                    <!-- What is USDT-FLASH -->
+                    <div class="doc-card mb-6 bg-gradient-to-br from-green-600/10 to-blue-600/10 border-green-500/30">
+                        <h2 class="card-title text-2xl mb-4">ما هو USDT-FLASH؟</h2>
+                        <p class="card-description mb-4 text-lg">
+                            USDT-FLASH هو نظام رصيد ذكي مصمم خصيصاً لمنصات التداول والمحافظ الرقمية. يوفر وصولاً فورياً إلى أسواق العملات المشفرة 
+                            مع أمان على مستوى المؤسسات وصالح لمدة <strong>365 يوماً كاملاً</strong>.
+                        </p>
+                        
+                        <!-- Key Benefits -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                            <div>
+                                <h3 class="text-lg font-semibold text-white mb-3">✅ المزايا الرئيسية:</h3>
+                                <ul class="space-y-2 text-gray-300">
+                                    <li class="flex items-center gap-2"><i class="fas fa-check text-green-400"></i> تسليم فوري خلال 5-15 دقيقة</li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-check text-green-400"></i> يعمل مع جميع المنصات الرئيسية</li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-check text-green-400"></i> أمان عسكري المستوى</li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-check text-green-400"></i> دعم فني 24/7</li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-check text-green-400"></i> صالح لمدة 365 يوم</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-semibold text-white mb-3">🎯 الاستخدامات:</h3>
+                                <ul class="space-y-2 text-gray-300">
+                                    <li class="flex items-center gap-2"><i class="fas fa-arrow-right text-blue-400"></i> التداول في البورصات</li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-arrow-right text-blue-400"></i> المحافظ الرقمية Web3</li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-arrow-right text-blue-400"></i> منصات DeFi</li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-arrow-right text-blue-400"></i> التحويلات السريعة</li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-arrow-right text-blue-400"></i> الاستثمار في العملات المشفرة</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-black/20 rounded-lg p-4">
+                            <div class="flex items-center gap-2 mb-2">
+                                <i class="fas fa-info-circle text-blue-400"></i>
+                                <span class="text-sm font-semibold text-blue-400">معلومة مهمة</span>
+                            </div>
+                            <p class="text-sm text-gray-300">
+                                USDT-FLASH يظهر كرصيد حقيقي في محفظتك ويمكن استخدامه للتداول والاستثمار. 
+                                للتحويل إلى USDT حقيقي، يتم التحويل عبر العملات الميمية مع الاحتفاظ بـ 75% من القيمة.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- How It Works -->
+                    <div class="doc-card mb-6">
+                        <h2 class="card-title text-xl mb-4">كيف يعمل النظام؟</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                            <div class="text-center">
+                                <div class="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-3">1</div>
+                                <h3 class="font-semibold text-white mb-2">اختر الباقة</h3>
+                                <p class="text-sm text-gray-400">اختر الباقة المناسبة لاحتياجاتك</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="w-16 h-16 bg-green-600 rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-3">2</div>
+                                <h3 class="font-semibold text-white mb-2">ادفع بـ USDT</h3>
+                                <p class="text-sm text-gray-400">الدفع آمن عبر شبكة TRC20</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-3">3</div>
+                                <h3 class="font-semibold text-white mb-2">استلم فوراً</h3>
+                                <p class="text-sm text-gray-400">يصل خلال 5-15 دقيقة</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="w-16 h-16 bg-yellow-600 rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-3">4</div>
+                                <h3 class="font-semibold text-white mb-2">ابدأ التداول</h3>
+                                <p class="text-sm text-gray-400">استخدم في أي منصة تداول</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Supported Platforms Preview -->
+                    <div class="doc-card mb-6">
+                        <h2 class="card-title text-xl mb-4">المنصات المدعومة</h2>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            <div class="flex items-center gap-3 p-3 bg-black/20 rounded-lg">
+                                <img src="img/Binance Web3.jpeg" class="w-10 h-10 rounded-lg object-contain">
+                                <div>
+                                    <div class="font-semibold text-white text-sm">Binance</div>
+                                    <div class="text-xs text-green-400">✓ مدعوم</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-3 p-3 bg-black/20 rounded-lg">
+                                <img src="img/BYBIT.jpg" class="w-10 h-10 rounded-lg object-contain">
+                                <div>
+                                    <div class="font-semibold text-white text-sm">Bybit</div>
+                                    <div class="text-xs text-green-400">✓ مدعوم</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-3 p-3 bg-black/20 rounded-lg">
+                                <img src="img/META MASK.png" class="w-10 h-10 rounded-lg object-contain">
+                                <div>
+                                    <div class="font-semibold text-white text-sm">MetaMask</div>
+                                    <div class="text-xs text-green-400">✓ مدعوم</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-3 p-3 bg-black/20 rounded-lg">
+                                <img src="img/Trust_Wallet_2023_b-stacked.webp" class="w-10 h-10 rounded-lg object-contain">
+                                <div>
+                                    <div class="font-semibold text-white text-sm">Trust Wallet</div>
+                                    <div class="text-xs text-green-400">✓ مدعوم</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center mt-4">
+                            <a href="#supported-platforms" onclick="showSection('supported-platforms')" class="text-blue-400 hover:text-blue-300 text-sm">
+                                عرض جميع المنصات المدعومة <i class="fas fa-arrow-left mr-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Security & Features -->
+                    <div class="doc-card mb-6">
+                        <h2 class="card-title text-xl mb-4">الأمان والميزات</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div class="text-center">
+                                <div class="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                                    <i class="fas fa-shield-alt text-white text-xl"></i>
+                                </div>
+                                <h3 class="font-semibold text-white mb-2">أمان عسكري</h3>
+                                <p class="text-sm text-gray-400">تشفير 256-bit SSL وحماية متعددة الطبقات</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="w-16 h-16 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                                    <i class="fas fa-bolt text-white text-xl"></i>
+                                </div>
+                                <h3 class="font-semibold text-white mb-2">سرعة فائقة</h3>
+                                <p class="text-sm text-gray-400">تسليم خلال 5-15 دقيقة فقط</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                                    <i class="fas fa-headset text-white text-xl"></i>
+                                </div>
+                                <h3 class="font-semibold text-white mb-2">دعم متميز</h3>
+                                <p class="text-sm text-gray-400">فريق دعم متاح 24/7 بعدة لغات</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Quick Actions -->
+                    <div class="doc-card">
+                        <h2 class="card-title text-xl mb-4">ابدأ الآن</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <a href="#packages" onclick="showSection('packages')" class="flex items-center gap-3 p-4 bg-gradient-to-r from-green-600/20 to-green-700/20 border border-green-500/30 rounded-lg hover:border-green-400/50 transition-all group">
+                                <i class="fas fa-box text-green-400 text-xl group-hover:scale-110 transition-transform"></i>
+                                <div>
+                                    <div class="font-semibold text-white">عرض الباقات</div>
+                                    <div class="text-sm text-gray-400">اختر الباقة المناسبة</div>
+                                </div>
+                            </a>
+                            <a href="#quick-start" onclick="showSection('quick-start')" class="flex items-center gap-3 p-4 bg-gradient-to-r from-blue-600/20 to-blue-700/20 border border-blue-500/30 rounded-lg hover:border-blue-400/50 transition-all group">
+                                <i class="fas fa-rocket text-blue-400 text-xl group-hover:scale-110 transition-transform"></i>
+                                <div>
+                                    <div class="font-semibold text-white">دليل البداية</div>
+                                    <div class="text-sm text-gray-400">تعلم كيفية الاستخدام</div>
+                                </div>
+                            </a>
+                            <a href="pages/support.html" class="flex items-center gap-3 p-4 bg-gradient-to-r from-purple-600/20 to-purple-700/20 border border-purple-500/30 rounded-lg hover:border-purple-400/50 transition-all group">
+                                <i class="fas fa-headset text-purple-400 text-xl group-hover:scale-110 transition-transform"></i>
+                                <div>
+                                    <div class="font-semibold text-white">تواصل معنا</div>
+                                    <div class="text-sm text-gray-400">احصل على المساعدة</div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Quick Start Section -->
+                <section id="quick-start-section" class="doc-section" style="display: none;">
+                    <h1 class="doc-title">Quick Start Guide</h1>
+                    <p class="doc-subtitle">Get started with USDT-FLASH in just a few simple steps.</p>
+                    
+                    <!-- Step-by-Step Process -->
+                    <div class="doc-card mb-6">
+                        <h2 class="card-title">4-Step Process</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
+                            <div class="text-center">
+                                <div class="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-3">1</div>
+                                <h3 class="font-semibold text-white mb-2">Create Account</h3>
+                                <p class="text-sm text-gray-400">Register with email verification</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="w-16 h-16 bg-green-600 rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-3">2</div>
+                                <h3 class="font-semibold text-white mb-2">Choose Package</h3>
+                                <p class="text-sm text-gray-400">Select your preferred package</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-3">3</div>
+                                <h3 class="font-semibold text-white mb-2">Secure Payment</h3>
+                                <p class="text-sm text-gray-400">Pay with USDT (TRC20)</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="w-16 h-16 bg-yellow-600 rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-3">4</div>
+                                <h3 class="font-semibold text-white mb-2">Instant Delivery</h3>
+                                <p class="text-sm text-gray-400">Receive in 5-15 minutes</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Code Example -->
+                    <h2 class="section-header">Example Integration</h2>
+                    <div class="code-block">
+                        <code>// Initialize USDT-FLASH client
+const usdtFlash = new USDTFlashClient({
+  apiKey: 'your-api-key',
+  environment: 'production'
+});
+
+// Create transaction
+const transaction = await usdtFlash.createTransaction({
+  amount: 500,
+  package: 'essential',
+  walletAddress: '0x...',
+  network: 'TRC20'
+});
+
+console.log('Transaction ID:', transaction.id);</code>
+                    </div>
+                </section>
+                
+                <!-- Installation Section -->
+                <section id="installation-section" class="doc-section" style="display: none;">
+                    <h1 class="doc-title">Installation</h1>
+                    <p class="doc-subtitle">Multiple ways to integrate USDT-FLASH into your application.</p>
+                    
+                    <!-- Installation Methods -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                        <div class="doc-card">
+                            <h3 class="card-title">Web Integration</h3>
+                            <p class="card-description mb-4">Direct integration via our web interface</p>
+                            <div class="code-block">
+                                <code>&lt;script src="https://cdn.usdt-flash.com/v1/sdk.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+  USDTFlash.init({
+    publicKey: 'pk_live_...',
+    theme: 'dark'
+  });
+&lt;/script&gt;</code>
+                            </div>
+                        </div>
+                        
+                        <div class="doc-card">
+                            <h3 class="card-title">API Integration</h3>
+                            <p class="card-description mb-4">RESTful API for backend integration</p>
+                            <div class="code-block">
+                                <code>curl -X POST https://api.usdt-flash.com/v1/transactions \
+  -H "Authorization: Bearer sk_live_..." \
+  -H "Content-Type: application/json" \
+  -d '{
+    "amount": 500,
+    "package": "essential",
+    "wallet_address": "0x..."
+  }'</code>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Packages Section -->
+                <section id="packages-section" class="doc-section" style="display: none;">
+                    <h1 class="doc-title">Packages</h1>
+                    <p class="doc-subtitle">Choose the perfect package for your needs.</p>
+                    
+                    <!-- Packages Table -->
+                    <table class="doc-table mb-8">
+                        <thead>
+                            <tr>
+                                <th>Package</th>
+                                <th>Amount</th>
+                                <th>Price</th>
+                                <th>Discount</th>
+                                <th>Features</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="badge badge-success">Essential</span></td>
+                                <td>500 USDT-FLASH</td>
+                                <td>$36</td>
+                                <td><span class="text-red-400 line-through">$45</span> 20% OFF</td>
+                                <td>Basic support, Instant delivery</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge badge-info">Premium</span></td>
+                                <td>3,000 USDT-FLASH</td>
+                                <td>$239</td>
+                                <td><span class="text-red-400 line-through">$299</span> 20% OFF</td>
+                                <td>Priority processing, VIP support, Bonus included</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge badge-warning">Ultimate</span></td>
+                                <td>10,000 USDT-FLASH</td>
+                                <td>$319</td>
+                                <td><span class="text-red-400 line-through">$399</span> 20% OFF</td>
+                                <td>VIP access, Maximum limits, Premium bonus</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <!-- Package Comparison -->
+                    <h2 class="section-header">Package Comparison</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="doc-card">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="card-title">Essential</h3>
+                                <span class="badge badge-success">Popular</span>
+                            </div>
+                            <div class="text-3xl font-bold text-white mb-2">$36</div>
+                            <div class="text-sm text-gray-400 mb-4">500 USDT-FLASH</div>
+                            <ul class="space-y-2 text-sm">
+                                <li class="flex items-center gap-2"><i class="fas fa-check text-green-400"></i> Instant delivery</li>
+                                <li class="flex items-center gap-2"><i class="fas fa-check text-green-400"></i> 24/7 support</li>
+                                <li class="flex items-center gap-2"><i class="fas fa-check text-green-400"></i> Web3 compatible</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="doc-card border-2 border-blue-500">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="card-title">Premium</h3>
+                                <span class="badge badge-info">Most Popular</span>
+                            </div>
+                            <div class="text-3xl font-bold text-white mb-2">$239</div>
+                            <div class="text-sm text-gray-400 mb-4">3,000 USDT-FLASH</div>
+                            <ul class="space-y-2 text-sm">
+                                <li class="flex items-center gap-2"><i class="fas fa-check text-green-400"></i> Priority processing</li>
+                                <li class="flex items-center gap-2"><i class="fas fa-check text-green-400"></i> VIP support</li>
+                                <li class="flex items-center gap-2"><i class="fas fa-check text-green-400"></i> Bonus included</li>
+                                <li class="flex items-center gap-2"><i class="fas fa-check text-green-400"></i> Advanced features</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="doc-card">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="card-title">Ultimate</h3>
+                                <span class="badge badge-warning">Enterprise</span>
+                            </div>
+                            <div class="text-3xl font-bold text-white mb-2">$319</div>
+                            <div class="text-sm text-gray-400 mb-4">10,000 USDT-FLASH</div>
+                            <ul class="space-y-2 text-sm">
+                                <li class="flex items-center gap-2"><i class="fas fa-check text-green-400"></i> VIP access</li>
+                                <li class="flex items-center gap-2"><i class="fas fa-check text-green-400"></i> Maximum limits</li>
+                                <li class="flex items-center gap-2"><i class="fas fa-check text-green-400"></i> Premium bonus</li>
+                                <li class="flex items-center gap-2"><i class="fas fa-check text-green-400"></i> Dedicated support</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Supported Platforms Section -->
+                <section id="supported-platforms-section" class="doc-section" style="display: none;">
+                    <h1 class="doc-title">Supported Platforms</h1>
+                    <p class="doc-subtitle">USDT-FLASH works seamlessly across all major cryptocurrency platforms.</p>
+                    
+                    <!-- Platform Categories -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                        <div class="doc-card">
+                            <h3 class="card-title mb-4">Exchanges</h3>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="flex items-center gap-3">
+                                    <img src="img/Binance Web3.jpeg" class="w-10 h-10 rounded-lg object-contain">
+                                    <div>
+                                        <div class="font-semibold text-white">Binance</div>
+                                        <div class="text-xs text-green-400">✓ Verified</div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <img src="img/BYBIT.jpg" class="w-10 h-10 rounded-lg object-contain">
+                                    <div>
+                                        <div class="font-semibold text-white">Bybit</div>
+                                        <div class="text-xs text-green-400">✓ Verified</div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <img src="img/OKX_Logo.svg" class="w-10 h-10 rounded-lg object-contain">
+                                    <div>
+                                        <div class="font-semibold text-white">OKX</div>
+                                        <div class="text-xs text-green-400">✓ Verified</div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <img src="img/bitkeep-bitget-wallet.webp" class="w-10 h-10 rounded-lg object-contain">
+                                    <div>
+                                        <div class="font-semibold text-white">Bitget</div>
+                                        <div class="text-xs text-green-400">✓ Verified</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="doc-card">
+                            <h3 class="card-title mb-4">Wallets</h3>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="flex items-center gap-3">
+                                    <img src="img/META MASK.png" class="w-10 h-10 rounded-lg object-contain">
+                                    <div>
+                                        <div class="font-semibold text-white">MetaMask</div>
+                                        <div class="text-xs text-green-400">✓ Web3</div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <img src="img/Trust_Wallet_2023_b-stacked.webp" class="w-10 h-10 rounded-lg object-contain">
+                                    <div>
+                                        <div class="font-semibold text-white">Trust Wallet</div>
+                                        <div class="text-xs text-green-400">✓ Mobile</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Supported Networks -->
+                    <h2 class="section-header">Supported Networks</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="doc-card text-center">
+                            <div class="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                                <i class="fas fa-link text-white text-xl"></i>
+                            </div>
+                            <h3 class="font-semibold text-white mb-2">TRON (TRC20)</h3>
+                            <p class="text-sm text-gray-400">Primary network for USDT transactions</p>
+                        </div>
+                        <div class="doc-card text-center">
+                            <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                                <i class="fas fa-ethereum text-white text-xl"></i>
+                            </div>
+                            <h3 class="font-semibold text-white mb-2">Ethereum (ERC20)</h3>
+                            <p class="text-sm text-gray-400">Secondary network support</p>
+                        </div>
+                        <div class="doc-card text-center">
+                            <div class="w-12 h-12 bg-yellow-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                                <i class="fas fa-coins text-white text-xl"></i>
+                            </div>
+                            <h3 class="font-semibold text-white mb-2">BSC (BEP20)</h3>
+                            <p class="text-sm text-gray-400">Binance Smart Chain support</p>
+                        </div>
+                    </div>
+                </section>
+</body>
+</html>
+                
+                <!-- Conversion Process Section -->
+                <section id="conversion-process-section" class="doc-section" style="display: none;">
+                    <h1 class="doc-title">Conversion Process</h1>
+                    <p class="doc-subtitle">Complete guide to converting USDT-FLASH to real USDT through meme coins.</p>
+                    
+                    <!-- Process Overview -->
+                    <div class="doc-card mb-8">
+                        <h2 class="card-title">Conversion Flow</h2>
+                        <div class="flex items-center justify-between mt-6 overflow-x-auto">
+                            <div class="flex items-center gap-4 min-w-max">
+                                <div class="text-center">
+                                    <div class="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mb-2">
+                                        <i class="fas fa-wallet text-white text-xl"></i>
+                                    </div>
+                                    <div class="text-sm font-semibold text-white">Receive USDT-FLASH</div>
+                                    <div class="text-xs text-gray-400">In Web3 wallet</div>
+                                </div>
+                                <i class="fas fa-arrow-right text-gray-400 text-xl"></i>
+                                <div class="text-center">
+                                    <div class="w-16 h-16 bg-green-600 rounded-full flex items-center justify-center mb-2">
+                                        <i class="fas fa-exchange-alt text-white text-xl"></i>
+                                    </div>
+                                    <div class="text-sm font-semibold text-white">Convert to Meme Coins</div>
+                                    <div class="text-xs text-gray-400">PEPE, DOGE, SHIB</div>
+                                </div>
+                                <i class="fas fa-arrow-right text-gray-400 text-xl"></i>
+                                <div class="text-center">
+                                    <div class="w-16 h-16 bg-yellow-600 rounded-full flex items-center justify-center mb-2">
+                                        <i class="fas fa-clock text-white text-xl"></i>
+                                    </div>
+                                    <div class="text-sm font-semibold text-white">Wait 24 Hours</div>
+                                    <div class="text-xs text-gray-400">Balance activation</div>
+                                </div>
+                                <i class="fas fa-arrow-right text-gray-400 text-xl"></i>
+                                <div class="text-center">
+                                    <div class="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center mb-2">
+                                        <i class="fas fa-dollar-sign text-white text-xl"></i>
+                                    </div>
+                                    <div class="text-sm font-semibold text-white">Sell for Real USDT</div>
+                                    <div class="text-xs text-gray-400">Keep 75%</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Important Guidelines -->
+                    <div class="doc-card bg-yellow-500/10 border-yellow-500/30">
+                        <h3 class="card-title text-yellow-400 mb-4">
+                            <i class="fas fa-exclamation-triangle mr-2"></i>
+                            Important Guidelines
+                        </h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <h4 class="font-semibold text-white mb-3">✅ Do's</h4>
+                                <ul class="space-y-2 text-sm text-gray-300">
+                                    <li class="flex items-start gap-2"><i class="fas fa-check text-green-400 mt-1"></i> Use Web3 wallet addresses only</li>
+                                    <li class="flex items-start gap-2"><i class="fas fa-check text-green-400 mt-1"></i> Store in verified platforms</li>
+                                    <li class="flex items-start gap-2"><i class="fas fa-check text-green-400 mt-1"></i> Wait 24h for activation</li>
+                                    <li class="flex items-start gap-2"><i class="fas fa-check text-green-400 mt-1"></i> Convert to meme coins first</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-white mb-3">❌ Don'ts</h4>
+                                <ul class="space-y-2 text-sm text-gray-300">
+                                    <li class="flex items-start gap-2"><i class="fas fa-times text-red-400 mt-1"></i> Never sell USDT-FLASH directly</li>
+                                    <li class="flex items-start gap-2"><i class="fas fa-times text-red-400 mt-1"></i> Never use username/ID transfers</li>
+                                    <li class="flex items-start gap-2"><i class="fas fa-times text-red-400 mt-1"></i> Don't skip the 24h waiting period</li>
+                                    <li class="flex items-start gap-2"><i class="fas fa-times text-red-400 mt-1"></i> Don't use unsupported platforms</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Security Section -->
+                <section id="security-section" class="doc-section" style="display: none;">
+                    <h1 class="doc-title">Security</h1>
+                    <p class="doc-subtitle">Enterprise-grade security measures protecting your transactions and data.</p>
+                    
+                    <!-- Security Features -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                        <div class="doc-card">
+                            <div class="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center mb-4">
+                                <i class="fas fa-lock text-white text-xl"></i>
+                            </div>
+                            <h3 class="card-title">256-bit SSL Encryption</h3>
+                            <p class="card-description">All data transmission is protected with bank-level encryption standards.</p>
+                        </div>
+                        
+                        <div class="doc-card">
+                            <div class="w-12 h-12 bg-green-600 rounded-lg flex items-center justify-center mb-4">
+                                <i class="fas fa-cube text-white text-xl"></i>
+                            </div>
+                            <h3 class="card-title">Blockchain Verification</h3>
+                            <p class="card-description">Every transaction is verified on the blockchain for maximum transparency.</p>
+                        </div>
+                        
+                        <div class="doc-card">
+                            <div class="w-12 h-12 bg-purple-600 rounded-lg flex items-center justify-center mb-4">
+                                <i class="fas fa-shield-alt text-white text-xl"></i>
+                            </div>
+                            <h3 class="card-title">Multi-layer Protection</h3>
+                            <p class="card-description">Advanced security protocols with multiple validation layers.</p>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- API Authentication Section -->
+                <section id="authentication-section" class="doc-section" style="display: none;">
+                    <h1 class="doc-title">Authentication</h1>
+                    <p class="doc-subtitle">Secure API authentication using API keys and tokens.</p>
+                    
+                    <div class="doc-card mb-6">
+                        <h2 class="card-title">API Key Authentication</h2>
+                        <p class="card-description mb-4">All API requests must include a valid API key in the Authorization header.</p>
+                        <div class="code-block">
+                            <code>curl -H "Authorization: Bearer sk_live_..." \
+     -H "Content-Type: application/json" \
+     https://api.usdt-flash.com/v1/transactions</code>
+                        </div>
+                    </div>
+                    
+                    <div class="doc-card">
+                        <h2 class="card-title">Rate Limiting</h2>
+                        <p class="card-description">API requests are limited to 1000 requests per hour per API key.</p>
+                        <table class="doc-table mt-4">
+                            <thead>
+                                <tr>
+                                    <th>Endpoint</th>
+                                    <th>Rate Limit</th>
+                                    <th>Window</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>/v1/transactions</td>
+                                    <td>100 requests</td>
+                                    <td>1 hour</td>
+                                </tr>
+                                <tr>
+                                    <td>/v1/balance</td>
+                                    <td>1000 requests</td>
+                                    <td>1 hour</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                
+                <!-- FAQ Section -->
+                <section id="faq-section" class="doc-section" style="display: none;">
+                    <h1 class="doc-title">Frequently Asked Questions</h1>
+                    <p class="doc-subtitle">Common questions and answers about USDT-FLASH.</p>
+                    
+                    <div class="space-y-6">
+                        <div class="doc-card">
+                            <h3 class="card-title">What is USDT-FLASH?</h3>
+                            <p class="card-description">USDT-FLASH is a smart balance system designed for Web3 trading platforms. Valid for 365 days, it provides instant access to cryptocurrency markets with enterprise-level security.</p>
+                        </div>
+                        
+                        <div class="doc-card">
+                            <h3 class="card-title">How long does delivery take?</h3>
+                            <p class="card-description">Delivery is instant! Once your payment is confirmed, you'll receive your USDT-FLASH within 5-15 minutes directly to your wallet.</p>
+                        </div>
+                        
+                        <div class="doc-card">
+                            <h3 class="card-title">What are the service fees?</h3>
+                            <p class="card-description">When you sell your meme coins, a 25% service fee applies. This means you keep 75% of the value. There are no hidden fees.</p>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- System Status Section -->
+                <section id="status-section" class="doc-section" style="display: none;">
+                    <h1 class="doc-title">System Status</h1>
+                    <p class="doc-subtitle">Real-time status of all USDT-FLASH services and infrastructure.</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                        <div class="doc-card">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="card-title">API Services</h3>
+                                <span class="badge badge-success"><i class="fas fa-check"></i> Operational</span>
+                            </div>
+                            <div class="space-y-3">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-sm text-gray-300">Transaction API</span>
+                                    <div class="status-indicator">
+                                        <div class="status-dot status-online"></div>
+                                        <span class="text-xs text-green-400">Online</span>
+                                    </div>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-sm text-gray-300">Balance API</span>
+                                    <div class="status-indicator">
+                                        <div class="status-dot status-online"></div>
+                                        <span class="text-xs text-green-400">Online</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="doc-card">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="card-title">Platform Status</h3>
+                                <span class="badge badge-success"><i class="fas fa-check"></i> All Systems Operational</span>
+                            </div>
+                            <div class="space-y-3">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-sm text-gray-300">Uptime</span>
+                                    <span class="text-sm font-semibold text-green-400">99.9%</span>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-sm text-gray-300">Response Time</span>
+                                    <span class="text-sm font-semibold text-green-400">< 200ms</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+            </div>
+        </main>
+    </div>
+    
+    <!-- JavaScript -->
+    <script>
+        // Navigation functionality
+        function showSection(sectionName) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.doc-section');
+            sections.forEach(section => {
+                section.style.display = 'none';
+            });
+            
+            // Show selected section
+            const targetSection = document.getElementById(sectionName + '-section');
+            if (targetSection) {
+                targetSection.style.display = 'block';
+                targetSection.classList.add('fade-in-up');
+            }
+            
+            // Update active sidebar link
+            const sidebarLinks = document.querySelectorAll('.sidebar-link');
+            sidebarLinks.forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            const activeLink = document.querySelector(`[href="#${sectionName}"]`);
+            if (activeLink) {
+                activeLink.classList.add('active');
+            }
+            
+            // Update breadcrumb
+            const currentSection = document.getElementById('currentSection');
+            if (currentSection) {
+                currentSection.textContent = sectionName.charAt(0).toUpperCase() + sectionName.slice(1).replace('-', ' ');
+            }
+        }
+        
+        // Mobile sidebar toggle
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('open');
+        }
+        
+        // Search functionality
+        document.getElementById('searchInput').addEventListener('input', function(e) {
+            const query = e.target.value.toLowerCase();
+            const sidebarLinks = document.querySelectorAll('.sidebar-link');
+            
+            sidebarLinks.forEach(link => {
+                const text = link.textContent.toLowerCase();
+                if (text.includes(query)) {
+                    link.style.display = 'flex';
+                } else {
+                    link.style.display = query === '' ? 'flex' : 'none';
+                }
+            });
+        });
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            showSection('overview');
+        });
+    </script>
+</body>
+</html>
