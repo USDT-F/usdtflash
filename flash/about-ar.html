@@ -1,0 +1,1343 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>USDT FLASH - دليل المستخدم الرسمي | Tether Operations Limited</title>
+    <link rel="icon" type="image/png" href="img/usdt_cryptocurrencies_icon_188337.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/flash.css">
+    <link rel="stylesheet" href="css/tether-branding.css">
+    <link rel="stylesheet" href="css/tether-official-header.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Readex+Pro:wght@400;500;600;700&display=swap');
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Cairo', 'Readex Pro', sans-serif;
+            background: #fafafa;
+            color: #1a1a2e;
+            line-height: 1.7;
+        }
+        
+        .container { max-width: 1240px; margin: 0 auto; padding: 0 24px; }
+        
+        /* Unique Header */
+        .page-header {
+            background: #0d1117;
+            border-bottom: 1px solid #1e2d3d;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .page-header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 0;
+            gap: 16px;
+        }
+        .header-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .header-logo img { height: 40px; width: auto; border-radius: 8px; }
+        .header-logo h1 { font-size: 1.4rem; font-weight: 800; color: #e6edf3; letter-spacing: -0.3px; }
+        .header-logo span { font-size: 0.75rem; color: #8b949e; font-weight: 500; display: block; margin-top: -2px; }
+        .header-nav { display: flex; gap: 8px; }
+        .header-nav a {
+            padding: 8px 18px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.875rem;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+        .header-nav .btn-lang { background: #1e2d3d; color: #c9d1d9; border: 1px solid #30363d; }
+        .header-nav .btn-lang:hover { background: #2d3f53; }
+        .header-nav .btn-home { background: #238636; color: #fff; }
+        .header-nav .btn-home:hover { background: #2ea043; }
+        
+        /* Tether Banner */
+        .tether-strip {
+            background: #0c1b1e;
+            border-bottom: 1px solid #1a3a34;
+            padding: 10px 0;
+        }
+        .tether-strip-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .tether-strip-content img { height: 28px; border-radius: 4px; }
+        .tether-strip-content span { font-size: 0.8rem; color: #7ee8b0; font-weight: 600; }
+        .tether-strip-content .badge-verified {
+            background: #1a3a34;
+            color: #7ee8b0;
+            padding: 2px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            border: 1px solid #2a5a4e;
+        }
+        
+        /* Hero */
+        .hero-wrap {
+            background: #0d1117;
+            position: relative;
+            overflow: hidden;
+            padding: 80px 0 60px;
+        }
+        .hero-wrap::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 400px 300px at 20% 50%, rgba(35,134,54,0.08), transparent),
+                radial-gradient(ellipse 500px 400px at 80% 30%, rgba(56,139,253,0.06), transparent);
+        }
+        .hero-inner { position: relative; z-index: 1; text-align: center; }
+        .hero-inner .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #161b22;
+            border: 1px solid #30363d;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            color: #8b949e;
+            font-weight: 500;
+            margin-bottom: 24px;
+        }
+        .hero-inner .badge i { color: #3fb950; }
+        .hero-inner h1 {
+            font-size: 3.2rem;
+            font-weight: 900;
+            color: #e6edf3;
+            line-height: 1.2;
+            margin-bottom: 12px;
+        }
+        .hero-inner h1 span {
+            background: linear-gradient(135deg, #3fb950, #58a6ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-inner p {
+            font-size: 1.15rem;
+            color: #8b949e;
+            max-width: 640px;
+            margin: 0 auto 32px;
+            font-weight: 400;
+        }
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .hero-stats .stat {
+            background: #161b22;
+            border: 1px solid #21262d;
+            border-radius: 12px;
+            padding: 14px 24px;
+            min-width: 110px;
+        }
+        .hero-stats .stat .num { font-size: 1.3rem; font-weight: 800; color: #e6edf3; }
+        .hero-stats .stat .lbl { font-size: 0.75rem; color: #8b949e; font-weight: 500; }
+        
+        /* Section Decorators */
+        .sec-head { margin-bottom: 36px; }
+        .sec-head .label {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #555;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+        .sec-head h2 {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #0d1117;
+            line-height: 1.3;
+        }
+        .sec-head h2 small {
+            font-size: 1rem;
+            color: #666;
+            font-weight: 400;
+            display: block;
+            margin-top: 4px;
+        }
+        
+        /* Card System — not all the same */
+        .card-a {
+            background: #fff;
+            border: 1px solid #e5e7eb;
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+        }
+        .card-b {
+            background: #f6f8fa;
+            border: 1px solid #e5e7eb;
+            border-radius: 16px;
+            padding: 28px;
+        }
+        .card-c {
+            background: #fff;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+            border: 1px solid #eee;
+        }
+        
+        /* Platform Rows */
+        .plat-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #fff;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 10px 14px;
+            transition: all 0.15s;
+        }
+        .plat-row:hover { border-color: #bbb; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+        .plat-row img { width: 28px; height: 28px; border-radius: 6px; }
+        .plat-row span { font-weight: 600; font-size: 0.85rem; color: #1a1a2e; }
+        
+        /* FAQ Accordion */
+        .faq-item {
+            background: #fff;
+            border: 1px solid #eaecf0;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+        .faq-item button {
+            width: 100%;
+            text-align: right;
+            padding: 16px 20px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #1a1a2e;
+        }
+        .faq-item button:hover { background: #f6f8fa; }
+        .faq-item .icon-wrap {
+            width: 32px; height: 32px;
+            background: #f0f4f8;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 0.8rem;
+        }
+        .faq-answer-inner { padding: 0 20px 20px; color: #555; font-size: 0.9rem; line-height: 1.7; }
+        
+        /* Quote / Testimonial style */
+        .quote-card {
+            background: #fff;
+            border: 1px solid #eaecf0;
+            border-radius: 16px;
+            padding: 24px;
+            position: relative;
+        }
+        .quote-card::before {
+            content: '"';
+            font-size: 3rem;
+            color: #ddd;
+            position: absolute;
+            top: 8px;
+            left: 16px;
+            font-family: serif;
+            line-height: 1;
+        }
+        
+        /* Convert Steps */
+        .step-box {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+            padding: 20px 24px;
+            background: #fff;
+            border: 1px solid #eaecf0;
+            border-radius: 12px;
+            margin-bottom: 12px;
+        }
+        .step-num {
+            width: 36px; height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 0.9rem;
+            color: #fff;
+            flex-shrink: 0;
+        }
+        .step-content { flex: 1; }
+        .step-content h4 { font-weight: 700; font-size: 1rem; color: #0d1117; margin-bottom: 4px; }
+        .step-content p { font-size: 0.85rem; color: #555; line-height: 1.6; }
+        
+        /* Summary strip */
+        .summary-strip {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .summary-strip .s-item {
+            background: #fff;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 12px 20px;
+            text-align: center;
+            min-width: 90px;
+        }
+        .summary-strip .s-item .n { font-weight: 800; font-size: 1.1rem; }
+        .summary-strip .s-item .t { font-size: 0.7rem; color: #888; font-weight: 500; }
+        
+        /* Plan cards */
+        .plan-card {
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
+            border: 1px solid #e5e7eb;
+            background: #fff;
+        }
+        .plan-card .price-badge {
+            width: 56px; height: 56px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 12px;
+            font-weight: 800;
+            font-size: 1.2rem;
+            color: #fff;
+        }
+        
+        /* Technical cards */
+        .tech-card {
+            background: #fff;
+            border: 1px solid #eaecf0;
+            border-radius: 14px;
+            padding: 24px;
+        }
+        .tech-card .t-icon {
+            width: 44px; height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+            color: #fff;
+            font-size: 1.1rem;
+        }
+        
+        /* Persona cards */
+        .persona {
+            background: #fff;
+            border: 1px solid #eaecf0;
+            border-radius: 12px;
+            padding: 18px;
+        }
+        .persona .p-head {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+        .persona .p-icon {
+            width: 38px; height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+        }
+        
+        /* CTA strip */
+        .cta-strip {
+            background: linear-gradient(135deg, #0d1117, #1a2a3a);
+            border-radius: 16px;
+            padding: 36px 24px;
+            text-align: center;
+            color: #fff;
+        }
+        .cta-strip h3 { font-size: 1.3rem; font-weight: 800; margin-bottom: 4px; }
+        .cta-strip p { font-size: 0.85rem; color: #8b949e; }
+        
+        @media (max-width: 768px) {
+            .hero-inner h1 { font-size: 2rem; }
+            .page-header-inner { flex-direction: column; gap: 8px; }
+            .header-nav { width: 100%; justify-content: center; }
+            .sec-head h2 { font-size: 1.5rem; }
+            .step-box { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="page-header">
+        <div class="container">
+            <div class="page-header-inner">
+                <div class="header-logo">
+                    <img src="img/usdt_cryptocurrencies_icon_188337.png" alt="USDT-FLASH">
+                    <div>
+                        <h1>USDT FLASH</h1>
+                        <span>دليل المستخدم الرسمي</span>
+                    </div>
+                </div>
+                <nav class="header-nav">
+                    <a href="about-en.html" class="btn-lang"><i class="fas fa-language ml-1"></i> English</a>
+                    <a href="home.html" class="btn-home"><i class="fas fa-home ml-1"></i> الرئيسية</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Tether Strip -->
+    <div class="tether-strip">
+        <div class="container">
+            <div class="tether-strip-content">
+                <img src="img/usdt_cryptocurrencies_icon_188337.png" alt="Tether">
+                <span>شريك تقني رسمي معتمد من TETHER OPERATIONS LIMITED</span>
+                <span class="badge-verified"><i class="fas fa-shield-check ml-1"></i> موثق ومرخص منذ 2019</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero -->
+    <section class="hero-wrap">
+        <div class="container">
+            <div class="hero-inner">
+                <div class="badge">
+                    <i class="fas fa-check-circle"></i>
+                    رخصة رقم: TET-2025-PRO
+                </div>
+                <h1>
+                    دليل المستخدم الشامل<br>
+                    <span>USDT FLASH</span>
+                </h1>
+                <p>نظام الرصيد الذكي المصمم لمنصات Web3 — صالح لمدة 365 يوماً</p>
+                <div class="hero-stats">
+                    <div class="stat"><div class="num">6 سنوات</div><div class="lbl">خبرة في السوق</div></div>
+                    <div class="stat"><div class="num">50K+</div><div class="lbl">عميل راضٍ</div></div>
+                    <div class="stat"><div class="num">4.9/5</div><div class="lbl">تقييم العملاء</div></div>
+                    <div class="stat"><div class="num">24/7</div><div class="lbl">دعم فني</div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Main Content -->
+    <div class="container mx-auto px-4 py-20">
+        <!-- Introduction Section -->
+        <div class="professional-card p-10 mb-16">
+            <div class="text-center mb-12">
+                <h2 class="section-title text-4xl font-black text-gray-900 mb-4">
+                    مقدمة: التحول من Web2 إلى Web3
+                </h2>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                    فهم الفرق الجوهري بين النظامين وأهمية الانتقال إلى المستقبل اللامركزي
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-gradient-to-br from-red-50 to-orange-50 border-r-4 border-red-500 p-8 rounded-xl">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 bg-red-500 rounded-full flex items-center justify-center">
+                            <i class="fas fa-times text-white text-xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-red-800">Web2 التقليدي</h3>
+                    </div>
+                    <ul class="space-y-3 text-red-700">
+                        <li class="flex items-start gap-2">
+                            <i class="fas fa-exclamation-triangle mt-1"></i>
+                            <span>محفظتك ليست ملكك بالكامل</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fas fa-exclamation-triangle mt-1"></i>
+                            <span>بياناتك مكشوفة للأطراف الثالثة</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fas fa-exclamation-triangle mt-1"></i>
+                            <span>أموالك تحت سيطرة المنصات</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fas fa-exclamation-triangle mt-1"></i>
+                            <span>قيود وشروط صارمة</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="bg-gradient-to-br from-green-50 to-emerald-50 border-r-4 border-green-500 p-8 rounded-xl">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center">
+                            <i class="fas fa-check text-white text-xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-green-800">Web3 المستقبل</h3>
+                    </div>
+                    <ul class="space-y-3 text-green-700">
+                        <li class="flex items-start gap-2">
+                            <i class="fas fa-check-circle mt-1"></i>
+                            <span>أنت المالك الحقيقي لأصولك</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fas fa-check-circle mt-1"></i>
+                            <span>خصوصية وأمان كاملين</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fas fa-check-circle mt-1"></i>
+                            <span>سيطرة كاملة على أموالك</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fas fa-check-circle mt-1"></i>
+                            <span>حرية تداول بلا قيود</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="divider-professional"></div>
+        
+        <!-- Supported Platforms Section -->
+        <div class="professional-card p-10 mb-16">
+            <div class="text-center mb-12">
+                <h2 class="section-title text-4xl font-black text-gray-900 mb-6">
+                    المنصات والمحافظ المدعومة
+                </h2>
+                <p class="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+                    يمكنك تحويل واستخدام USDT FLASH على جميع المنصات والمحافظ الرائدة
+                </p>
+            </div>
+            
+            <!-- Crypto Wallets & Exchanges -->
+            <div class="success-box mb-8">
+                <div class="flex items-start gap-4">
+                    <div class="feature-icon">
+                        <img src="https://img.icons8.com/color/96/tether.png" alt="USDT" class="w-12 h-12">
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="text-2xl font-bold text-green-900 mb-4">محافظ ومنصات العملات الرقمية</h3>
+                        <p class="text-lg text-green-800 mb-6">
+                            تحويل فوري وآمن إلى جميع المنصات والمحافظ الرئيسية
+                        </p>
+                        
+                        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+                            <div class="bg-white rounded-xl p-4 text-center hover:shadow-lg transition-all">
+                                <img src="img/Binance Web3.jpeg" alt="Binance" class="h-12 w-12 object-contain mx-auto mb-2 rounded-lg">
+                                <h4 class="font-bold text-gray-800 text-sm">Binance</h4>
+                                <div class="w-full bg-green-200 h-1 rounded-full mt-2">
+                                    <div class="bg-green-500 h-1 rounded-full w-full"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-white rounded-xl p-4 text-center hover:shadow-lg transition-all">
+                                <img src="img/Trust_Wallet_2023_b-stacked.webp" alt="Trust Wallet" class="h-12 w-12 object-contain mx-auto mb-2 rounded-lg">
+                                <h4 class="font-bold text-gray-800 text-sm">Trust Wallet</h4>
+                                <div class="w-full bg-blue-200 h-1 rounded-full mt-2">
+                                    <div class="bg-blue-500 h-1 rounded-full w-full"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-white rounded-xl p-4 text-center hover:shadow-lg transition-all">
+                                <img src="img/BYBIT.jpg" alt="Bybit" class="h-12 w-12 object-contain mx-auto mb-2 rounded-lg">
+                                <h4 class="font-bold text-gray-800 text-sm">Bybit</h4>
+                                <div class="w-full bg-yellow-200 h-1 rounded-full mt-2">
+                                    <div class="bg-yellow-500 h-1 rounded-full w-full"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-white rounded-xl p-4 text-center hover:shadow-lg transition-all">
+                                <img src="img/META MASK.png" alt="MetaMask" class="h-12 w-12 object-contain mx-auto mb-2 rounded-lg">
+                                <h4 class="font-bold text-gray-800 text-sm">MetaMask</h4>
+                                <div class="w-full bg-orange-200 h-1 rounded-full mt-2">
+                                    <div class="bg-orange-500 h-1 rounded-full w-full"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-white rounded-xl p-4 text-center hover:shadow-lg transition-all">
+                                <img src="img/OKX_Logo.svg" alt="OKX" class="h-12 w-12 object-contain mx-auto mb-2 rounded-lg">
+                                <h4 class="font-bold text-gray-800 text-sm">OKX</h4>
+                                <div class="w-full bg-indigo-200 h-1 rounded-full mt-2">
+                                    <div class="bg-indigo-500 h-1 rounded-full w-full"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-white rounded-xl p-4 text-center hover:shadow-lg transition-all">
+                                <img src="img/bitkeep-bitget-wallet.webp" alt="Bitget" class="h-12 w-12 object-contain mx-auto mb-2 rounded-lg">
+                                <h4 class="font-bold text-gray-800 text-sm">Bitget</h4>
+                                <div class="w-full bg-cyan-200 h-1 rounded-full mt-2">
+                                    <div class="bg-cyan-500 h-1 rounded-full w-full"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Trading Platforms -->
+            <div class="info-box mb-8">
+                <div class="flex items-start gap-4">
+                    <div class="feature-icon">
+                        <img src="https://img.icons8.com/fluency/96/combo-chart.png" alt="Trading" class="w-12 h-12">
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="text-2xl font-bold text-blue-900 mb-4">منصات التداول المالي</h3>
+                        <p class="text-lg text-blue-800 mb-6">
+                            استخدم USDT FLASH للتداول على منصات الفوركس والعقود مقابل الفروقات
+                        </p>
+                        
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="bg-white rounded-xl p-6 border-2 border-blue-200 hover:border-blue-400 transition-all">
+                                <div class="flex items-center gap-4 mb-4">
+                                    <div class="w-16 h-16 bg-white rounded-xl flex items-center justify-center shadow-lg border border-gray-200">
+                                        <img src="nouveu/unnamed.png" alt="Exness" class="w-14 h-14 object-contain rounded-lg">
+                                    </div>
+                                    <div>
+                                        <h4 class="text-xl font-black text-gray-900">Exness</h4>
+                                        <p class="text-sm text-gray-600 font-semibold">منصة تداول الفوركس</p>
+                                    </div>
+                                </div>
+                                <ul class="space-y-2 text-gray-700">
+                                    <li class="flex items-center gap-2">
+                                        <i class="fas fa-check-circle text-green-500"></i>
+                                        <span>تداول الفوركس والمعادن</span>
+                                    </li>
+                                    <li class="flex items-center gap-2">
+                                        <i class="fas fa-check-circle text-green-500"></i>
+                                        <span>العقود مقابل الفروقات (CFD)</span>
+                                    </li>
+                                    <li class="flex items-center gap-2">
+                                        <i class="fas fa-check-circle text-green-500"></i>
+                                        <span>إيداع فوري عبر USDT</span>
+                                    </li>
+                                    <li class="flex items-center gap-2">
+                                        <i class="fas fa-check-circle text-green-500"></i>
+                                        <span>رافعة مالية تصل إلى 1:2000</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            
+                            <div class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-6 border-2 border-blue-300">
+                                <div class="text-center mb-4">
+                                    <div class="inline-flex items-center gap-2 bg-blue-500 text-white px-4 py-2 rounded-full text-sm font-bold">
+                                        <i class="fas fa-info-circle"></i>
+                                        <span>كيفية الاستخدام</span>
+                                    </div>
+                                </div>
+                                <ol class="space-y-3 text-gray-700">
+                                    <li class="flex items-start gap-3">
+                                        <span class="flex-shrink-0 w-6 h-6 bg-blue-500 text-white rounded-full flex items-center justify-center text-sm font-bold">1</span>
+                                        <span>حوّل USDT FLASH إلى محفظتك</span>
+                                    </li>
+                                    <li class="flex items-start gap-3">
+                                        <span class="flex-shrink-0 w-6 h-6 bg-blue-500 text-white rounded-full flex items-center justify-center text-sm font-bold">2</span>
+                                        <span>أودع في حساب Exness الخاص بك</span>
+                                    </li>
+                                    <li class="flex items-start gap-3">
+                                        <span class="flex-shrink-0 w-6 h-6 bg-blue-500 text-white rounded-full flex items-center justify-center text-sm font-bold">3</span>
+                                        <span>ابدأ التداول فوراً</span>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Betting Platforms -->
+            <div class="bg-gradient-to-br from-purple-50 to-pink-50 border-r-4 border-purple-500 p-8 rounded-xl">
+                <div class="flex items-start gap-4">
+                    <div class="feature-icon">
+                        <img src="https://img.icons8.com/color/96/dice.png" alt="Betting" class="w-12 h-12">
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="text-2xl font-bold text-purple-900 mb-4">منصة 1xBet للمراهنات الرياضية</h3>
+                        <p class="text-lg text-purple-800 mb-6">
+                            استخدم USDT FLASH على منصة 1xBet الرائدة عالمياً للمراهنات الرياضية والكازينو المباشر
+                        </p>
+                        
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <!-- Platform Info -->
+                            <div class="bg-white rounded-xl p-6 hover:shadow-xl transition-all">
+                                <div class="flex items-center gap-4 mb-6">
+                                    <div class="w-20 h-20 bg-gradient-to-br from-blue-600 to-blue-800 rounded-xl flex items-center justify-center shadow-lg">
+                                        <img src="nouveu/apps.705.14135041483387905.15690a85-df4d-4ece-aeda-d4afd6caa090.png" alt="1xBet" class="w-16 h-16 object-contain rounded-lg">
+                                    </div>
+                                    <div>
+                                        <h4 class="text-2xl font-black text-gray-900">1xBet</h4>
+                                        <p class="text-sm text-gray-600 font-semibold">المنصة الرائدة عالمياً</p>
+                                        <div class="flex items-center gap-2 mt-2">
+                                            <div class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+                                            <span class="text-xs text-green-600 font-bold">متاح الآن</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="space-y-4">
+                                    <div class="flex items-start gap-3">
+                                        <img src="https://img.icons8.com/color/48/football.png" alt="Sports" class="w-5 h-5 mt-1">
+                                        <div>
+                                            <h5 class="font-bold text-gray-900">المراهنات الرياضية</h5>
+                                            <p class="text-sm text-gray-600">كرة القدم، كرة السلة، التنس، وأكثر من 1000 حدث يومياً</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex items-start gap-3">
+                                        <img src="https://img.icons8.com/color/48/poker-chip.png" alt="Casino" class="w-5 h-5 mt-1">
+                                        <div>
+                                            <h5 class="font-bold text-gray-900">الكازينو المباشر</h5>
+                                            <p class="text-sm text-gray-600">ألعاب الطاولة، السلوتس، والروليت مع موزعين حقيقيين</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex items-start gap-3">
+                                        <img src="https://img.icons8.com/color/48/trophy.png" alt="Rewards" class="w-5 h-5 mt-1">
+                                        <div>
+                                            <h5 class="font-bold text-gray-900">مكافآت ضخمة</h5>
+                                            <p class="text-sm text-gray-600">مكافأة ترحيب تصل إلى 100% + دورات مجانية</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- How to Use Guide -->
+                            <div class="bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl p-6 border-2 border-green-300">
+                                <div class="text-center mb-6">
+                                    <div class="inline-flex items-center gap-2 bg-green-500 text-white px-4 py-2 rounded-full text-sm font-bold">
+                                        <i class="fas fa-lightbulb"></i>
+                                        <span>دليل الاستخدام الذكي</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="space-y-4">
+                                    <div class="flex items-start gap-3">
+                                        <span class="flex-shrink-0 w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center text-sm font-bold">1</span>
+                                        <div>
+                                            <h5 class="font-bold text-green-900 mb-1">إيداع USDT FLASH</h5>
+                                            <p class="text-sm text-green-800">حوّل USDT FLASH إلى حساب 1xBet الخاص بك</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex items-start gap-3">
+                                        <span class="flex-shrink-0 w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center text-sm font-bold">2</span>
+                                        <div>
+                                            <h5 class="font-bold text-green-900 mb-1">ابدأ اللعب والمراهنة</h5>
+                                            <p class="text-sm text-green-800">استخدم الرصيد في المراهنات أو ألعاب الكازينو</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex items-start gap-3">
+                                        <span class="flex-shrink-0 w-8 h-8 bg-yellow-500 text-white rounded-full flex items-center justify-center text-sm font-bold">3</span>
+                                        <div>
+                                            <h5 class="font-bold text-yellow-900 mb-1">اسحب الأرباح فقط</h5>
+                                            <p class="text-sm text-yellow-800">عند الفوز، اسحب أرباحك الإضافية كـ USDT حقيقي</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Smart Strategy Section -->
+                        <div class="mt-8 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl p-6">
+                            <div class="flex items-start gap-4">
+                                <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <img src="https://img.icons8.com/fluency/48/brain.png" alt="Strategy" class="w-6 h-6">
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="text-xl font-bold mb-3">الاستراتيجية الذكية لتحقيق الأرباح</h4>
+                                    <div class="grid md:grid-cols-2 gap-4 text-sm">
+                                        <div class="bg-white/10 rounded-lg p-4">
+                                            <h5 class="font-bold mb-2">💡 نصيحة ذهبية</h5>
+                                            <p>استخدم USDT FLASH كرأس مال أولي، وعند تحقيق أرباح، اسحب الأرباح الإضافية فوراً كـ USDT حقيقي قابل للتداول في أي مكان.</p>
+                                        </div>
+                                        <div class="bg-white/10 rounded-lg p-4">
+                                            <h5 class="font-bold mb-2">🎯 المثال العملي</h5>
+                                            <p>إيداع 1000 USDT FLASH → ربح 500 USDT إضافي → سحب الـ 500 USDT كعملة حقيقية → الاحتفاظ بالرصيد الأصلي للعب أكثر.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Benefits Highlight -->
+                        <div class="mt-6 grid md:grid-cols-3 gap-4">
+                            <div class="bg-white rounded-lg p-4 text-center border-2 border-green-200">
+                                <div class="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-3">
+                                    <img src="https://img.icons8.com/fluency/48/lightning-bolt.png" alt="Fast" class="w-6 h-6">
+                                </div>
+                                <h5 class="font-bold text-gray-900 mb-2">إيداع فوري</h5>
+                                <p class="text-sm text-gray-600">تحويل USDT FLASH خلال دقائق</p>
+                            </div>
+                            
+                            <div class="bg-white rounded-lg p-4 text-center border-2 border-blue-200">
+                                <div class="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-3">
+                                    <img src="https://img.icons8.com/color/48/tether.png" alt="USDT" class="w-6 h-6">
+                                </div>
+                                <h5 class="font-bold text-gray-900 mb-2">أرباح حقيقية</h5>
+                                <p class="text-sm text-gray-600">اسحب أرباحك كـ USDT أصلي</p>
+                            </div>
+                            
+                            <div class="bg-white rounded-lg p-4 text-center border-2 border-purple-200">
+                                <div class="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center mx-auto mb-3">
+                                    <img src="https://img.icons8.com/fluency/48/security-checked.png" alt="Security" class="w-6 h-6">
+                                </div>
+                                <h5 class="font-bold text-gray-900 mb-2">آمان كامل</h5>
+                                <p class="text-sm text-gray-600">منصة مرخصة ومنظمة دولياً</p>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-6 bg-purple-100 border border-purple-300 rounded-lg p-4">
+                            <div class="flex items-start gap-3">
+                                <i class="fas fa-info-circle text-purple-600 text-xl mt-1"></i>
+                                <div class="text-sm text-purple-800">
+                                    <p class="font-bold mb-1">تنويه مهم:</p>
+                                    <p>المراهنات والقمار قد تكون محظورة في بعض الدول. يرجى التأكد من القوانين المحلية قبل الاستخدام. نحن نشجع على اللعب المسؤول وإدارة المخاطر بحكمة.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Compatibility Badge -->
+            <div class="text-center mt-10">
+                <div class="inline-flex items-center gap-3 bg-gradient-to-r from-green-500 to-emerald-600 text-white px-8 py-4 rounded-full shadow-xl">
+                    <i class="fas fa-check-double text-2xl"></i>
+                    <span class="font-black text-lg">متوافق 100% مع جميع المنصات المذكورة</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Why Choose Section -->
+        <div class="professional-card p-10 mb-16">
+            <div class="text-center mb-8">
+                <h2 class="section-title text-4xl font-black text-gray-900 mb-6">
+                    لماذا تختار USDT FLASH؟
+                </h2>
+            </div>
+            
+            <div class="success-box">
+                <div class="flex items-start gap-4">
+                    <div class="feature-icon">
+                        <img src="https://img.icons8.com/color/96/star.png" alt="Features" class="w-12 h-12">
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="text-2xl font-bold text-green-900 mb-4">منظومة متكاملة ومدعومة بأقوى الضمانات</h3>
+                        <p class="text-lg text-green-800 leading-relaxed mb-6">
+                            لأنك لا تتعامل مع منصة عادية، بل مع منظومة متكاملة تحظى بدعم وثقة كبرى منصات Web3 ومطوري العملات الرقمية الرائدة، لتكون تجربة تداولك آمنة، متطورة، ومدعومة بأقوى الشراكات.
+                        </p>
+                        <div class="grid md:grid-cols-3 gap-4">
+                            <div class="bg-white rounded-lg p-4 text-center">
+                                <div class="text-3xl font-black text-green-600 mb-2">6 سنوات</div>
+                                <div class="text-sm text-gray-700 font-semibold">خبرة في السوق</div>
+                            </div>
+                            <div class="bg-white rounded-lg p-4 text-center">
+                                <div class="text-3xl font-black text-green-600 mb-2">50K+</div>
+                                <div class="text-sm text-gray-700 font-semibold">عميل راضٍ</div>
+                            </div>
+                            <div class="bg-white rounded-lg p-4 text-center">
+                                <div class="text-3xl font-black text-green-600 mb-2">4.9/5</div>
+                                <div class="text-sm text-gray-700 font-semibold">تقييم العملاء</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+
+    <!-- ====== قسم تحويل Flash إلى Real ====== -->
+    <div class="container mx-auto px-4 py-12">
+        <div class="professional-card p-10 mb-16">
+            <div class="text-center mb-10">
+                <div class="inline-flex items-center gap-2 bg-green-100 text-green-700 px-5 py-2 rounded-full text-sm font-bold mb-4 border border-green-200">
+                    <i class="fas fa-arrow-right-arrow-left text-green-600"></i>
+                    آلية التحويل
+                </div>
+                <h2 class="section-title text-4xl font-black text-gray-900 mb-4">
+                    من Flash إلى Real — كيف يعمل؟
+                </h2>
+                <div class="w-24 h-1 bg-gradient-to-l from-green-500 to-blue-500 rounded-full mx-auto mt-4"></div>
+            </div>
+            
+            <!-- الخطوات -->
+            <div class="space-y-8">
+                <!-- الخطوة 1 -->
+                <div class="info-box">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="w-12 h-12 rounded-full flex items-center justify-center text-white font-black text-lg" style="background: linear-gradient(135deg, #f59e0b, #d97706);">1</div>
+                        <h3 class="text-2xl font-bold text-gray-800">الشراء والإيداع</h3>
+                    </div>
+                    <p class="text-gray-700 leading-relaxed">تختار باقتك ويتم إضافة رصيد USDT Flash <strong>فوراً</strong> إلى حسابك على المنصة المختارة. لا انتظار، لا تأكيدات — العقد الذكي ينفذ الإيداع خلال ثوانٍ.</p>
+                    <div class="mt-3 flex items-center gap-2 text-sm text-gray-500"><i class="fas fa-bolt text-yellow-500"></i> تفعيل فوري · بدون تأكيدات</div>
+                </div>
+                
+                <!-- الخطوة 2 -->
+                <div class="info-box">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="w-12 h-12 rounded-full flex items-center justify-center text-white font-black text-lg" style="background: linear-gradient(135deg, #10b981, #059669);">2</div>
+                        <h3 class="text-2xl font-bold text-gray-800">شراء أصول الميم</h3>
+                    </div>
+                    <p class="text-gray-700 leading-relaxed">استخدم رصيد Flash لشراء <strong>أصول ميم عالية السيولة</strong> — SHIBA INU أو Pepe أو Dogecoin. تم اختيار هذه الأصول لعمق طلباتها الكبير ودورات التسوية السريعة.</p>
+                    <div class="mt-3 flex items-center gap-3 text-sm"><span class="text-orange-500 font-bold">SHIB</span><span class="text-gray-300">·</span><span class="text-pink-500 font-bold">PEPE</span><span class="text-gray-300">·</span><span class="text-yellow-500 font-bold">DOGE</span></div>
+                </div>
+                
+                <!-- الخطوة 3 -->
+                <div class="info-box">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="w-12 h-12 rounded-full flex items-center justify-center text-white font-black text-lg" style="background: linear-gradient(135deg, #f59e0b, #d97706);">3</div>
+                        <h3 class="text-2xl font-bold text-gray-800">دورة النضج 24 ساعة</h3>
+                    </div>
+                    <p class="text-gray-700 leading-relaxed">تدخل الأصول المشتراة <strong>نافذة نضج مدتها 24 ساعة</strong> تتحقق خلالها طبقة التحقق من البروتوكول من سلامة المعاملة عبر عقد شبكة متعددة. هذه فترة <strong>نهائية تسوية</strong> قياسية — نفس المفهوم المستخدم في معالجات الدفع الكبرى وجسور البلوكشين لمنع الإنفاق المزدوج.</p>
+                    <div class="mt-3 flex items-center gap-2 text-sm text-gray-500"><i class="fas fa-clock text-yellow-500"></i> 24h تسوية · تحقق متعدد العقد</div>
+                </div>
+                
+                <!-- الخطوة 4 -->
+                <div class="info-box">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="w-12 h-12 rounded-full flex items-center justify-center text-white font-black text-lg" style="background: linear-gradient(135deg, #3b82f6, #2563eb);">4</div>
+                        <h3 class="text-2xl font-bold text-gray-800">التسييل والتسوية</h3>
+                    </div>
+                    <p class="text-gray-700 leading-relaxed">بعد النضج، تبيع الأصول بسعر السوق. تطبق المنصة <strong>رسوم تسوية بنسبة 25%</strong> — تغطي <strong>توفير السيولة والتحقق عبر السلاسل وتكاليف تنفيذ العقد الذكي</strong>. الـ <strong>75% المتبقية هي لك</strong> كـ USDT حقيقي قابل للسحب والإنفاق.</p>
+                    <div class="mt-3 flex items-center gap-3 text-sm"><span class="text-green-600 font-bold"><i class="fas fa-circle-check"></i> 75% لك</span><span class="text-gray-300">·</span><span class="text-gray-500">25% رسوم تسوية</span></div>
+                </div>
+            </div>
+            
+            <!-- ملخص سريع -->
+            <div class="mt-8 bg-green-50 border border-green-200 rounded-2xl p-6">
+                <div class="grid grid-cols-4 gap-4 text-center">
+                    <div><div class="text-2xl font-black text-yellow-600">1</div><div class="text-xs font-bold text-gray-500">شراء</div><div class="text-sm text-gray-600">اختر باقتك</div></div>
+                    <div><div class="text-2xl font-black text-green-600">2</div><div class="text-xs font-bold text-gray-500">تحويل</div><div class="text-sm text-gray-600">اشترِ أصول ميم</div></div>
+                    <div><div class="text-2xl font-black text-yellow-600">3</div><div class="text-xs font-bold text-gray-500">نضج</div><div class="text-sm text-gray-600">24 ساعة تسوية</div></div>
+                    <div><div class="text-2xl font-black text-blue-600">4</div><div class="text-xs font-bold text-gray-500">سحب</div><div class="text-sm text-gray-600">75% USDT حقيقي</div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ====== قسم خطط تحويل الصرافة ====== -->
+    <div class="container mx-auto px-4 py-12">
+        <div class="professional-card p-10 mb-16">
+            <div class="text-center mb-10">
+                <div class="inline-flex items-center gap-2 bg-purple-100 text-purple-700 px-5 py-2 rounded-full text-sm font-bold mb-4 border border-purple-200">
+                    <i class="fas fa-arrow-right-arrow-left text-purple-600"></i>
+                    SMART CONTRACT TRANSFER SERVICES
+                </div>
+                <h2 class="section-title text-4xl font-black text-gray-900 mb-4">
+                    خطط تحويل الصرافة
+                </h2>
+                <p class="text-gray-600 text-lg">خطط متخصصة لأنواع المنصات المختلفة — كلها 500 USDT-FLASH مع تنفيذ فوري عبر العقود الذكية</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Betting -->
+                <div class="bg-gradient-to-br from-amber-50 to-yellow-50 rounded-2xl p-6 border border-amber-200 text-center">
+                    <div class="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 text-2xl font-black text-white" style="background: linear-gradient(135deg, #f59e0b, #d97706);">$45</div>
+                    <h3 class="text-xl font-black text-gray-800 mb-2">Betting Transfer</h3>
+                    <p class="text-amber-600 font-bold mb-3">500 USDT-FLASH</p>
+                    <ul class="text-right space-y-2 text-sm text-gray-600">
+                        <li class="flex items-center gap-2"><i class="fas fa-check-circle text-amber-500"></i> Stake.com</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check-circle text-amber-500"></i> BC.Game</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check-circle text-amber-500"></i> Duelbits · Rollbit · 1xBet</li>
+                    </ul>
+                </div>
+                
+                <!-- Binary -->
+                <div class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-6 border border-blue-200 text-center">
+                    <div class="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 text-2xl font-black text-white" style="background: linear-gradient(135deg, #3b82f6, #2563eb);">$55</div>
+                    <h3 class="text-xl font-black text-gray-800 mb-2">Binary Options</h3>
+                    <p class="text-blue-600 font-bold mb-3">500 USDT-FLASH</p>
+                    <ul class="text-right space-y-2 text-sm text-gray-600">
+                        <li class="flex items-center gap-2"><i class="fas fa-check-circle text-blue-500"></i> IQ Option · Olymp Trade</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check-circle text-blue-500"></i> Pocket Option · Binary.com</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check-circle text-blue-500"></i> Quotex</li>
+                    </ul>
+                </div>
+                
+                <!-- Forex -->
+                <div class="bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-6 border border-green-200 text-center">
+                    <div class="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 text-2xl font-black text-white" style="background: linear-gradient(135deg, #10b981, #059669);">$60</div>
+                    <h3 class="text-xl font-black text-gray-800 mb-2">Forex Transfer</h3>
+                    <p class="text-green-600 font-bold mb-3">500 USDT-FLASH</p>
+                    <ul class="text-right space-y-2 text-sm text-gray-600">
+                        <li class="flex items-center gap-2"><i class="fas fa-check-circle text-green-500"></i> Exness · XM</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check-circle text-green-500"></i> IC Markets · FXTM</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ====== قسم المنصات المدعومة (موسع) ====== -->
+    <div class="container mx-auto px-4 py-12">
+        <div class="professional-card p-10 mb-16">
+            <div class="text-center mb-10">
+                <div class="inline-flex items-center gap-2 bg-indigo-100 text-indigo-700 px-5 py-2 rounded-full text-sm font-bold mb-4 border border-indigo-200">
+                    <i class="fas fa-network-wired text-indigo-600"></i>
+                    المنصات المدعومة
+                </div>
+                <h2 class="section-title text-4xl font-black text-gray-900 mb-4">
+                    جميع المنصات التي ندعمها
+                </h2>
+                <p class="text-gray-600 text-lg">USDT Flash متوافق مع جميع منصات التداول والمحافظ التالية</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Betting -->
+                <div class="bg-gradient-to-br from-amber-50 to-orange-50 rounded-2xl p-6 border border-amber-200">
+                    <h3 class="text-xl font-black text-gray-800 mb-4 flex items-center gap-2"><i class="fas fa-dice text-amber-500"></i> منصات المراهنات</h3>
+                    <div class="space-y-3">
+                        <div class="flex items-center gap-3 bg-white rounded-xl p-3 shadow-sm"><img src="https://www.google.com/s2/favicons?domain=stake.com&sz=64" alt="Stake" class="w-8 h-8 rounded"><span class="font-semibold text-gray-700">Stake.com</span></div>
+                        <div class="flex items-center gap-3 bg-white rounded-xl p-3 shadow-sm"><img src="https://www.google.com/s2/favicons?domain=bc.game&sz=64" alt="BC.Game" class="w-8 h-8 rounded"><span class="font-semibold text-gray-700">BC.Game</span></div>
+                        <div class="flex items-center gap-3 bg-white rounded-xl p-3 shadow-sm"><img src="https://www.google.com/s2/favicons?domain=duelbits.com&sz=64" alt="Duelbits" class="w-8 h-8 rounded"><span class="font-semibold text-gray-700">Duelbits</span></div>
+                        <div class="flex items-center gap-3 bg-white rounded-xl p-3 shadow-sm"><img src="https://www.google.com/s2/favicons?domain=rollbit.com&sz=64" alt="Rollbit" class="w-8 h-8 rounded"><span class="font-semibold text-gray-700">Rollbit</span></div>
+                        <div class="flex items-center gap-3 bg-white rounded-xl p-3 shadow-sm"><img src="https://www.google.com/s2/favicons?domain=1xbet.com&sz=64" alt="1xBet" class="w-8 h-8 rounded"><span class="font-semibold text-gray-700">1xBet</span></div>
+                    </div>
+                </div>
+                
+                <!-- Binary Options -->
+                <div class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-6 border border-blue-200">
+                    <h3 class="text-xl font-black text-gray-800 mb-4 flex items-center gap-2"><i class="fas fa-chart-line text-blue-500"></i> الخيارات الثنائية</h3>
+                    <div class="space-y-3">
+                        <div class="flex items-center gap-3 bg-white rounded-xl p-3 shadow-sm"><img src="https://www.google.com/s2/favicons?domain=iqoption.com&sz=64" alt="IQ Option" class="w-8 h-8 rounded"><span class="font-semibold text-gray-700">IQ Option</span></div>
+                        <div class="flex items-center gap-3 bg-white rounded-xl p-3 shadow-sm"><img src="https://www.google.com/s2/favicons?domain=olymptrade.com&sz=64" alt="Olymp Trade" class="w-8 h-8 rounded"><span class="font-semibold text-gray-700">Olymp Trade</span></div>
+                        <div class="flex items-center gap-3 bg-white rounded-xl p-3 shadow-sm"><img src="https://www.google.com/s2/favicons?domain=pocketoption.com&sz=64" alt="Pocket Option" class="w-8 h-8 rounded"><span class="font-semibold text-gray-700">Pocket Option</span></div>
+                        <div class="flex items-center gap-3 bg-white rounded-xl p-3 shadow-sm"><img src="https://www.google.com/s2/favicons?domain=binary.com&sz=64" alt="Binary.com" class="w-8 h-8 rounded"><span class="font-semibold text-gray-700">Binary.com</span></div>
+                        <div class="flex items-center gap-3 bg-white rounded-xl p-3 shadow-sm"><img src="https://www.google.com/s2/favicons?domain=quotex.com&sz=64" alt="Quotex" class="w-8 h-8 rounded"><span class="font-semibold text-gray-700">Quotex</span></div>
+                    </div>
+                </div>
+                
+                <!-- Brokerage -->
+                <div class="bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-6 border border-green-200">
+                    <h3 class="text-xl font-black text-gray-800 mb-4 flex items-center gap-2"><i class="fas fa-building-columns text-green-500"></i> وسطاء الفوركس</h3>
+                    <div class="space-y-3">
+                        <div class="flex items-center gap-3 bg-white rounded-xl p-3 shadow-sm"><img src="https://www.google.com/s2/favicons?domain=exness.com&sz=64" alt="Exness" class="w-8 h-8 rounded"><span class="font-semibold text-gray-700">Exness</span></div>
+                        <div class="flex items-center gap-3 bg-white rounded-xl p-3 shadow-sm"><img src="https://www.google.com/s2/favicons?domain=xm.com&sz=64" alt="XM" class="w-8 h-8 rounded"><span class="font-semibold text-gray-700">XM</span></div>
+                        <div class="flex items-center gap-3 bg-white rounded-xl p-3 shadow-sm"><img src="https://www.google.com/s2/favicons?domain=icmarkets.com&sz=64" alt="IC Markets" class="w-8 h-8 rounded"><span class="font-semibold text-gray-700">IC Markets</span></div>
+                        <div class="flex items-center gap-3 bg-white rounded-xl p-3 shadow-sm"><img src="https://www.google.com/s2/favicons?domain=ftm.com&sz=64" alt="FXTM" class="w-8 h-8 rounded"><span class="font-semibold text-gray-700">FXTM</span></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-8">
+                <span class="inline-flex items-center gap-2 bg-green-100 text-green-700 px-6 py-3 rounded-full font-bold text-sm border border-green-200">
+                    <i class="fas fa-shield-check text-green-600"></i>
+                    100% متوافق مع جميع المنصات المذكورة
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ====== قسم التعمق التقني ====== -->
+    <div class="container mx-auto px-4 py-12">
+        <div class="professional-card p-10 mb-16">
+            <div class="text-center mb-10">
+                <div class="inline-flex items-center gap-2 bg-slate-100 text-slate-700 px-5 py-2 rounded-full text-sm font-bold mb-4 border border-slate-200">
+                    <i class="fas fa-microchip text-slate-600"></i>
+                    Technical Deep Dive
+                </div>
+                <h2 class="section-title text-4xl font-black text-gray-900 mb-4">
+                    نظرة تقنية معمقة
+                </h2>
+                <p class="text-gray-600 text-lg">التقنيات التي تشغل بروتوكول USDT Flash</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div class="bg-gradient-to-br from-gray-50 to-blue-50 rounded-2xl p-6 border border-gray-200">
+                    <div class="w-14 h-14 bg-gradient-to-br from-blue-500 to-blue-700 rounded-2xl flex items-center justify-center mb-4"><i class="fas fa-link text-white text-xl"></i></div>
+                    <h3 class="text-lg font-black text-gray-800 mb-3">Cross-Platform Interoperability</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">يتصل البروتوكول بعدة سلاسل بلوكشين (Ethereum، BSC، TRON، Polygon، Solana، Arbitrum، Optimism) مما يضمن التوافق مع جميع المنصات.</p>
+                </div>
+                <div class="bg-gradient-to-br from-gray-50 to-green-50 rounded-2xl p-6 border border-gray-200">
+                    <div class="w-14 h-14 bg-gradient-to-br from-green-500 to-green-700 rounded-2xl flex items-center justify-center mb-4"><i class="fas fa-water text-white text-xl"></i></div>
+                    <h3 class="text-lg font-black text-gray-800 mb-3">Dynamic Liquidity Aggregation</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">يجمع السيولة ديناميكياً من مجمعات DeFi المتعددة لضمان أفضل أسعار تحويل وتقليل الانزلاق السعري.</p>
+                </div>
+                <div class="bg-gradient-to-br from-gray-50 to-purple-50 rounded-2xl p-6 border border-gray-200">
+                    <div class="w-14 h-14 bg-gradient-to-br from-purple-500 to-purple-700 rounded-2xl flex items-center justify-center mb-4"><i class="fas fa-shield-halved text-white text-xl"></i></div>
+                    <h3 class="text-lg font-black text-gray-800 mb-3">Zero-Knowledge Settlement</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">تستخدم التسوية إثباتات المعرفة الصفرية (ZK-Proofs) للتحقق من سلامة المعاملات دون الكشف عن البيانات الحساسة.</p>
+                </div>
+            </div>
+            
+            <!-- دورة حياة المعاملة -->
+            <div class="bg-gray-50 rounded-2xl p-6 border border-gray-200">
+                <h3 class="text-xl font-black text-gray-800 mb-4 text-center">دورة حياة المعاملة</h3>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 text-center">
+                    <div class="p-4 bg-white rounded-xl shadow-sm"><div class="text-2xl font-black text-blue-600">1</div><div class="font-bold text-gray-700 text-sm">Initiation</div><div class="text-xs text-gray-500">إنشاء معاملة العقد الذكي</div></div>
+                    <div class="p-4 bg-white rounded-xl shadow-sm"><div class="text-2xl font-black text-green-600">2</div><div class="font-bold text-gray-700 text-sm">Validation</div><div class="text-xs text-gray-500">تحقق متعدد العقد</div></div>
+                    <div class="p-4 bg-white rounded-xl shadow-sm"><div class="text-2xl font-black text-purple-600">3</div><div class="font-bold text-gray-700 text-sm">Conversion</div><div class="text-xs text-gray-500">تحويل Flash→ميم→حقيقي</div></div>
+                    <div class="p-4 bg-white rounded-xl shadow-sm"><div class="text-2xl font-black text-amber-600">4</div><div class="font-bold text-gray-700 text-sm">Settlement</div><div class="text-xs text-gray-500">تسوية نهائية 24h</div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ====== قسم الأسئلة الشائعة ====== -->
+    <div class="container mx-auto px-4 py-12">
+        <div class="professional-card p-10 mb-16">
+            <div class="text-center mb-10">
+                <div class="inline-flex items-center gap-2 bg-teal-100 text-teal-700 px-5 py-2 rounded-full text-sm font-bold mb-4 border border-teal-200">
+                    <i class="fas fa-question-circle text-teal-600"></i>
+                    الأسئلة الشائعة
+                </div>
+                <h2 class="section-title text-4xl font-black text-gray-900 mb-4">
+                    لديك أسئلة؟ لدينا إجابات
+                </h2>
+                <p class="text-gray-600 text-lg">كل ما تحتاج معرفته عن USDT Flash</p>
+            </div>
+            
+            <div class="space-y-4">
+                <!-- س 1 -->
+                <div class="bg-gray-50 rounded-2xl border border-gray-200 overflow-hidden">
+                    <button class="w-full text-right p-5 flex items-center justify-between hover:bg-gray-100 transition-all" onclick="toggleFAQAr(1)">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-700 rounded-xl flex items-center justify-center flex-shrink-0"><i class="fas fa-info-circle text-white text-sm"></i></div>
+                            <h3 class="text-lg font-bold text-gray-800">ما هو USDT FLASH؟</h3>
+                        </div>
+                        <i class="fas fa-chevron-down text-gray-500 transition-transform" id="faq-ar-icon-1"></i>
+                    </button>
+                    <div class="faq-ar-answer" id="faq-ar-answer-1" style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease;">
+                        <div class="p-5 pt-0 text-gray-600 leading-relaxed">
+                            <p>USDT FLASH هو نظام رصيد ذكي قائم على العقود الذكية مصمم لمنصات Web3 — بما في ذلك مواقع المراهنات ووسطاء الخيارات الثنائية وشركات الفوركس. صالح لمدة 365 يوماً، يوفر وصولاً فورياً إلى أسواق العملات الرقمية بأمان على مستوى المؤسسات.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- س 2 -->
+                <div class="bg-gray-50 rounded-2xl border border-gray-200 overflow-hidden">
+                    <button class="w-full text-right p-5 flex items-center justify-between hover:bg-gray-100 transition-all" onclick="toggleFAQAr(2)">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-gradient-to-br from-purple-500 to-purple-700 rounded-xl flex items-center justify-center flex-shrink-0"><i class="fas fa-sync-alt text-white text-sm"></i></div>
+                            <h3 class="text-lg font-bold text-gray-800">كيف أحول USDT FLASH إلى USDT حقيقي؟</h3>
+                        </div>
+                        <i class="fas fa-chevron-down text-gray-500 transition-transform" id="faq-ar-icon-2"></i>
+                    </button>
+                    <div class="faq-ar-answer" id="faq-ar-answer-2" style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease;">
+                        <div class="p-5 pt-0 text-gray-600 leading-relaxed">
+                            <p class="font-bold mb-2">عملية بسيطة من 4 خطوات:</p>
+                            <ol class="list-decimal pr-5 space-y-2">
+                                <li><strong>الشراء والإيداع</strong> — اختر خطتك (مراهنات، خيارات ثنائية، أو فوركس) واستلم USDT FLASH فوراً</li>
+                                <li><strong>شراء أصول الميم</strong> — حول إلى عملات ميم عالية السيولة (PEPE، DOGE، أو SHIBA)</li>
+                                <li><strong>نضج 24 ساعة</strong> — طبقة التحقق من البروتوكول تؤكد سلامة المعاملة عبر عقد متعددة</li>
+                                <li><strong>التسييل والتسوية</strong> — بع الأصول. رسوم تسوية 25% تطبق، تحتفظ أنت بـ <strong>75% كـ USDT حقيقي</strong></li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- س 3 -->
+                <div class="bg-gray-50 rounded-2xl border border-gray-200 overflow-hidden">
+                    <button class="w-full text-right p-5 flex items-center justify-between hover:bg-gray-100 transition-all" onclick="toggleFAQAr(3)">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-gradient-to-br from-yellow-500 to-orange-600 rounded-xl flex items-center justify-center flex-shrink-0"><i class="fas fa-hand-holding-usd text-white text-sm"></i></div>
+                            <h3 class="text-lg font-bold text-gray-800">ما هي رسوم الخدمة؟</h3>
+                        </div>
+                        <i class="fas fa-chevron-down text-gray-500 transition-transform" id="faq-ar-icon-3"></i>
+                    </button>
+                    <div class="faq-ar-answer" id="faq-ar-answer-3" style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease;">
+                        <div class="p-5 pt-0 text-gray-600 leading-relaxed">
+                            <p>عند بيع عملات الميم الخاصة بك، تُطبق <strong>رسوم تسوية بنسبة 25%</strong>. هذا يعني أنك تحتفظ بـ <strong>75% من القيمة</strong>. تغطي هذه الرسوم صيانة المنصة والأمان والدعم على مدار الساعة وضمان الامتثال لجميع اللوائح. لا توجد رسوم مخفية — شفافية كاملة من البداية إلى النهاية.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- س 4 -->
+                <div class="bg-gray-50 rounded-2xl border border-gray-200 overflow-hidden">
+                    <button class="w-full text-right p-5 flex items-center justify-between hover:bg-gray-100 transition-all" onclick="toggleFAQAr(4)">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-gradient-to-br from-red-500 to-pink-600 rounded-xl flex items-center justify-center flex-shrink-0"><i class="fas fa-shield-alt text-white text-sm"></i></div>
+                            <h3 class="text-lg font-bold text-gray-800">هل USDT FLASH آمن؟</h3>
+                        </div>
+                        <i class="fas fa-chevron-down text-gray-500 transition-transform" id="faq-ar-icon-4"></i>
+                    </button>
+                    <div class="faq-ar-answer" id="faq-ar-answer-4" style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease;">
+                        <div class="p-5 pt-0 text-gray-600 leading-relaxed">
+                            <p>بالتأكيد. USDT FLASH مبني على <strong>هندسة عقود ذكية</strong> مع <strong>إثباتات تسوية معرفة صفرية</strong> وتشفير عسكري. يتم التحقق من كل معاملة عبر عقد متعددة مع بروتوكولات التوافق عبر السلاسل. نستخدم <strong>تجميع السيولة الديناميكي</strong> لتحسين نهائية التسوية. جميع العقود متوافقة 100% مع Web3 وشفافة بالكامل على السلسلة.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- س 5 -->
+                <div class="bg-gray-50 rounded-2xl border border-gray-200 overflow-hidden">
+                    <button class="w-full text-right p-5 flex items-center justify-between hover:bg-gray-100 transition-all" onclick="toggleFAQAr(5)">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-gradient-to-br from-indigo-500 to-blue-600 rounded-xl flex items-center justify-center flex-shrink-0"><i class="fas fa-wallet text-white text-sm"></i></div>
+                            <h3 class="text-lg font-bold text-gray-800">ما هي المنصات المدعومة للتحويل؟</h3>
+                        </div>
+                        <i class="fas fa-chevron-down text-gray-500 transition-transform" id="faq-ar-icon-5"></i>
+                    </button>
+                    <div class="faq-ar-answer" id="faq-ar-answer-5" style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease;">
+                        <div class="p-5 pt-0 text-gray-600 leading-relaxed">
+                            <p class="mb-2">خطط تحويل الصرافة تدعم ثلاث فئات من المنصات:</p>
+                            <ul class="list-disc pr-5 space-y-1 text-sm">
+                                <li><strong class="text-amber-600">المراهنات:</strong> Stake، BC.Game، Duelbits، Rollbit، 1xBet</li>
+                                <li><strong class="text-blue-600">الخيارات الثنائية:</strong> IQ Option، Olymp Trade، Pocket Option، Binary.com، Quotex</li>
+                                <li><strong class="text-green-600">الفوركس:</strong> Exness، XM، IC Markets، FXTM</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- س 6 -->
+                <div class="bg-gray-50 rounded-2xl border border-gray-200 overflow-hidden">
+                    <button class="w-full text-right p-5 flex items-center justify-between hover:bg-gray-100 transition-all" onclick="toggleFAQAr(6)">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-gradient-to-br from-amber-500 to-orange-600 rounded-xl flex items-center justify-center flex-shrink-0"><i class="fas fa-clock text-white text-sm"></i></div>
+                            <h3 class="text-lg font-bold text-gray-800">كيف تعمل تسوية الـ 24 ساعة؟</h3>
+                        </div>
+                        <i class="fas fa-chevron-down text-gray-500 transition-transform" id="faq-ar-icon-6"></i>
+                    </button>
+                    <div class="faq-ar-answer" id="faq-ar-answer-6" style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease;">
+                        <div class="p-5 pt-0 text-gray-600 leading-relaxed">
+                            <p>دورة النضج 24 ساعة هي فترة <strong>نهائية تسوية</strong> قياسية — نفس المفهوم المستخدم في معالجات الدفع الكبرى وجسور البلوكشين لمنع الإنفاق المزدوج. خلال هذه الفترة، يتحقق بروتوكول متعدد العقد من سلامة المعاملة. بعد النضج، يمكنك بيع الأصول وسحب 75% كـ USDT حقيقي.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ====== قسم الإقناع: مصمم لكل نوع مستخدم ====== -->
+    <div class="container mx-auto px-4 py-12">
+        <div class="professional-card p-10 mb-16">
+            <div class="text-center mb-10">
+                <div class="inline-flex items-center gap-2 bg-amber-100 text-amber-700 px-5 py-2 rounded-full text-sm font-bold mb-4 border border-amber-200">
+                    <i class="fas fa-users text-amber-600"></i>
+                    لماذا USDT FLASH؟
+                </div>
+                <h2 class="section-title text-4xl font-black text-gray-900 mb-4">
+                    مصمم لكل نوع مستخدم
+                </h2>
+                <p class="text-gray-600 text-lg">مهما كنت — هناك سبب يجعلك تختارنا</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Card 1: المشكك -->
+                <div class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-5 border border-blue-100">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-12 h-12 rounded-xl flex items-center justify-center" style="background: rgba(59,130,246,0.15);"><i class="fa-solid fa-scale-balanced text-blue-500"></i></div>
+                        <div><h4 class="font-black text-gray-800">المشكك</h4><p class="text-xs text-gray-500">"يبدو جيداً لدرجة يصعب تصديقها"</p></div>
+                    </div>
+                    <p class="text-sm text-gray-600 leading-relaxed">نحن نشجعك على التدقيق. العقود الذكية مفتوحة المصدر، قابلة للتحقق على السلسلة. تحدث مع فريقنا الفني. اختبر مع مبلغ صغير. الشفافية التامة هي ما نمارسه.</p>
+                </div>
+                
+                <!-- Card 2: الطموح -->
+                <div class="bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-5 border border-green-100">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-12 h-12 rounded-xl flex items-center justify-center" style="background: rgba(16,185,129,0.15);"><i class="fa-solid fa-rocket text-green-500"></i></div>
+                        <div><h4 class="font-black text-gray-800">الطموح</h4><p class="text-xs text-gray-500">"أريد توسيع نطاق تداولي"</p></div>
+                    </div>
+                    <p class="text-sm text-gray-600 leading-relaxed">500 USDT-FLASH كرأس مال فوري. السقف الوحيد هو طموحك. استخدمه عبر منصات متعددة، ضاعف تعرضك، واحتفظ بأرباحك الحقيقية.</p>
+                </div>
+                
+                <!-- Card 3: الحذر -->
+                <div class="bg-gradient-to-br from-amber-50 to-yellow-50 rounded-2xl p-5 border border-amber-100">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-12 h-12 rounded-xl flex items-center justify-center" style="background: rgba(245,158,11,0.15);"><i class="fa-solid fa-shield-halved text-amber-500"></i></div>
+                        <div><h4 class="font-black text-gray-800">الحذر</h4><p class="text-xs text-gray-500">"ماذا لو حدث خطأ؟"</p></div>
+                    </div>
+                    <p class="text-sm text-gray-600 leading-relaxed">ضمان استرداد 100% خلال 24 ساعة. يتم الاحتفاظ بأرباحك الحقيقية بشكل منفصل. لا يوجد رافعة مالية، لا تصفية. سلامة رأس مالك هي الأولوية.</p>
+                </div>
+                
+                <!-- Card 4: المشغول -->
+                <div class="bg-gradient-to-br from-purple-50 to-violet-50 rounded-2xl p-5 border border-purple-100">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-12 h-12 rounded-xl flex items-center justify-center" style="background: rgba(139,92,246,0.15);"><i class="fa-solid fa-gauge-high text-purple-500"></i></div>
+                        <div><h4 class="font-black text-gray-800">المشغول</h4><p class="text-xs text-gray-500">"ليس لدي وقت لكل هذا"</p></div>
+                    </div>
+                    <p class="text-sm text-gray-600 leading-relaxed">تنفيذ تلقائي بالكامل عبر العقود الذكية. عملية بنقرة واحدة من الشراء إلى التسوية. تعمل الخلفية بينما تركز على أشياء أخرى.</p>
+                </div>
+                
+                <!-- Card 5: الخبير -->
+                <div class="bg-gradient-to-br from-gray-50 to-slate-50 rounded-2xl p-5 border border-gray-200">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-12 h-12 rounded-xl flex items-center justify-center" style="background: rgba(100,116,139,0.15);"><i class="fa-solid fa-microchip text-slate-500"></i></div>
+                        <div><h4 class="font-black text-gray-800">الخبير</h4><p class="text-xs text-gray-500">"أريد أن أفهم الآلية"</p></div>
+                    </div>
+                    <p class="text-sm text-gray-600 leading-relaxed">بروتوكول متعدد السلاسل مع إثباتات ZK وتجميع سيولة ديناميكي. قابل للتدقيق بالكامل. متوافق مع EVM. يدمج مع أي dApp.</p>
+                </div>
+                
+                <!-- Card 6: المجتمع -->
+                <div class="bg-gradient-to-br from-rose-50 to-pink-50 rounded-2xl p-5 border border-rose-100">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-12 h-12 rounded-xl flex items-center justify-center" style="background: rgba(244,63,94,0.15);"><i class="fa-solid fa-fire text-rose-500"></i></div>
+                        <div><h4 class="font-black text-gray-800">المجتمع</h4><p class="text-xs text-gray-500">"ماذا يقول الآخرون؟"</p></div>
+                    </div>
+                    <p class="text-sm text-gray-600 leading-relaxed">50K+ مستخدم، 4.9/5 تقييم. انضم إلى آلاف المستخدمين النشطين الذين يثقون في USDT Flash لتداولاتهم اليومية.</p>
+                </div>
+            </div>
+            
+            <div class="mt-8 text-center">
+                <div class="bg-gradient-to-r from-green-500 to-blue-500 rounded-2xl p-6 text-white">
+                    <p class="text-xl font-bold mb-2">سواء كنت مشككاً أو خبيراً — هذه المنصة بنيت لك</p>
+                    <p class="text-sm opacity-90">اختر خطتك واختبر الفرق بنفسك</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleFAQAr(id) {
+            const answer = document.getElementById('faq-ar-answer-' + id);
+            const icon = document.getElementById('faq-ar-icon-' + id);
+            
+            for (let i = 1; i <= 6; i++) {
+                if (i !== id) {
+                    const otherAnswer = document.getElementById('faq-ar-answer-' + i);
+                    const otherIcon = document.getElementById('faq-ar-icon-' + i);
+                    if (otherAnswer && otherIcon) {
+                        otherAnswer.style.maxHeight = '0';
+                        otherIcon.style.transform = 'rotate(0deg)';
+                    }
+                }
+            }
+            
+            if (answer.style.maxHeight === '0px' || answer.style.maxHeight === '') {
+                answer.style.maxHeight = answer.scrollHeight + 'px';
+                icon.style.transform = 'rotate(180deg)';
+            } else {
+                answer.style.maxHeight = '0';
+                icon.style.transform = 'rotate(0deg)';
+            }
+        }
+    </script>
+
+</body>
+
+<!-- Copyright Footer -->
+<footer class="bg-gray-900 text-white py-8 mt-20">
+    <div class="container mx-auto px-4 text-center">
+        <p class="text-sm">
+            Copyright © 2013 - 2026 USDT-FLASH. All rights reserved. Professional USDT Service Provider.
+        </p>
+    </div>
+</footer>
+
+</html>

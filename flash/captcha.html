@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security Verification — USDT-FLASH</title>
+    <link rel="icon" type="image/png" href="img/usdt_cryptocurrencies_icon_188337.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.30.0/tabler-icons.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #f0f2f5;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .glow {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(120px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes widgetIn {
+            0% { opacity: 0; transform: translateY(12px) scale(0.97); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        @keyframes checkIn {
+            0% { stroke-dashoffset: 80; }
+            100% { stroke-dashoffset: 0; }
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        @keyframes pulseRing {
+            0% { box-shadow: 0 0 0 0 rgba(16,185,129,0.3); }
+            70% { box-shadow: 0 0 0 12px rgba(16,185,129,0); }
+            100% { box-shadow: 0 0 0 0 rgba(16,185,129,0); }
+        }
+        @keyframes slideDown {
+            0% { opacity: 0; max-height: 0; }
+            100% { opacity: 1; max-height: 500px; }
+        }
+        @keyframes shake {
+            0%,100% { transform: translateX(0); }
+            20% { transform: translateX(-6px); }
+            40% { transform: translateX(6px); }
+            60% { transform: translateX(-4px); }
+            80% { transform: translateX(4px); }
+        }
+        @keyframes dotPulse {
+            0%,100% { opacity: 0.3; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1); }
+        }
+
+        .widget-animate { animation: widgetIn 0.5s cubic-bezier(0.16,1,0.3,1) forwards; }
+        .check-path { stroke-dasharray: 80; animation: checkIn 0.5s ease forwards; }
+        .shake { animation: shake 0.4s ease; }
+
+        .turnstile-checkbox {
+            width: 22px; height: 22px; border-radius: 4px;
+            border: 2px solid #cdd0d8;
+            background: white;
+            transition: all 0.25s ease;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+        }
+        .turnstile-checkbox.checked {
+            background: #10b981; border-color: #10b981;
+            animation: pulseRing 0.6s ease;
+        }
+
+        .challenge-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+        .challenge-tile {
+            position: relative;
+            aspect-ratio: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            cursor: pointer;
+            border: 2px solid #e8eaee;
+            transition: all 0.2s ease;
+            background: #f7f8fa;
+        }
+        .challenge-tile:hover { border-color: #10b981; transform: scale(1.03); }
+        .challenge-tile img {
+            width: 100%; height: 100%;
+            object-fit: contain;
+            padding: 8px;
+            transition: transform 0.3s ease;
+        }
+        .challenge-tile.selected {
+            border-color: #10b981;
+            background: rgba(16,185,129,0.04);
+        }
+        .challenge-tile.selected::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(16,185,129,0.08);
+            border-radius: 8px;
+        }
+        .challenge-tile.selected .tile-check {
+            opacity: 1;
+            transform: scale(1);
+        }
+        .tile-check {
+            position: absolute;
+            top: 6px; right: 6px;
+            width: 22px; height: 22px;
+            border-radius: 50%;
+            background: #10b981;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            opacity: 0;
+            transform: scale(0.5);
+            transition: all 0.25s cubic-bezier(0.34,1.56,0.64,1);
+            z-index: 2;
+            box-shadow: 0 2px 6px rgba(16,185,129,0.3);
+        }
+
+        .loading-dots span {
+            display: inline-block;
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: #10b981;
+            margin: 0 2px;
+            animation: dotPulse 1s ease infinite;
+        }
+        .loading-dots span:nth-child(2) { animation-delay: 0.2s; }
+        .loading-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(16,185,129,0.3); border-radius: 10px; }
+    </style>
+</head>
+<body>
+    <div class="glow w-[500px] h-[500px] bg-emerald-400/5 top-[-10%] left-[-5%]"></div>
+    <div class="glow w-[400px] h-[400px] bg-emerald-400/4 bottom-[-10%] right-[-8%]"></div>
+
+    <header class="relative z-10 bg-white/80 backdrop-blur-xl border-b border-gray-200/60">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+            <a href="home.html" class="flex items-center gap-2.5">
+                <img src="img/usdt_cryptocurrencies_icon_188337.png" alt="USDT-FLASH" class="w-8 h-8">
+                <span class="text-lg font-bold text-gray-900 tracking-tight">USDT<span class="text-gray-400">-FLASH</span></span>
+            </a>
+            <div class="flex items-center gap-3">
+                <span class="hidden sm:flex items-center gap-1.5 text-xs text-gray-400">
+                    <i class="ti ti-shield-check text-emerald-500"></i>
+                    Secured Connection
+                </span>
+                <div class="flex items-center gap-1 px-2.5 py-1 rounded-full bg-emerald-50 border border-emerald-200/60">
+                    <div class="w-2 h-2 rounded-full bg-emerald-500"></div>
+                    <span class="text-[10px] font-semibold text-emerald-700">SSL</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="relative z-10 flex-1 flex items-center justify-center px-4 py-10">
+        <div class="w-full max-w-[440px] widget-animate">
+
+            <div id="widgetCard" class="bg-white rounded-2xl shadow-[0_2px_8px_rgba(0,0,0,0.04),0_12px_40px_rgba(0,0,0,0.04)] border border-gray-100 overflow-hidden">
+
+                <div class="flex items-center gap-3 px-5 py-4 border-b border-gray-100">
+                    <div class="w-9 h-9 rounded-xl bg-emerald-50 flex items-center justify-center border border-emerald-200/50">
+                        <i class="ti ti-shield-lock text-emerald-600 text-lg"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-sm font-bold text-gray-900">Security Check</h2>
+                        <p class="text-[11px] text-gray-400">Verify you're human to continue</p>
+                    </div>
+                    <div class="ml-auto flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-gray-50 border border-gray-100">
+                        <i class="ti ti-cloud text-[10px] text-gray-400"></i>
+                        <span class="text-[10px] font-medium text-gray-400">v2.0</span>
+                    </div>
+                </div>
+
+                <div class="px-5 py-5">
+
+                    <div id="idleState">
+                        <div class="flex items-center gap-4">
+                            <div class="relative">
+                                <div id="checkBox" class="turnstile-checkbox cursor-pointer" onclick="triggerCheckbox()">
+                                    <i class="ti ti-check text-white text-sm hidden" id="checkIcon"></i>
+                                </div>
+                                <div id="spinnerRing" class="absolute inset-0 hidden">
+                                    <svg class="w-[22px] h-[22px] animate-spin" viewBox="0 0 24 24">
+                                        <circle cx="12" cy="12" r="10" stroke="#10b981" stroke-width="2.5" fill="none" stroke-dasharray="32" stroke-linecap="round"/>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="flex-1">
+                                <label class="text-sm font-medium text-gray-700 cursor-pointer select-none" onclick="triggerCheckbox()" id="checkLabel">I'm not a robot</label>
+                            </div>
+                            <div class="flex flex-col items-end gap-0.5">
+                                <div class="flex items-center gap-1">
+                                    <i class="ti ti-shield-filled text-emerald-500 text-[10px]"></i>
+                                    <span class="text-[9px] font-semibold text-gray-400 tracking-wider uppercase">Turnstile</span>
+                                </div>
+                                <span class="text-[8px] text-gray-300">Privacy & Terms</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="challengeState" class="hidden">
+                        <div class="mb-4">
+                            <div class="flex items-center justify-between mb-3">
+                                <div>
+                                    <h3 class="text-sm font-semibold text-gray-800">Image Challenge</h3>
+                                    <p class="text-xs text-gray-400 mt-0.5">Select all images with <strong class="text-emerald-600" id="targetCoin">Bitcoin</strong></p>
+                                </div>
+                                <button onclick="resetChallenge()" class="text-gray-400 hover:text-gray-600 transition-colors p-1">
+                                    <i class="ti ti-refresh text-lg"></i>
+                                </button>
+                            </div>
+                            <div class="challenge-grid" id="imageGrid"></div>
+                        </div>
+                        <div class="flex gap-2.5">
+                            <button onclick="resetToIdle()" class="flex-1 py-2.5 rounded-xl border border-gray-200 text-gray-500 text-sm font-medium hover:bg-gray-50 transition-colors">Cancel</button>
+                            <button id="verifyBtn" class="flex-1 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-emerald-600 text-white text-sm font-bold hover:from-emerald-600 hover:to-emerald-700 transition-all shadow-sm hover:shadow-md hover:shadow-emerald-200/50 active:scale-[0.98]" disabled>Verify</button>
+                        </div>
+                        <div id="errorMsg" class="hidden mt-3 text-xs text-red-500 font-medium flex items-center gap-1.5 shake">
+                            <i class="ti ti-alert-circle"></i>
+                            <span>Incorrect selection. Please try again.</span>
+                        </div>
+                    </div>
+
+                    <div id="successState" class="hidden">
+                        <div class="flex items-center gap-3.5">
+                            <div class="w-10 h-10 rounded-full bg-emerald-50 flex items-center justify-center border border-emerald-200/50">
+                                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <path class="check-path" d="M5 13l4 4L19 7"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="text-sm font-bold text-gray-900">Verification Passed</p>
+                                <p class="text-xs text-gray-400 mt-0.5">Human confirmed. Proceed securely.</p>
+                            </div>
+                            <div class="ml-auto">
+                                <div class="flex items-center gap-1 px-2 py-1 rounded-lg bg-emerald-50 border border-emerald-200/50">
+                                    <i class="ti ti-circle-check text-emerald-500 text-xs"></i>
+                                    <span class="text-[10px] font-semibold text-emerald-700">Verified</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="px-5 py-3 bg-gray-50/80 border-t border-gray-100 flex items-center justify-between">
+                    <div class="flex items-center gap-2 text-[10px] text-gray-400">
+                        <i class="ti ti-fingerprint text-gray-300"></i>
+                        <span>Powered by <strong class="text-gray-500">Turnstile</strong></span>
+                    </div>
+                    <div class="flex items-center gap-3 text-[10px]">
+                        <a href="pages/privacy-policy.html" class="text-gray-400 hover:text-emerald-600 transition-colors">Privacy</a>
+                        <span class="text-gray-200">|</span>
+                        <a href="pages/terms-of-service.html" class="text-gray-400 hover:text-emerald-600 transition-colors">Terms</a>
+                    </div>
+                </div>
+            </div>
+
+            <button id="continueBtn" class="hidden w-full mt-4 py-3.5 rounded-xl bg-gradient-to-r from-emerald-500 to-emerald-600 text-white text-sm font-bold tracking-wide transition-all shadow-lg shadow-emerald-200/50 hover:shadow-xl hover:shadow-emerald-200/70 active:scale-[0.98]">
+                <i class="ti ti-arrow-right mr-2"></i>
+                Continue to Dashboard
+            </button>
+
+            <div class="flex items-center justify-center gap-4 mt-6 text-[11px] text-gray-300">
+                <span class="flex items-center gap-1"><i class="ti ti-lock text-gray-400"></i> Encrypted</span>
+                <span class="w-1 h-1 rounded-full bg-gray-300"></span>
+                <span class="flex items-center gap-1"><i class="ti ti-shield text-gray-400"></i> Secure</span>
+                <span class="w-1 h-1 rounded-full bg-gray-300"></span>
+                <span class="flex items-center gap-1"><i class="ti ti-fingerprint text-gray-400"></i> Trusted</span>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const cryptoData = [
+            { name: 'Bitcoin', images: ['https://s2.coinmarketcap.com/static/img/coins/64x64/1.png','https://cryptologos.cc/logos/bitcoin-btc-logo.png','https://assets.coingecko.com/coins/images/1/large/bitcoin.png'] },
+            { name: 'Ethereum', images: ['https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png','https://cryptologos.cc/logos/ethereum-eth-logo.png','https://assets.coingecko.com/coins/images/279/large/ethereum.png'] },
+            { name: 'Tether', images: ['https://s2.coinmarketcap.com/static/img/coins/64x64/825.png','https://cryptologos.cc/logos/tether-usdt-logo.png','https://assets.coingecko.com/coins/images/325/large/Tether.png'] },
+            { name: 'BNB', images: ['https://s2.coinmarketcap.com/static/img/coins/64x64/1839.png','https://cryptologos.cc/logos/bnb-bnb-logo.png','https://assets.coingecko.com/coins/images/825/large/bnb-icon2_2x.png'] },
+            { name: 'Solana', images: ['https://s2.coinmarketcap.com/static/img/coins/64x64/5426.png','https://cryptologos.cc/logos/solana-sol-logo.png','https://assets.coingecko.com/coins/images/4128/large/solana.png'] },
+            { name: 'XRP', images: ['https://s2.coinmarketcap.com/static/img/coins/64x64/52.png','https://cryptologos.cc/logos/xrp-xrp-logo.png','https://assets.coingecko.com/coins/images/44/large/xrp-symbol-white-128.png'] },
+            { name: 'Cardano', images: ['https://s2.coinmarketcap.com/static/img/coins/64x64/2010.png','https://cryptologos.cc/logos/cardano-ada-logo.png','https://assets.coingecko.com/coins/images/975/large/cardano.png'] },
+            { name: 'Polkadot', images: ['https://s2.coinmarketcap.com/static/img/coins/64x64/6636.png','https://cryptologos.cc/logos/polkadot-new-dot-logo.png','https://assets.coingecko.com/coins/images/12171/large/polkadot.png'] },
+            { name: 'Dogecoin', images: ['https://s2.coinmarketcap.com/static/img/coins/64x64/74.png','https://cryptologos.cc/logos/dogecoin-doge-logo.png','https://assets.coingecko.com/coins/images/5/large/dogecoin.png'] }
+        ];
+
+        let selectedTiles = [];
+        let correctIds = [];
+        let currentCoin = null;
+        let verified = false;
+
+        function triggerCheckbox() {
+            if (verified) return;
+            const box = document.getElementById('checkBox');
+            const icon = document.getElementById('checkIcon');
+            const spinner = document.getElementById('spinnerRing');
+            const label = document.getElementById('checkLabel');
+
+            box.classList.add('checked');
+            icon.classList.remove('hidden');
+            label.textContent = 'Verifying...';
+            label.style.color = '#10b981';
+
+            setTimeout(() => {
+                document.getElementById('idleState').classList.add('hidden');
+                document.getElementById('challengeState').classList.remove('hidden');
+                generateChallenge();
+            }, 600);
+        }
+
+        function generateChallenge() {
+            const coins = [...cryptoData];
+            currentCoin = coins[Math.floor(Math.random() * coins.length)];
+            document.getElementById('targetCoin').textContent = currentCoin.name;
+
+            const correctCount = Math.min(2 + Math.floor(Math.random() * 2), currentCoin.images.length);
+            let pool = [];
+            for (let i = 0; i < correctCount; i++) {
+                pool.push({ url: currentCoin.images[i], correct: true, id: 'c' + i });
+            }
+            const others = coins.filter(c => c.name !== currentCoin.name);
+            while (pool.length < 9) {
+                const rc = others[Math.floor(Math.random() * others.length)];
+                pool.push({ url: rc.images[Math.floor(Math.random() * rc.images.length)], correct: false, id: 'w' + pool.length });
+            }
+            pool = pool.sort(() => Math.random() - 0.5);
+            correctIds = pool.filter(p => p.correct).map(p => p.id);
+
+            const grid = document.getElementById('imageGrid');
+            grid.innerHTML = '';
+            selectedTiles = [];
+
+            pool.forEach(p => {
+                const tile = document.createElement('div');
+                tile.className = 'challenge-tile';
+                tile.dataset.id = p.id;
+                tile.innerHTML = '<div class="tile-check"><i class="ti ti-check"></i></div><img src="' + p.url + '" alt="Crypto" loading="lazy">';
+                tile.addEventListener('click', () => toggleTile(tile, p.id));
+                grid.appendChild(tile);
+            });
+
+            document.getElementById('verifyBtn').disabled = true;
+        }
+
+        function toggleTile(el, id) {
+            if (el.classList.contains('selected')) {
+                el.classList.remove('selected');
+                selectedTiles = selectedTiles.filter(t => t !== id);
+            } else {
+                el.classList.add('selected');
+                selectedTiles.push(id);
+            }
+            document.getElementById('verifyBtn').disabled = selectedTiles.length === 0;
+        }
+
+        document.getElementById('verifyBtn').addEventListener('click', function() {
+            const err = document.getElementById('errorMsg');
+            const ok = selectedTiles.length === correctIds.length && selectedTiles.every(t => correctIds.includes(t)) && correctIds.every(t => selectedTiles.includes(t));
+
+            if (ok) {
+                document.getElementById('challengeState').classList.add('hidden');
+                document.getElementById('successState').classList.remove('hidden');
+                document.getElementById('widgetCard').classList.add('border-emerald-200/50');
+                document.getElementById('continueBtn').classList.remove('hidden');
+                verified = true;
+            } else {
+                err.classList.remove('hidden');
+                setTimeout(() => err.classList.add('hidden'), 2500);
+                document.querySelectorAll('.challenge-tile.selected').forEach(t => t.classList.remove('selected'));
+                selectedTiles = [];
+                document.getElementById('verifyBtn').disabled = true;
+            }
+        });
+
+        function resetChallenge() {
+            generateChallenge();
+        }
+
+        function resetToIdle() {
+            document.getElementById('challengeState').classList.add('hidden');
+            document.getElementById('idleState').classList.remove('hidden');
+            const box = document.getElementById('checkBox');
+            const icon = document.getElementById('checkIcon');
+            const label = document.getElementById('checkLabel');
+            box.classList.remove('checked');
+            icon.classList.add('hidden');
+            label.textContent = "I'm not a robot";
+            label.style.color = '';
+            verified = false;
+        }
+
+        document.getElementById('continueBtn').addEventListener('click', function() {
+            this.innerHTML = '<i class="ti ti-loader animate-spin mr-2"></i> Processing...';
+            this.disabled = true;
+            setTimeout(() => {
+                window.location.href = 'home.html';
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
