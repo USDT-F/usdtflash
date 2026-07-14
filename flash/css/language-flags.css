@@ -1,0 +1,47 @@
+/* Language Flags Styles */
+.flag-icon {
+    display: inline-block;
+    width: 32px;
+    height: 24px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    transition: transform 0.3s ease;
+    flex-shrink: 0;
+}
+
+.flag-icon:hover {
+    transform: scale(1.1);
+}
+
+/* Local flag images with simple names */
+.flag-gb {
+    background-image: url('../اعلام/gb.webp');
+}
+
+.flag-sa {
+    background-image: url('../اعلام/sa.webp');
+}
+
+.flag-fr {
+    background-image: url('../اعلام/fr.png');
+}
+
+.flag-in {
+    background-image: url('../اعلام/in.webp');
+}
+
+.flag-jp {
+    background-image: url('../اعلام/jp.png');
+}
+
+.flag-ru {
+    background-image: url('../اعلام/ru.png');
+}
+
+/* Fallback */
+.flag-icon[style*="background-image"] {
+    background-size: cover;
+}
