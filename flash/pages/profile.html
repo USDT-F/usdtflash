@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="USDT-FLASH Profile - Manage your account settings and preferences">
+    <meta name="theme-color" content="#26A17B">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Account Settings - USDT-FLASH</title>
+    <link rel="icon" type="image/png" href="../img/usdt_cryptocurrencies_icon_188337.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.30.0/tabler-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #f0f2f5;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .glow {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(120px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .tab-content { animation: fadeIn 0.25s ease-out; }
+
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(16,185,129,0.25); border-radius: 10px; }
+    </style>
+</head>
+<body>
+    <div class="glow w-[600px] h-[600px] bg-emerald-400/4 top-[-8%] left-[-5%]"></div>
+    <div class="glow w-[400px] h-[400px] bg-emerald-400/3 bottom-[-10%] right-[-8%]"></div>
+
+    <header class="relative z-20 bg-white/80 backdrop-blur-xl border-b border-gray-200/60">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+            <a href="../home.html" class="flex items-center gap-2.5">
+                <img src="../img/usdt_cryptocurrencies_icon_188337.png" alt="USDT-FLASH" class="w-8 h-8">
+                <span class="text-lg font-bold text-gray-900 tracking-tight">USDT<span class="text-gray-400">-FLASH</span></span>
+            </a>
+            <div class="flex items-center gap-4">
+                <a href="live-transactions.html" class="hidden sm:flex items-center gap-1.5 text-sm text-gray-500 hover:text-emerald-600 transition-colors">
+                    <i class="ti ti-chart-line"></i>
+                    <span>Live</span>
+                </a>
+                <a href="support-dashboard.html" class="hidden sm:flex items-center gap-1.5 text-sm text-gray-500 hover:text-emerald-600 transition-colors">
+                    <i class="ti ti-headset"></i>
+                    <span>Support</span>
+                </a>
+                <button onclick="signOut()" class="text-sm font-semibold text-gray-400 hover:text-red-500 transition-colors">
+                    <i class="ti ti-logout mr-1"></i>Sign Out
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="relative z-10 max-w-4xl mx-auto px-4 py-6 sm:py-8">
+
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+            <div class="p-5 sm:p-7">
+                <div class="flex flex-col sm:flex-row items-center sm:items-start gap-5">
+                    <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden border-[3px] border-emerald-400 bg-gradient-to-br from-emerald-50 to-gray-50 flex-shrink-0">
+                        <img id="profile-picture" src="../nouveu/af4a2f0d-2ffd-40c6-8eb8-5ae1992df9b3.png" alt="Profile" class="w-full h-full object-cover">
+                    </div>
+                    <div class="flex-1 text-center sm:text-left">
+                        <h1 id="profile-name" class="text-xl sm:text-2xl font-bold text-gray-900">User Name</h1>
+                        <p id="profile-email" class="text-sm text-gray-400 mt-0.5">user@example.com</p>
+                        <div class="flex items-center justify-center sm:justify-start gap-2 mt-3">
+                            <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-emerald-50 border border-emerald-200/60 text-emerald-700 text-[11px] font-semibold">
+                                <i class="ti ti-circle-check text-emerald-500 text-xs"></i> Verified
+                            </span>
+                            <span id="package-badge" class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-blue-50 border border-blue-200/60 text-blue-700 text-[11px] font-semibold">
+                                <i class="ti ti-star text-blue-500 text-xs"></i> Trial
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-3 gap-4 mt-6 pt-5 border-t border-gray-100">
+                    <div class="text-center">
+                        <div class="text-xl font-bold text-gray-900" id="stat-referrals">0</div>
+                        <div class="text-xs text-gray-400 mt-0.5">Referrals</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-xl font-bold text-gray-900" id="stat-balance">0</div>
+                        <div class="text-xs text-gray-400 mt-0.5">Balance</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-xl font-bold text-gray-900" id="stat-transactions">0</div>
+                        <div class="text-xs text-gray-400 mt-0.5">Transactions</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 mt-4 overflow-hidden">
+            <div class="flex border-b border-gray-100">
+                <button onclick="switchTab('about')" class="tab-btn flex-1 px-4 py-3.5 text-sm font-semibold text-center transition-all border-b-2 border-emerald-600 text-emerald-700 bg-emerald-50/50" data-tab="about">
+                    <i class="ti ti-user mr-1.5"></i>About
+                </button>
+                <button onclick="switchTab('settings')" class="tab-btn flex-1 px-4 py-3.5 text-sm font-semibold text-center transition-all text-gray-400 hover:text-emerald-600 hover:bg-emerald-50/30" data-tab="settings">
+                    <i class="ti ti-settings mr-1.5"></i>Settings
+                </button>
+                <button onclick="switchTab('referral')" class="tab-btn flex-1 px-4 py-3.5 text-sm font-semibold text-center transition-all text-gray-400 hover:text-emerald-600 hover:bg-emerald-50/30" data-tab="referral">
+                    <i class="ti ti-share mr-1.5"></i>Referral
+                </button>
+                <button onclick="switchTab('security')" class="tab-btn flex-1 px-4 py-3.5 text-sm font-semibold text-center transition-all text-gray-400 hover:text-emerald-600 hover:bg-emerald-50/30" data-tab="security">
+                    <i class="ti ti-shield mr-1.5"></i>Security
+                </button>
+            </div>
+
+            <div id="tab-about" class="tab-content p-5 sm:p-7">
+                <div class="flex items-center justify-between mb-5">
+                    <h3 class="text-base font-bold text-gray-900">Personal Information</h3>
+                    <button onclick="switchTab('settings')" class="text-sm text-emerald-600 hover:text-emerald-700 font-medium">
+                        <i class="ti ti-edit mr-1"></i>Edit
+                    </button>
+                </div>
+                <div class="space-y-3">
+                    <div class="flex items-center gap-3 p-3.5 bg-gray-50 rounded-xl border border-gray-100">
+                        <i class="ti ti-user text-emerald-500 text-lg"></i>
+                        <div>
+                            <div class="text-xs text-gray-400">Full Name</div>
+                            <div id="about-name" class="text-sm font-semibold text-gray-900">Not set</div>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3 p-3.5 bg-gray-50 rounded-xl border border-gray-100">
+                        <i class="ti ti-mail text-emerald-500 text-lg"></i>
+                        <div>
+                            <div class="text-xs text-gray-400">Email</div>
+                            <div id="about-email" class="text-sm font-semibold text-gray-900">Not set</div>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3 p-3.5 bg-gray-50 rounded-xl border border-gray-100">
+                        <i class="ti ti-phone text-emerald-500 text-lg"></i>
+                        <div>
+                            <div class="text-xs text-gray-400">Phone</div>
+                            <div id="about-phone" class="text-sm font-semibold text-gray-900">Not set</div>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3 p-3.5 bg-gray-50 rounded-xl border border-gray-100">
+                        <i class="ti ti-calendar text-emerald-500 text-lg"></i>
+                        <div>
+                            <div class="text-xs text-gray-400">Date of Birth</div>
+                            <div id="about-birth" class="text-sm font-semibold text-gray-900">Not set</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="tab-settings" class="tab-content hidden p-5 sm:p-7">
+                <form id="settings-form" class="space-y-5">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1.5">First Name</label>
+                            <input type="text" id="firstName" class="w-full px-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition-all" placeholder="First name">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1.5">Last Name</label>
+                            <input type="text" id="lastName" class="w-full px-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition-all" placeholder="Last name">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1.5">Email Address</label>
+                        <input type="email" id="email" class="w-full px-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition-all" placeholder="example@domain.com">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1.5">Phone Number</label>
+                        <div class="flex gap-2">
+                            <select id="countryCode" class="px-3 py-2.5 border border-gray-200 rounded-xl text-sm bg-white focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none">
+                                <option value="+1">US +1</option>
+                                <option value="+44">UK +44</option>
+                                <option value="+33">FR +33</option>
+                                <option value="+49">DE +49</option>
+                                <option value="+39">IT +39</option>
+                                <option value="+34">ES +34</option>
+                                <option value="+971">AE +971</option>
+                                <option value="+966">SA +966</option>
+                                <option value="+20">EG +20</option>
+                                <option value="+90">TR +90</option>
+                                <option value="+91">IN +91</option>
+                                <option value="+86">CN +86</option>
+                                <option value="+81">JP +81</option>
+                                <option value="+82">KR +82</option>
+                            </select>
+                            <input type="tel" id="phone" class="flex-1 px-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none" placeholder="50 123 4567">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1.5">Date of Birth</label>
+                        <input type="date" id="birthDate" class="w-full px-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none">
+                    </div>
+                    <div class="flex gap-3 pt-2">
+                        <button type="submit" class="flex-1 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-emerald-600 text-white text-sm font-bold hover:from-emerald-600 hover:to-emerald-700 transition-all shadow-sm hover:shadow-md active:scale-[0.98]">
+                            <i class="ti ti-device-floppy mr-1.5"></i>Save Changes
+                        </button>
+                        <button type="button" onclick="resetForm()" class="px-5 py-2.5 rounded-xl border border-gray-200 text-gray-500 text-sm font-medium hover:bg-gray-50 transition-colors">
+                            <i class="ti ti-restore"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div id="tab-referral" class="tab-content hidden p-5 sm:p-7">
+                <div class="space-y-5">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1.5">Your Referral Link</label>
+                        <div class="flex gap-2">
+                            <input type="text" id="referralLink" class="flex-1 px-4 py-2.5 border border-gray-200 rounded-xl text-sm bg-gray-50 text-gray-500" readonly>
+                            <button type="button" onclick="copyReferralLink()" class="px-4 py-2.5 rounded-xl bg-gray-900 text-white text-sm font-medium hover:bg-gray-800 transition-colors flex items-center gap-1.5">
+                                <i class="ti ti-copy"></i>Copy
+                            </button>
+                        </div>
+                        <p class="text-xs text-gray-400 mt-1.5">Share this link with friends and earn commission from their purchases</p>
+                    </div>
+
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                        <div class="bg-gradient-to-br from-emerald-50 to-white rounded-xl p-4 text-center border border-emerald-200/50">
+                            <div class="text-xl font-bold text-emerald-600" id="totalReferrals">0</div>
+                            <div class="text-[11px] text-gray-500 mt-0.5">Total Referrals</div>
+                        </div>
+                        <div class="bg-gradient-to-br from-blue-50 to-white rounded-xl p-4 text-center border border-blue-200/50">
+                            <div class="text-xl font-bold text-blue-600" id="successfulReferrals">0</div>
+                            <div class="text-[11px] text-gray-500 mt-0.5">Successful</div>
+                        </div>
+                        <div class="bg-gradient-to-br from-amber-50 to-white rounded-xl p-4 text-center border border-amber-200/50">
+                            <div class="text-xl font-bold text-amber-600" id="referralBalance">0</div>
+                            <div class="text-[11px] text-gray-500 mt-0.5">USDT FLASH</div>
+                        </div>
+                        <div class="bg-gradient-to-br from-pink-50 to-white rounded-xl p-4 text-center border border-pink-200/50">
+                            <div class="text-xl font-bold text-pink-600" id="totalWithdrawn">0</div>
+                            <div class="text-[11px] text-gray-500 mt-0.5">Withdrawn</div>
+                        </div>
+                    </div>
+
+                    <div class="bg-gradient-to-r from-amber-50 to-orange-50 p-5 rounded-xl border border-amber-200/60">
+                        <div class="flex items-center justify-between mb-3">
+                            <div>
+                                <h4 class="text-sm font-bold text-gray-900">Referral Rewards</h4>
+                                <p class="text-xs text-gray-500 mt-0.5">Earn 100 USDT FLASH for each successful referral</p>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-2xl font-bold text-amber-600" id="currentBalance">0</div>
+                                <div class="text-[10px] text-gray-400">USDT FLASH</div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="flex justify-between text-xs text-gray-500 mb-1">
+                                <span>Current Balance</span>
+                                <span>Min: 1,000</span>
+                            </div>
+                            <div class="w-full h-2.5 bg-gray-200/60 rounded-full overflow-hidden">
+                                <div id="withdrawalProgress" class="h-full bg-gradient-to-r from-amber-400 to-orange-500 rounded-full transition-all duration-500" style="width:0%"></div>
+                            </div>
+                            <div class="text-xs text-gray-400 mt-1" id="progressText">Need 1,000 USDT FLASH to withdraw</div>
+                        </div>
+                        <div class="flex gap-2">
+                            <button type="button" id="withdrawButton" onclick="requestWithdrawal()" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-emerald-600 text-white text-sm font-bold hover:from-emerald-600 hover:to-emerald-700 transition-all disabled:opacity-40 disabled:cursor-not-allowed shadow-sm" disabled>
+                                <i class="ti ti-currency-dollar mr-1.5"></i>Withdraw
+                            </button>
+                            <button type="button" onclick="showWithdrawalHistory()" class="px-4 py-2.5 rounded-xl border border-gray-200 text-gray-500 text-sm font-medium hover:bg-gray-50 transition-colors">
+                                <i class="ti ti-history mr-1"></i>History
+                            </button>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Quick Share</label>
+                        <div class="flex flex-wrap gap-2">
+                            <button onclick="shareTo('whatsapp')" class="px-4 py-2 rounded-xl bg-[#25D366] text-white text-sm font-medium hover:opacity-90 transition-opacity flex items-center gap-1.5">
+                                <i class="ti ti-brand-whatsapp"></i>WhatsApp
+                            </button>
+                            <button onclick="shareTo('telegram')" class="px-4 py-2 rounded-xl bg-[#0088cc] text-white text-sm font-medium hover:opacity-90 transition-opacity flex items-center gap-1.5">
+                                <i class="ti ti-brand-telegram"></i>Telegram
+                            </button>
+                            <button onclick="shareTo('twitter')" class="px-4 py-2 rounded-xl bg-black text-white text-sm font-medium hover:opacity-90 transition-opacity flex items-center gap-1.5">
+                                <i class="ti ti-brand-x"></i>X
+                            </button>
+                            <button onclick="shareTo('facebook')" class="px-4 py-2 rounded-xl bg-[#1877F2] text-white text-sm font-medium hover:opacity-90 transition-opacity flex items-center gap-1.5">
+                                <i class="ti ti-brand-facebook"></i>Facebook
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="tab-security" class="tab-content hidden p-5 sm:p-7">
+                <div class="space-y-5">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1.5">Current Password</label>
+                        <input type="password" id="currentPassword" class="w-full px-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none" placeholder="Current password">
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1.5">New Password</label>
+                            <input type="password" id="newPassword" class="w-full px-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none" placeholder="New password">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1.5">Confirm Password</label>
+                            <input type="password" id="confirmPassword" class="w-full px-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none" placeholder="Confirm password">
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between p-4 bg-gray-50 rounded-xl border border-gray-100">
+                        <div>
+                            <h4 class="text-sm font-semibold text-gray-900">Two-Factor Authentication</h4>
+                            <p class="text-xs text-gray-400 mt-0.5">Additional protection for your account</p>
+                        </div>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" id="twoFactorAuth" class="sr-only peer">
+                            <div class="w-10 h-5 bg-gray-200 peer-checked:bg-emerald-500 rounded-full after:content-[''] after:absolute after:top-[3px] after:left-[3px] after:w-3.5 after:h-3.5 after:bg-white after:rounded-full after:transition-all peer-checked:after:translate-x-5"></div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="message-container" class="fixed top-4 right-4 z-50 flex flex-col gap-2"></div>
+
+    <script>
+        let originalSettings = {};
+
+        function switchTab(name) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(b => {
+                b.classList.remove('border-emerald-600', 'text-emerald-700', 'bg-emerald-50/50');
+                b.classList.add('text-gray-400');
+            });
+            document.getElementById('tab-' + name).classList.remove('hidden');
+            var btn = document.querySelector('[data-tab="' + name + '"]');
+            if (btn) {
+                btn.classList.add('border-emerald-600', 'text-emerald-700', 'bg-emerald-50/50');
+                btn.classList.remove('text-gray-400');
+            }
+        }
+
+        function showMessage(msg, type) {
+            var c = document.getElementById('message-container');
+            var d = document.createElement('div');
+            var bg = type === 'success' ? 'bg-emerald-500' : type === 'error' ? 'bg-red-500' : 'bg-blue-500';
+            var icon = type === 'success' ? 'ti ti-circle-check' : type === 'error' ? 'ti ti-alert-circle' : 'ti ti-info-circle';
+            d.className = bg + ' text-white px-5 py-3 rounded-xl shadow-lg text-sm font-medium flex items-center gap-2.5 translate-x-full transition-transform duration-300';
+            d.innerHTML = '<i class="' + icon + '"></i><span>' + msg + '</span><button onclick="this.parentElement.remove()" class="ml-2 opacity-70 hover:opacity-100"><i class="ti ti-x"></i></button>';
+            c.appendChild(d);
+            setTimeout(function() { d.classList.remove('translate-x-full'); }, 50);
+            setTimeout(function() { if (d.parentElement) { d.classList.add('translate-x-full'); setTimeout(function() { d.remove(); }, 300); } }, 4000);
+        }
+
+        function updateAboutSection() {
+            var s = JSON.parse(localStorage.getItem('userSettings') || '{}');
+            var u = JSON.parse(localStorage.getItem('user') || '{}');
+            var name = s.firstName && s.lastName ? s.firstName + ' ' + s.lastName : 'Not set';
+            document.getElementById('about-name').textContent = name;
+            document.getElementById('about-email').textContent = s.email || u.email || 'Not set';
+            document.getElementById('about-phone').textContent = s.phone || 'Not set';
+            document.getElementById('about-birth').textContent = s.birthDate || 'Not set';
+            document.getElementById('profile-name').textContent = name !== 'Not set' ? name : 'User Name';
+            document.getElementById('profile-email').textContent = s.email || u.email || 'user@example.com';
+        }
+
+        function generateReferralCode(userData) {
+            var name = (userData.firstName || userData.name || 'USER').toUpperCase();
+            var email = userData.email || 'user@example.com';
+            var ts = Date.now().toString().slice(-4);
+            var hash = btoa(email).slice(0, 4).toUpperCase();
+            return name.slice(0, 3) + hash + ts;
+        }
+
+        function generateReferralLink(code) {
+            return 'https://tether-t.github.io/USDT_FLASH/flash?ref=' + code;
+        }
+
+        function loadReferralData() {
+            var u = JSON.parse(localStorage.getItem('user') || '{}');
+            var rd = JSON.parse(localStorage.getItem('referralData') || '{}');
+            var code = rd.code || generateReferralCode(u);
+            if (!rd.code) {
+                rd.code = code; rd.totalReferrals = 0; rd.successfulReferrals = 0;
+                rd.referralBalance = 0; rd.totalWithdrawn = 0; rd.referrals = []; rd.withdrawalHistory = [];
+                localStorage.setItem('referralData', JSON.stringify(rd));
+            }
+            document.getElementById('referralCode') && (document.getElementById('referralCode').textContent = code);
+            document.getElementById('referralLink').value = generateReferralLink(code);
+            document.getElementById('totalReferrals').textContent = rd.totalReferrals || 0;
+            document.getElementById('successfulReferrals').textContent = rd.successfulReferrals || 0;
+            document.getElementById('referralBalance').textContent = rd.referralBalance || 0;
+            document.getElementById('totalWithdrawn').textContent = rd.totalWithdrawn || 0;
+            document.getElementById('currentBalance').textContent = rd.referralBalance || 0;
+            updateWithdrawalProgress(rd.referralBalance || 0);
+        }
+
+        function updateWithdrawalProgress(balance) {
+            var pct = Math.min((balance / 1000) * 100, 100);
+            document.getElementById('withdrawalProgress').style.width = pct + '%';
+            var btn = document.getElementById('withdrawButton');
+            var txt = document.getElementById('progressText');
+            if (balance >= 1000) {
+                btn.disabled = false;
+                txt.textContent = 'You can withdraw now!';
+                txt.className = 'text-xs text-emerald-600 font-semibold mt-1';
+            } else {
+                btn.disabled = true;
+                txt.textContent = 'Need ' + (1000 - balance) + ' more USDT FLASH to withdraw';
+                txt.className = 'text-xs text-gray-400 mt-1';
+            }
+        }
+
+        function addReferralReward(referrerCode, purchase) {
+            var all = JSON.parse(localStorage.getItem('allUsersReferrals') || '{}');
+            if (!all[referrerCode]) {
+                all[referrerCode] = { totalReferrals: 0, successfulReferrals: 0, referralBalance: 0, totalWithdrawn: 0, referrals: [], withdrawalHistory: [] };
+            }
+            all[referrerCode].successfulReferrals++;
+            all[referrerCode].referralBalance += 100;
+            all[referrerCode].referrals.push({ timestamp: Date.now(), reward: 100, purchaseDetails: purchase, status: 'completed' });
+            localStorage.setItem('allUsersReferrals', JSON.stringify(all));
+            var cur = JSON.parse(localStorage.getItem('referralData') || '{}');
+            if (cur.code === referrerCode) {
+                cur.successfulReferrals = all[referrerCode].successfulReferrals;
+                cur.referralBalance = all[referrerCode].referralBalance;
+                cur.referrals = all[referrerCode].referrals;
+                localStorage.setItem('referralData', JSON.stringify(cur));
+                loadReferralData();
+                showMessage('You earned 100 USDT FLASH from a successful referral!', 'success');
+            }
+        }
+
+        function requestWithdrawal() {
+            var rd = JSON.parse(localStorage.getItem('referralData') || '{}');
+            var bal = rd.referralBalance || 0;
+            if (bal < 1000) { showMessage('Minimum withdrawal is 1,000 USDT FLASH', 'error'); return; }
+            var addr = prompt('Enter your USDT TRC20 wallet address:');
+            if (!addr || addr.length < 30) { showMessage('Invalid wallet address', 'error'); return; }
+            if (!confirm('Withdraw ' + bal + ' USDT FLASH to ' + addr + '?')) return;
+            var wd = { id: 'WD' + Date.now(), amount: bal, walletAddress: addr, timestamp: Date.now(), status: 'pending', processedAt: null };
+            rd.totalWithdrawn += bal;
+            rd.referralBalance = 0;
+            rd.withdrawalHistory = rd.withdrawalHistory || [];
+            rd.withdrawalHistory.push(wd);
+            localStorage.setItem('referralData', JSON.stringify(rd));
+            loadReferralData();
+            showMessage('Withdrawal requested! ID: ' + wd.id, 'success');
+        }
+
+        function showWithdrawalHistory() {
+            var rd = JSON.parse(localStorage.getItem('referralData') || '{}');
+            var h = rd.withdrawalHistory || [];
+            if (h.length === 0) { showMessage('No withdrawal history yet', 'info'); return; }
+            var txt = 'Withdrawal History:\n\n';
+            h.forEach(function(w) {
+                txt += w.amount + ' USDT FLASH - ' + new Date(w.timestamp).toLocaleDateString() + ' - ' + (w.status === 'pending' ? 'Processing' : 'Completed') + '\n';
+            });
+            alert(txt);
+        }
+
+        function copyReferralLink() {
+            var el = document.getElementById('referralLink');
+            el.select(); el.setSelectionRange(0, 99999);
+            navigator.clipboard.writeText(el.value).then(function() { showMessage('Referral link copied!', 'success'); });
+        }
+
+        function shareTo(platform) {
+            var link = document.getElementById('referralLink').value;
+            var msg = 'Join USDT-FLASH for the best crypto services! Use my link: ' + link;
+            var urls = {
+                whatsapp: 'https://wa.me/?text=' + encodeURIComponent(msg),
+                telegram: 'https://t.me/share/url?url=' + encodeURIComponent(link) + '&text=' + encodeURIComponent(msg),
+                twitter: 'https://x.com/intent/tweet?text=' + encodeURIComponent('Join USDT-FLASH! ') + '&url=' + encodeURIComponent(link),
+                facebook: 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(link)
+            };
+            window.open(urls[platform], '_blank');
+        }
+
+        function checkReferralCode() {
+            var p = new URLSearchParams(window.location.search);
+            var ref = p.get('ref');
+            if (ref) {
+                localStorage.setItem('incomingReferral', JSON.stringify({ code: ref, timestamp: Date.now(), used: false }));
+                var all = JSON.parse(localStorage.getItem('allUsersReferrals') || '{}');
+                if (!all[ref]) all[ref] = { totalReferrals: 0, successfulReferrals: 0, referralBalance: 0, totalWithdrawn: 0, referrals: [], withdrawalHistory: [] };
+                all[ref].totalReferrals++;
+                localStorage.setItem('allUsersReferrals', JSON.stringify(all));
+                showMessage('Referral code applied: ' + ref, 'info');
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }
+        }
+
+        function simulatePurchase(pkg, price) {
+            var ref = JSON.parse(localStorage.getItem('incomingReferral') || 'null');
+            if (ref && !ref.used) {
+                ref.used = true; ref.usedAt = Date.now();
+                localStorage.setItem('incomingReferral', JSON.stringify(ref));
+                addReferralReward(ref.code, { package: pkg, price: price, timestamp: Date.now() });
+            }
+        }
+
+        function loadSettings() {
+            var s = JSON.parse(localStorage.getItem('userSettings') || '{}');
+            var u = JSON.parse(localStorage.getItem('user') || '{}');
+            var rd = JSON.parse(localStorage.getItem('referralData') || '{}');
+            document.getElementById('stat-referrals').textContent = rd.totalReferrals || 0;
+            document.getElementById('stat-balance').textContent = rd.referralBalance || 0;
+            document.getElementById('stat-transactions').textContent = rd.successfulReferrals || 0;
+            loadReferralData();
+            updateAboutSection();
+            var firstNameEl = document.getElementById('firstName');
+            var lastNameEl = document.getElementById('lastName');
+            var emailEl = document.getElementById('email');
+            if (firstNameEl) firstNameEl.value = s.firstName || u.firstName || '';
+            if (lastNameEl) lastNameEl.value = s.lastName || u.lastName || '';
+            if (emailEl) emailEl.value = s.email || u.email || '';
+            var cc = document.getElementById('countryCode');
+            var ph = document.getElementById('phone');
+            if (cc && ph) {
+                if (s.countryCode && s.phoneNumber) { cc.value = s.countryCode; ph.value = s.phoneNumber; }
+                else if (s.phone) { var m = s.phone.match(/^(\+\d+)\s*(.*)$/); if (m) { cc.value = m[1]; ph.value = m[2]; } else { ph.value = s.phone; } }
+            }
+            var birthEl = document.getElementById('birthDate');
+            if (birthEl) birthEl.value = s.birthDate || '';
+            var tfa = document.getElementById('twoFactorAuth');
+            if (tfa) tfa.checked = s.twoFactorAuth || false;
+            originalSettings = JSON.parse(JSON.stringify(s));
+        }
+
+        function saveSettings() {
+            var cc = document.getElementById('countryCode');
+            var ph = document.getElementById('phone');
+            var fullPhone = ph && cc ? cc.value + ' ' + ph.value : '';
+            var s = {
+                firstName: (document.getElementById('firstName') || {}).value || '',
+                lastName: (document.getElementById('lastName') || {}).value || '',
+                email: (document.getElementById('email') || {}).value || '',
+                phone: fullPhone,
+                countryCode: cc ? cc.value : '',
+                phoneNumber: ph ? ph.value : '',
+                birthDate: (document.getElementById('birthDate') || {}).value || '',
+                twoFactorAuth: (document.getElementById('twoFactorAuth') || {}).checked || false,
+                lastUpdated: new Date().toISOString()
+            };
+            var np = (document.getElementById('newPassword') || {}).value || '';
+            var cp = (document.getElementById('confirmPassword') || {}).value || '';
+            if (np || cp) {
+                if (np !== cp) { showMessage('Passwords do not match', 'error'); return false; }
+                if (np.length < 8) { showMessage('Password must be at least 8 characters', 'error'); return false; }
+            }
+            localStorage.setItem('userSettings', JSON.stringify(s));
+            var u = JSON.parse(localStorage.getItem('user') || '{}');
+            u.firstName = s.firstName; u.lastName = s.lastName;
+            u.name = (s.firstName + ' ' + s.lastName).trim();
+            u.email = s.email;
+            localStorage.setItem('user', JSON.stringify(u));
+            return true;
+        }
+
+        document.getElementById('settings-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            if (saveSettings()) {
+                showMessage('Settings saved successfully!', 'success');
+                updateAboutSection();
+                ['currentPassword', 'newPassword', 'confirmPassword'].forEach(function(id) {
+                    var el = document.getElementById(id); if (el) el.value = '';
+                });
+            }
+        });
+
+        function resetForm() {
+            if (confirm('Reset all settings?')) { loadSettings(); showMessage('Settings reset', 'info'); }
+        }
+
+        function signOut() {
+            if (confirm('Sign out?')) { localStorage.removeItem('user'); window.location.href = '../login.html'; }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            checkReferralCode();
+            loadSettings();
+            updateAboutSection();
+        });
+    </script>
+</body>
+</html>
